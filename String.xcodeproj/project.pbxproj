@@ -13,7 +13,6 @@
 		330B08B129C493BA0088F9B0 /* MessageListCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */; };
 		330B08B329C4961E0088F9B0 /* Mesasge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B229C4961E0088F9B0 /* Mesasge.swift */; };
 		330B08B529C4974B0088F9B0 /* BubbleConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B429C4974B0088F9B0 /* BubbleConstant.swift */; };
-		330B08B829C49AAC0088F9B0 /* BubbleUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B729C49AAC0088F9B0 /* BubbleUtil.swift */; };
 		330B08BA29C4A2480088F9B0 /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B929C4A2480088F9B0 /* MessageProtocol.swift */; };
 		330B08BE29C4BBA80088F9B0 /* BubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */; };
 		330B08C029C59A350088F9B0 /* BubbleModelCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08BF29C59A350088F9B0 /* BubbleModelCache.swift */; };
@@ -79,7 +78,6 @@
 		330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCollectionViewLayout.swift; sourceTree = "<group>"; };
 		330B08B229C4961E0088F9B0 /* Mesasge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesasge.swift; sourceTree = "<group>"; };
 		330B08B429C4974B0088F9B0 /* BubbleConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleConstant.swift; sourceTree = "<group>"; };
-		330B08B729C49AAC0088F9B0 /* BubbleUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleUtil.swift; sourceTree = "<group>"; };
 		330B08B929C4A2480088F9B0 /* MessageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
 		330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleModel.swift; sourceTree = "<group>"; };
 		330B08BF29C59A350088F9B0 /* BubbleModelCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleModelCache.swift; sourceTree = "<group>"; };
@@ -170,9 +168,9 @@
 		330B089829C446100088F9B0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */,
-				330B08B229C4961E0088F9B0 /* Mesasge.swift */,
 				330B089929C446230088F9B0 /* MessageList.swift */,
+				330B08B229C4961E0088F9B0 /* Mesasge.swift */,
+				330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */,
 				330B08C129C5A2680088F9B0 /* MessageListModelGenerator.swift */,
 			);
 			path = Model;
@@ -199,7 +197,6 @@
 		330B08B629C49A940088F9B0 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				330B08B729C49AAC0088F9B0 /* BubbleUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -222,11 +219,11 @@
 			isa = PBXGroup;
 			children = (
 				330B08D429C5AAA10088F9B0 /* MessageBaseCell.swift */,
-				330B08D229C5AAA10088F9B0 /* MessageReceiverCell.swift */,
-				330B08D629C5AAA10088F9B0 /* MessageSenderCell.swift */,
-				330B08D129C5AAA10088F9B0 /* MessageTipCell.swift */,
 				330B08D329C5AAA10088F9B0 /* MessageUnknownCell.swift */,
+				330B08D129C5AAA10088F9B0 /* MessageTipCell.swift */,
 				330B08D529C5AAA10088F9B0 /* MessageUserCell.swift */,
+				330B08D629C5AAA10088F9B0 /* MessageSenderCell.swift */,
+				330B08D229C5AAA10088F9B0 /* MessageReceiverCell.swift */,
 			);
 			path = MessageCell;
 			sourceTree = "<group>";
@@ -624,7 +621,6 @@
 				330B08C029C59A350088F9B0 /* BubbleModelCache.swift in Sources */,
 				330B08BE29C4BBA80088F9B0 /* BubbleModel.swift in Sources */,
 				330B08B129C493BA0088F9B0 /* MessageListCollectionViewLayout.swift in Sources */,
-				330B08B829C49AAC0088F9B0 /* BubbleUtil.swift in Sources */,
 				33E6F80329C2F155009013D2 /* MessageListController.swift in Sources */,
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
 				330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */,

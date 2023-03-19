@@ -12,207 +12,138 @@ enum MessageDetailLayoutMode: Int {
 }
 
 //MARK: 有发送人的消息显示，包括: 发送人名字, 发送人头像, 消息预览气泡, 扩展气泡(e.g 翻译), Reaction(消息点赞), 消息状态
-
 class MessageDetailView: UIView {
     
     private(set) lazy var nameView = UserNameView()
     
     private(set) lazy var avatarView = UserAvatarView()
-        
-    private(set) lazy var sentStatusView = MessageSentStatusView(frame: CGRect(origin: .zero, size: .bubble.sentStatusSize))
-    
-    private(set) lazy var reactionContainerView = UIView()
     
     private(set) lazy var bubbleContainerView = UIView()
-    
-    private(set) lazy var exBubbleContainerView = UIView()
-    
-    // 布局方式，未布局、发送布局、接收布局
-    var layoutMode = MessageDetailLayoutMode.none {
-        didSet {
-            if oldValue != layoutMode {
-                refreshSubviewsLayout()
-                layoutIfNeeded()
+        
+    private(set) lazy var sentStatusView: MessageSentStatusView = {
+        let view = MessageSentStatusView(frame: CGRect(origin: .zero, size: .bubble.sentStatusSize))
+        addSubview(view)
+        view.snp.remakeConstraints { make in
+            make.bottom.equalTo(bubbleContainerView.snp.bottom)
+            make.trailing.equalTo(bubbleContainerView.snp.leading).offset(-CGFloat.bubble.sentStatusBubbleSpace)
+            make.size.equalTo(CGSize.bubble.sentStatusSize)
+        }
+        return view
+    }()
+        
+    private(set) lazy var reactionContainerView: UIView = {
+        let view = UIView()
+        addSubview(view)
+        view.snp.remakeConstraints { make in
+            make.top.equalTo(bubbleContainerView.snp.bottom).offset(CGFloat.bubble.reactionTop)
+            make.size.equalTo(reactionSize)
+            // 根据布局模式，设置约束
+            switch layoutMode {
+            case .sender:
+                make.leading.lessThanOrEqualTo(bubbleContainerView.snp.leading)
+                make.trailing.lessThanOrEqualTo(bubbleContainerView.snp.trailing)
+            case .receiver:
+                make.leading.greaterThanOrEqualTo(bubbleContainerView.snp.leading)
+                make.trailing.greaterThanOrEqualTo(bubbleContainerView.snp.trailing)
+            default :
+                break
             }
         }
-    }
+        return view
+    }()
+        
+    private(set) lazy var exBubbleContainerView: UIView = {
+        let view = UIView()
+        addSubview(view)
+        view.snp.remakeConstraints { make in
+            make.top.equalTo(reactionContainerView.snp.bottom).offset(CGFloat.bubble.exBubbleTop)
+            make.size.equalTo(exBubbleSize)
+            // 根据布局模式，设置约束
+            switch layoutMode {
+            case .sender:
+                make.trailing.equalTo(bubbleContainerView.snp.trailing).offset(-CGFloat.bubble.exBubbleOffset)
+            case .receiver:
+                make.leading.equalTo(bubbleContainerView.snp.leading).offset(CGFloat.bubble.exBubbleOffset)
+            default :
+                break
+            }
+        }
+        return view
+    }()
+    
+    // 布局方式，未布局、发送布局、接收布局
+    private var layoutMode = MessageDetailLayoutMode.none
     
     // 标记是否显示头像
-    private var isDisplayedAvatar = false
+    private var isHiddenAvatar = true
     private var avatarSize: CGSize {
-        isDisplayedAvatar
-        ? .bubble.avatarViewSize
-        : .bubble.avatarViewHiddenSize
+        isHiddenAvatar
+        ? .bubble.avatarViewHiddenSize
+        : .bubble.avatarViewSize
+    }
+    private var avatarMaxX: CGFloat {
+        avatarSize.width
     }
     
     // 标记是否显示名字
-    private var isDisplayedName = false
+    private var isHiddenName = true
+    private var nameMaxY: CGFloat {
+        .bubble.nameTop + nameHeight
+    }
     private var nameHeight: CGFloat {
-        isDisplayedName
-        ? .bubble.nameHeight
-        : .bubble.nameHiddenHeight
+        isHiddenName
+        ? .bubble.nameHiddenHeight
+        : .bubble.nameHeight
     }
     
     // 气泡的尺寸
+    private var isHiddenBubble = false
     private var bubbleSize = CGSize.bubble.bubbleEmptySize
     
     // Reaction 尺寸
+    private var isHiddenReaction = true
     private var reactionSize = CGSize.bubble.reactionEmptySize
     
     // 扩展气泡的尺寸
+    private var isHiddenExBubble = true
     private var exBubbleSize = CGSize.bubble.exBubbleEmptySize
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubviews()
+    convenience init(layoutMode: MessageDetailLayoutMode, shownName: Bool, shownAvatar: Bool) {
+        self.init(frame: .zero)
+        self.layoutMode = layoutMode
+        self.isHiddenName = shownName
+        self.isHiddenAvatar = shownAvatar
+        setupNameView()
+        setupAvatarView()
+        setupBubbleView()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(frame: .zero)
-        addSubviews()
-    }
-
-}
-
-//MARK: Subview Control
-extension MessageDetailView {
-    
-    func setAvatarDisplayed(_ isDisplayed: Bool, animated: Bool) {
-        guard isDisplayedAvatar != isDisplayed else {
-            return
-        }
-        isDisplayedAvatar = isDisplayed
-        avatarView.snp.updateConstraints { make in
-            make.width.equalTo(avatarSize.width)
-            make.height.equalTo(avatarSize.height)
-        }
-        if isDisplayed {
-            avatarView.isHidden = false
-            layoutIfNeeded(animated: animated)
-        } else {
-            layoutIfNeeded(animated: animated) {
-                self.avatarView.isHidden = true
-            }
-        }
-    }
-    
-    func setNameDisplayed(_ isDisplayed: Bool, animated: Bool) {
-        guard isDisplayedName != isDisplayed else {
-            return
-        }
-        isDisplayedName = isDisplayed
-        nameView.snp.updateConstraints { make in
+    func setupNameView() {
+        guard isHiddenName else { return }
+        addSubview(nameView)
+        let nameViewOffset = CGFloat.bubble.nameAvatarSpace + avatarSize.width
+        nameView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(CGFloat.bubble.nameTop)
             make.height.equalTo(nameHeight)
-        }
-        if isDisplayed {
-            nameView.isHidden = false
-            layoutIfNeeded(animated: animated)
-        } else {
-            layoutIfNeeded(animated: animated) {
-                self.nameView.isHidden = true
+            make.width.equalToSuperview().multipliedBy(CGFloat.bubble.maxWidthRatio)
+            // 根据布局模式，设置约束
+            switch layoutMode {
+            case .sender:
+                make.trailing.equalToSuperview()
+                    .offset(-nameViewOffset)
+            case .receiver:
+                make.leading.equalToSuperview()
+                    .offset(nameViewOffset)
+            default :
+                break
             }
         }
     }
     
-    // 更新名字
-    func update(name: String, userId uid: String) {
-        nameView.update(name: name, userId: uid)
-    }
-    
-    // 更新头像
-    func updateAvatar(image: UIImage?) {
-        avatarView.updateAvatar(url: nil, placeholder: image)
-    }
-    func updateAvatar(url: String?, placeholder: UIImage?) {
-        avatarView.updateAvatar(url: url, placeholder: placeholder)
-    }
-    
-    // 更新气泡尺寸
-    func updateBubbleView(isHidden: Bool, size: CGSize) {
-        var targetSize = size
-        // 隐藏或者尺寸为0, 则隐藏
-        if isHidden || size == .zero {
-            targetSize = .bubble.bubbleEmptySize
-            bubbleContainerView.isHidden = true
-        } else {
-            bubbleContainerView.isHidden = false
-        }
-        // 尺寸与标记不同, 则刷新
-        guard !bubbleSize.equalTo(targetSize) else {
-            return
-        }
-        bubbleSize = targetSize
-        bubbleContainerView.snp.updateConstraints { make in
-            make.width.equalTo(bubbleSize.width)
-            make.height.equalTo(bubbleSize.height)
-        }
-        layoutIfNeeded()
-    }
-    
-    // 更新消息点赞视图尺寸
-    func updatereactionContainerView(isHidden: Bool, size: CGSize) {
-        var targetSize = size
-        // 隐藏或者尺寸为0, 则隐藏
-        if isHidden || size == .zero {
-            targetSize = .bubble.reactionEmptySize
-            reactionContainerView.isHidden = true
-        } else {
-            reactionContainerView.isHidden = false
-        }
-        // 尺寸与标记不同, 则刷新
-        guard !reactionSize.equalTo(targetSize) else {
-            return
-        }
-        reactionSize = targetSize
-        reactionContainerView.snp.updateConstraints { make in
-            make.width.equalTo(reactionSize.width)
-            make.height.equalTo(reactionSize.height)
-        }
-        layoutIfNeeded()
-    }
-    
-    // 更新扩展气泡尺寸
-    func updateexBubbleContainerView(isHidden: Bool, size: CGSize) {
-        var targetSize = size
-        // 隐藏或者尺寸为0, 则隐藏
-        if isHidden || size == .zero {
-            targetSize = .bubble.exBubbleEmptySize
-            exBubbleContainerView.isHidden = true
-        } else {
-            exBubbleContainerView.isHidden = false
-        }
-        // 尺寸与标记不同, 则刷新
-        guard !exBubbleSize.equalTo(targetSize) else {
-            return
-        }
-        exBubbleSize = targetSize
-        exBubbleContainerView.snp.updateConstraints { make in
-            make.width.equalTo(exBubbleSize.width)
-            make.height.equalTo(exBubbleSize.height)
-        }
-        layoutIfNeeded()
-    }
-    
-}
-
-//MARK: Subview Layout
-extension MessageDetailView {
-        
-    private func refreshSubviewsLayout() {
-        refreshAvatarLayout()
-        refreshNameLayout()
-        refreshBubbleLayout()
-        refreshStatusLayout()
-        refreshReactionLayout()
-        refreshExbubbleLayout()
-    }
-    
-    private func refreshAvatarLayout() {
-        guard layoutMode != .none else {
-            avatarView.snp.removeConstraints()
-            return
-        }
-        avatarView.snp.remakeConstraints { make in
+    func setupAvatarView() {
+        guard isHiddenAvatar else { return }
+        addSubview(avatarView)
+        avatarView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(CGFloat.bubble.avatarTop)
             make.width.equalTo(avatarSize.width)
             make.height.equalTo(avatarSize.height)
@@ -228,130 +159,85 @@ extension MessageDetailView {
         }
     }
     
-    private func refreshNameLayout() {
-        guard layoutMode != .none else {
-            nameView.snp.removeConstraints()
-            return
-        }
-        nameView.snp.remakeConstraints { make in
-            make.top.equalToSuperview().offset(CGFloat.bubble.nameTop)
-            make.height.equalTo(nameHeight)
-            make.width.equalToSuperview().multipliedBy(CGFloat.bubble.maxWidthRatio)
+    func setupBubbleView() {
+        addSubview(bubbleContainerView)
+        bubbleContainerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(nameMaxY)
+            make.size.equalTo(bubbleSize)
             // 根据布局模式，设置约束
             switch layoutMode {
             case .sender:
-                make.trailing.equalTo(avatarView.snp.leading)
-                    .offset(-CGFloat.bubble.nameAvatarSpace)
+                make.trailing.equalToSuperview().offset(-avatarMaxX)
             case .receiver:
-                make.leading.equalTo(avatarView.snp.trailing)
-                    .offset(CGFloat.bubble.nameAvatarSpace)
+                make.leading.equalToSuperview().offset(avatarMaxX)
             default :
                 break
             }
         }
     }
-    
-    private func refreshBubbleLayout() {
-        guard layoutMode != .none else {
-            bubbleContainerView.snp.removeConstraints()
-            return
-        }
-        bubbleContainerView.snp.remakeConstraints { make in
-            make.top.equalTo(nameView.snp.bottom)
-            make.width.equalTo(bubbleSize.width)
-            make.height.equalTo(bubbleSize.height)
-            // 根据布局模式，设置约束
-            switch layoutMode {
-            case .sender:
-                make.trailing.equalTo(avatarView.snp.leading)
-                    .offset(-CGFloat.bubble.bubbleAvatarSpace)
-            case .receiver:
-                make.leading.equalTo(avatarView.snp.trailing)
-                    .offset(CGFloat.bubble.bubbleAvatarSpace)
-            default :
-                break
-            }
-        }
-    }
-    
-    private func refreshStatusLayout() {
-        sentStatusView.snp.remakeConstraints { make in
-            make.bottom.equalTo(bubbleContainerView.snp.bottom)
-            // 根据布局模式，设置约束
-            switch layoutMode {
-            case .sender:
-                make.trailing.equalTo(bubbleContainerView.snp.leading).offset(-CGFloat.bubble.sentStatusBubbleSpace)
-            case .receiver:
-                make.leading.equalTo(bubbleContainerView.snp.trailing).offset(CGFloat.bubble.sentStatusBubbleSpace)
-            default :
-                break
-            }
-            make.size.equalTo(CGSize.bubble.sentStatusSize)
-        }
-    }
-    
-    private func refreshReactionLayout() {
-        guard layoutMode != .none else {
-            reactionContainerView.snp.removeConstraints()
-            return
-        }
-        reactionContainerView.snp.remakeConstraints { make in
-            make.top.equalTo(bubbleContainerView.snp.bottom).offset(CGFloat.bubble.reactionTop)
-            make.width.equalTo(reactionSize.width)
-            make.height.equalTo(reactionSize.height)
-            // 根据布局模式，设置约束
-            switch layoutMode {
-            case .sender:
-                make.leading.lessThanOrEqualTo(bubbleContainerView.snp.leading)
-                make.trailing.lessThanOrEqualTo(bubbleContainerView.snp.trailing)
-            case .receiver:
-                make.leading.greaterThanOrEqualTo(bubbleContainerView.snp.leading)
-                make.trailing.greaterThanOrEqualTo(bubbleContainerView.snp.trailing)
-            default :
-                break
-            }
-        }
-    }
-    
-    private func refreshExbubbleLayout() {
-        guard layoutMode != .none else {
-            exBubbleContainerView.snp.removeConstraints()
-            return
-        }
-        exBubbleContainerView.snp.remakeConstraints { make in
-            make.top.equalTo(reactionContainerView.snp.bottom).offset(CGFloat.bubble.exBubbleTop)
-            make.width.equalTo(exBubbleSize.width)
-            make.height.equalTo(exBubbleSize.height)
-            // 根据布局模式，设置约束
-            switch layoutMode {
-            case .sender:
-                make.trailing.equalTo(bubbleContainerView.snp.trailing).offset(-CGFloat.bubble.exBubbleOffset)
-            case .receiver:
-                make.leading.equalTo(bubbleContainerView.snp.leading).offset(CGFloat.bubble.exBubbleOffset)
-            default :
-                break
-            }
-        }
-    }
-    
+
 }
 
-//MARK: Setup Subview
+//MARK: Subview Control
 extension MessageDetailView {
     
-    private func addSubviews() {
-        nameView.isHidden = true
-        avatarView.isHidden = true
-        sentStatusView.isHidden = true
-        reactionContainerView.isHidden = true
-        exBubbleContainerView.isHidden = true
-        
-        addSubview(nameView)
-        addSubview(avatarView)
-        addSubview(sentStatusView)
-        addSubview(bubbleContainerView)
-        addSubview(reactionContainerView)
-        addSubview(exBubbleContainerView)
+    // 更新名字
+    func update(name: String?, userId uid: String) {
+        nameView.update(name: name, userId: uid)
+    }
+    
+    // 更新头像
+    func updateAvatar(url: String?, placeholder: String?) {
+        var image: UIImage?
+        if let placeholder = placeholder {
+            image = UIImage(named: placeholder)
+        }
+        avatarView.updateAvatar(url: url, placeholder: image)
+    }
+    
+    // 更新气泡尺寸
+    func updateBubbleContainerView(isHidden: Bool, size: CGSize = .bubble.bubbleEmptySize) {
+        if isHiddenBubble != isHidden {
+            isHiddenBubble = isHidden
+            bubbleContainerView.isHidden = isHidden
+        }
+        let realSize = isHiddenBubble ? .bubble.bubbleEmptySize : size
+        if bubbleSize != realSize {
+            bubbleSize = realSize
+            bubbleContainerView.snp.updateConstraints { make in
+                make.size.equalTo(realSize)
+            }
+        }
+    }
+    
+    // 更新消息点赞视图
+    func updateReactionContainerView(isHidden: Bool, size: CGSize = .bubble.reactionEmptySize) {
+        if isHiddenReaction != isHidden {
+            isHiddenReaction = isHidden
+            reactionContainerView.isHidden = isHidden
+        }
+        let realSize = isHiddenReaction ? .bubble.reactionEmptySize : size
+        if reactionSize != realSize {
+            reactionSize = realSize
+            reactionContainerView.snp.updateConstraints { make in
+                make.size.equalTo(realSize)
+            }
+        }
+    }
+    
+    // 更新扩展气泡尺寸
+    func updateExBubbleContainerView(isHidden: Bool, size: CGSize = .bubble.exBubbleEmptySize) {
+        if isHiddenExBubble != isHidden {
+            isHiddenExBubble = isHidden
+            exBubbleContainerView.isHidden = isHidden
+        }
+        let realSize = isHiddenExBubble ? .bubble.exBubbleEmptySize : size
+        if exBubbleSize != realSize {
+            exBubbleSize = realSize
+            exBubbleContainerView.snp.updateConstraints { make in
+                make.size.equalTo(realSize)
+            }
+        }
     }
     
 }

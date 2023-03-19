@@ -20,7 +20,7 @@ struct MessageCellRegister {
     static let receiver = "bm_send_msg_cell"
         
     static func registerCells(for collectionView: UICollectionView) {
-        collectionView.register(UICollectionView.self, forCellWithReuseIdentifier: placeholder)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: placeholder)
         collectionView.register(MessageUnknownCell.self, forCellWithReuseIdentifier: unknown)
         collectionView.register(MessageTipCell.self, forCellWithReuseIdentifier: tip)
         collectionView.register(MessageSenderCell.self, forCellWithReuseIdentifier: sender)

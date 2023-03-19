@@ -101,6 +101,8 @@ struct BubbleEdgeInsetsConstant {
     
     static let dateBackgroundEdge = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
     
-    static let bubbleTimeBackgroundEdge: UIEdgeInsets = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
+    static let bubbleTimeBackgroundEdge = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
+    
+    static let exBubbleEdge = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
 }

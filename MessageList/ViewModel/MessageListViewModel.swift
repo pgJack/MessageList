@@ -112,7 +112,7 @@ private extension MessageListViewModel {
         
         var lastBubble: BubbleModel? = nil
         _bubbleModels.forEach { bubble in
-            guard let message = bubble.message else { return }
+            let message = bubble.message
             let messageId = message.messageId
             let sentTime = message.sentTime
             updateUnreadLine(bubble, messageId: messageId)
@@ -120,7 +120,7 @@ private extension MessageListViewModel {
             
             let y = _bubbleModelsTotalHeight
             /// 气泡内容高度
-            var height = bubble.layoutUtil.height
+            var height = bubble.bubbleHeight
             /// 显示 unreadLine，高度增加
             if bubble.shownUnreadLine {
                 height += .bubble.unreadLineHeight
@@ -146,7 +146,7 @@ private extension MessageListViewModel {
     }
     
     func updateDateText(_ bubble: BubbleModel, sentTime: Int64, lastBubble: BubbleModel?) {
-        guard let lastSentTime = lastBubble?.message?.sentTime else {
+        guard let lastSentTime = lastBubble?.message.sentTime else {
             bubble.dateText = nil
             return
         }

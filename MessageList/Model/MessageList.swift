@@ -8,10 +8,10 @@
 import Foundation
 
 struct Conversation: ConversationProtocol, Codable {
-    var targetId: String
-    var channelId: String
-    var conversationType: ConversationType
-    var secretKey: String?
+    let targetId: String
+    let channelId: String
+    let conversationType: ConversationType
+    let secretKey: String?
     
     init(targetId: String, channelId: String, conversationType: ConversationType, secretKey: String?) {
         self.targetId = targetId
@@ -29,10 +29,10 @@ struct Conversation: ConversationProtocol, Codable {
 }
 
 struct AnchorMessage: AnchorMessageProtocol, Codable {
-    var anchorMessageId: Int
-    var isFirstUnreadMessage: Bool
-    var highlightedText: String?
-    var isHighlightedBackground: Bool
+    let anchorMessageId: Int
+    let isFirstUnreadMessage: Bool
+    let highlightedText: String?
+    let isHighlightedBackground: Bool
     
     init(anchorMessageId: Int, isFirstUnreadMessage: Bool, highlightedText: String?, isHighlightedBackground: Bool) {
         self.anchorMessageId = anchorMessageId
@@ -59,9 +59,11 @@ struct MessageList: MessageListProtocol, Codable {
         case anchorMessage
     }
     
-    var currentUserId: String
-    var conversation: ConversationProtocol
-    var listType: MessageListType
+    let currentUserId: String
+    let conversation: ConversationProtocol
+    let listType: MessageListType
+    
+    // 滚动定位到某条消息，滚动完毕后置空
     var anchorMessage: AnchorMessageProtocol?
     
     init(currentUserId: String, conversation: ConversationProtocol, listType: MessageListType, anchorMessage: AnchorMessageProtocol?) {

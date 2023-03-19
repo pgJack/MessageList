@@ -19,6 +19,11 @@ struct Message: MessageProtocol, Codable {
     
     let forwardType: MessageForwardType
     let isFromWhatsApp: Bool
+    
+    let senderId: String
+    let senderName: String?
+    let senderAvatar: String?
+    let senderPlaceholderAvatar: String?
 
     /// 撤回后，消息类型会改变
     var messageType: MessageType

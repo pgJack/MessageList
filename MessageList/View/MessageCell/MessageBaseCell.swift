@@ -9,6 +9,8 @@ import UIKit
 
 class MessageBaseCell: UICollectionViewCell {
     
+    var bubbleModel: BubbleModel?
+    
     lazy var baseView: MessageBaseView = {
         let view = MessageBaseView()
         contentView.addSubview(view)
@@ -21,8 +23,8 @@ class MessageBaseCell: UICollectionViewCell {
         baseView.detailContainerView
     }
     
-    func updateSubviewsOnReuse(_ bubbleModel: BubbleModel?) {
-        guard let bubbleModel = bubbleModel else { return }
+    func updateSubviewsOnReuse(_ bubbleModel: BubbleModel) {
+        self.bubbleModel = bubbleModel
         baseView.setUnreadLine(isHidden: !bubbleModel.shownUnreadLine)
         baseView.setMessageDate(dateText: bubbleModel.dateText)
     }

@@ -40,6 +40,12 @@ public protocol MessageProtocol: ConversationProtocol {
     var deliveredProgress: CGFloat { get }
     var readProgress: CGFloat { get }
     
+    ///  发送人信息
+    var senderId: String { get }
+    var senderName: String? { get }
+    var senderAvatar: String? { get }
+    var senderPlaceholderAvatar: String? { get }
+    
     /// 消息翻译状态
     var translateStatus: MessageTranslateStatus { get }
     var translatedText: String? { get }
