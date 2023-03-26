@@ -41,22 +41,24 @@ public protocol MessageProtocol: ConversationProtocol {
     var readProgress: CGFloat { get }
     
     ///  发送人信息
-    var senderId: String { get }
+    var senderId: String? { get }
     var senderName: String? { get }
     var senderAvatar: String? { get }
     var senderPlaceholderAvatar: String? { get }
-    
-    /// 消息翻译状态
-    var translateStatus: MessageTranslateStatus { get }
-    var translatedText: String? { get }
-    
+        
     /// 转发类型
     var forwardType: MessageForwardType { get }
     
     /// 是否为 WhatsApp 导入消息
     var isFromWhatsApp: Bool { get }
     
-    /// 消息点赞
-    var thumbUpInfo: [String: Int] { set get }
-    var thumbUpDetailInfo: [String: [String: TimeInterval]] { set get }
+    // 对应本地数据库中附加信息，不会多端同步
+    var messageExtra: MessageExtraInfo? { get }
+    // 对应消息流转中附加信息，发送时多端同步
+    var contentExtra: MessageContentExtraInfo? { get }
+    // 对应消息扩展附加信息，通过 SDK 设置后实时同步
+    var expansionDict: [String: String]? { get }
+    
+    // 点赞信息
+    var thumbUps: [MessageExpansionThumbUpAction]? { get }
 }

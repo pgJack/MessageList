@@ -15,31 +15,38 @@ struct Message: MessageProtocol, Codable {
     let secretKey: String?
     
     let messageId: Int
+    /// 发从成功前，没有 messageUId
+    var messageUId: String?
+    
     let messageDirection: MessageDirection
     
-    let forwardType: MessageForwardType
-    let isFromWhatsApp: Bool
-    
-    let senderId: String
+    let senderId: String?
     let senderName: String?
     let senderAvatar: String?
     let senderPlaceholderAvatar: String?
+    
+    let forwardType: MessageForwardType
+    let isFromWhatsApp: Bool
 
     /// 撤回后，消息类型会改变
     var messageType: MessageType
 
-    /// 发从成功前，没有 messageUId
-    var messageUId: String?
     var sentTime: Int64
-    var isSent: Bool { messageUId != nil }
     var sentStatus: MessageSentStatus
     var deliveredProgress: CGFloat
     var readProgress: CGFloat
     
-    var translateStatus: MessageTranslateStatus
-    var translatedText: String?
+    // 对应本地数据库中附加信息，不会多端同步
+    var messageExtra: MessageExtraInfo?
+    // 对应消息流转中附加信息，发送时多端同步
+    var contentExtra: MessageContentExtraInfo?
+    // 对应消息扩展附加信息，设置后实时同步
+    var expansionDict: [String: String]?
     
-    var thumbUpInfo: [String : Int]
-    var thumbUpDetailInfo: [String : [String : TimeInterval]]
+    // 点赞信息
+    var thumbUps: [MessageExpansionThumbUpAction]?
+    
+    /// @ 信息
+    var isMentionedAll: Bool
     
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BMProtocols
 
 struct Conversation: ConversationProtocol, Codable {
     let targetId: String
@@ -29,13 +30,15 @@ struct Conversation: ConversationProtocol, Codable {
 }
 
 struct AnchorMessage: AnchorMessageProtocol, Codable {
+    let anchorMessageSentTime: Int64
     let anchorMessageId: Int
     let isFirstUnreadMessage: Bool
     let highlightedText: String?
     let isHighlightedBackground: Bool
     
-    init(anchorMessageId: Int, isFirstUnreadMessage: Bool, highlightedText: String?, isHighlightedBackground: Bool) {
+    init(anchorMessageId: Int, anchorMessageSentTime: Int64, isFirstUnreadMessage: Bool, highlightedText: String?, isHighlightedBackground: Bool) {
         self.anchorMessageId = anchorMessageId
+        self.anchorMessageSentTime = anchorMessageSentTime
         self.isFirstUnreadMessage = isFirstUnreadMessage
         self.highlightedText = highlightedText
         self.isHighlightedBackground = isHighlightedBackground
@@ -44,6 +47,7 @@ struct AnchorMessage: AnchorMessageProtocol, Codable {
     init?(_ anchorMessage: AnchorMessageProtocol?) {
         guard let anchorMessage = anchorMessage else { return nil }
         anchorMessageId = anchorMessage.anchorMessageId
+        anchorMessageSentTime = anchorMessage.anchorMessageSentTime
         isFirstUnreadMessage = anchorMessage.isFirstUnreadMessage
         highlightedText = anchorMessage.highlightedText
         isHighlightedBackground = anchorMessage.isHighlightedBackground
@@ -53,42 +57,56 @@ struct AnchorMessage: AnchorMessageProtocol, Codable {
 struct MessageList: MessageListProtocol, Codable {
     
     private enum CodingKeys: CodingKey {
-        case currentUserId
+        case currentUserInfo
         case conversation
         case listType
-        case anchorMessage
     }
     
-    let currentUserId: String
+    let currentUserInfo: UserInfoProtocol
     let conversation: ConversationProtocol
     let listType: MessageListType
     
-    // 滚动定位到某条消息，滚动完毕后置空
-    var anchorMessage: AnchorMessageProtocol?
-    
-    init(currentUserId: String, conversation: ConversationProtocol, listType: MessageListType, anchorMessage: AnchorMessageProtocol?) {
-        self.currentUserId = currentUserId
+    init(currentUserInfo: UserInfoProtocol, conversation: ConversationProtocol, listType: MessageListType) {
+        self.currentUserInfo = currentUserInfo
         self.conversation = conversation
         self.listType = listType
-        self.anchorMessage = anchorMessage
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        currentUserId = try container.decode(String.self, forKey: .currentUserId)
+        currentUserInfo = try container.decode(UserInfo.self, forKey: .currentUserInfo)
         conversation = try container.decode(Conversation.self, forKey: .conversation)
         listType = try container.decode(MessageListType.self, forKey: .listType)
-        anchorMessage = try? container.decode(AnchorMessage.self, forKey: .anchorMessage)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(currentUserId, forKey: .currentUserId)
+        let userInfo = UserInfo(currentUserInfo)
+        try container.encode(userInfo, forKey: .currentUserInfo)
         try container.encode(listType, forKey: .listType)
         let conversation = Conversation(conversation)
         try container.encode(conversation, forKey: .conversation)
-        let anchorMessage = AnchorMessage(anchorMessage)
-        try container.encode(anchorMessage, forKey: .anchorMessage)
     }
         
+}
+
+struct UserInfo: UserInfoProtocol, Codable {
+    var userId: String
+    var userName: String
+    var userAvatar: String?
+    var userPlaceholderAvatar: String?
+    
+    init(userId: String, userName: String) {
+        self.userId = userId
+        self.userName = userName
+        userAvatar = nil
+        userPlaceholderAvatar = nil
+    }
+    
+    init(_ userInfo: UserInfoProtocol) {
+        userId = userInfo.userId
+        userName = userInfo.userName
+        userAvatar = userInfo.userAvatar
+        userPlaceholderAvatar = userInfo.userPlaceholderAvatar
+    }
 }

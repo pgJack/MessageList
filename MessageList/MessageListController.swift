@@ -13,7 +13,7 @@ private let kMessageListCacheKey = "kMessageList"
 class MessageListController: BMBaseViewController, MessageListControllerProtocol {
     
     private var _messageList: MessageList
-    private lazy var _viewModel = MessageListViewModel(controller: self)
+    private var _viewModel: MessageListViewModel
     
     private lazy var _collectionViewLayout = {
         let layout = MessageListCollectionViewLayout()
@@ -32,16 +32,22 @@ class MessageListController: BMBaseViewController, MessageListControllerProtocol
     var collectionView: UICollectionView { _collectionView }
     var messageList: MessageListProtocol { _messageList }
     
-    required init(currentUserId: String, conversation: ConversationProtocol, listType: MessageListType, anchorMessage: AnchorMessageProtocol?) {
-        _messageList = MessageList(currentUserId: currentUserId, conversation: conversation, listType: listType, anchorMessage: anchorMessage)
+    required init?(currentUserInfo: UserInfoProtocol, rcConversation: RCConversationDescriptionProtocol, listType: MessageListType, anchorMessage: AnchorMessageProtocol?) {
+        guard let conversation = Conversation(rcConversation) else { return nil }
+        let messageList = MessageList(currentUserInfo: currentUserInfo, conversation: conversation, listType: listType)
+        _messageList = messageList
+        _viewModel = MessageListViewModel(messageList: messageList, anchorMessage: anchorMessage)
         super.init(nibName: nil, bundle: nil)
+        _viewModel.controller = self
     }
     
     required init?(coder: NSCoder) {
         guard let cacheData = coder.decodeObject(forKey: kMessageListCacheKey) as? Data else { return nil }
         guard let cacheList = try? JSONDecoder().decode(MessageList.self, from: cacheData) else { return nil }
         _messageList = cacheList
+        _viewModel = MessageListViewModel(messageList: cacheList, anchorMessage: nil)
         super.init(coder: coder)
+        _viewModel.controller = self
     }
     
     override func encode(with coder: NSCoder) {
@@ -97,6 +103,7 @@ class MessageListController: BMBaseViewController, MessageListControllerProtocol
 extension MessageListController {
     
     func initialSubviews() {
+        navigationItem.leftBarButtonItem = nil
         view.backgroundColor = .lightGray
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in

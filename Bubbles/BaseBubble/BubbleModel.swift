@@ -6,11 +6,10 @@
 //
 
 import UIKit
+import RongIMLib
 
 class BubbleModel: Codable {
     
-    var cellType = MessageCellRegister.placeholder
-
     /// 当前气泡对应的 Message，聚合气泡为第一个 Message
     var message: Message { messages.first! }
     
@@ -18,32 +17,38 @@ class BubbleModel: Codable {
     var messages: [Message]
 
     /// 气泡内容尺寸，不包含发送人名称、消息点赞、扩展消息视图
-    var bubbleContentSize: CGSize
+    var bubbleContentSize: CGSize = .zero
+    
+    /// 当前用户id
+    var currentUserId: String
     
     /// 顶部视图
     var dateText: String?
     var shownUnreadLine = false
     
-    /// 发送人视图
-    var senderName: String?
-    var senderAvatar: String?
-    
     /// 气泡视图
-    var shownForwardTip = false
-    var shownWhatsAppTip = false
-    var shownBubbleImage = false
-    var bubbleImageName: String?
-    var timeText: String?
-    var isHighlightedBubble = false
+    var isBubbleHighlighted = false
 
     /// 已读回执视图
     var shownReadReceipt = false
     
-    /// 消息点赞视图
-    var shownThumbUp = false
-    
     /// 扩展气泡视图
     var shownExBubble = false
+    
+    required init?(rcMessages: [RCMessage], currentUserId: String) {
+        guard rcMessages.count > 0 else { return nil }
+        messages = rcMessages.compactMap(Message.init)
+        self.currentUserId = currentUserId
+        loadMessages(rcMessages, currentUserId: currentUserId)
+    }
+    
+    //MARK: Override Method
+    /// 对应 Cell 类型
+    var cellType: String { MessageCellRegister.placeholder }
+    /// 对应气泡类型
+    var bubbleViewType: BubbleView.Type { BubbleView.self }
+    /// 初始化方法
+    func loadMessages(_ rcMessages: [RCMessage], currentUserId: String) { }
     
 }
 
@@ -70,7 +75,7 @@ extension BubbleModel {
             height += .bubble.nameHeight
         }
         /// 点赞面板高度，聚合消息不显示点赞
-        if messages.count == 1, !message.thumbUpInfo.isEmpty {
+        if messages.count == 1, shownThumbUp {
             height += .bubble.reactionTop + .bubble.reactionHeight
         }
         /// 扩展气泡高度，翻译内容高度+上下边距
@@ -103,6 +108,25 @@ extension BubbleModel {
         message.conversationType == .group
         && message.messageDirection == .receive
         && !message.isFromWhatsApp
+    }
+    
+    /// 消息点赞视图
+    var shownThumbUp: Bool {
+        guard let thumbUps = message.thumbUps else {
+            return false
+        }
+        return thumbUps.count > 0
+    }
+
+    /// 气泡视图
+    var shownBubbleImage: Bool { false }
+    var bubbleImageName: String? { nil }
+    var timeText: String? { nil }
+    var shownForwardTip: Bool {
+        message.forwardType == .others
+    }
+    var shownWhatsAppTip: Bool {
+        message.isFromWhatsApp
     }
     
 }

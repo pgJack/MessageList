@@ -56,7 +56,7 @@ class MessageDetailView: UIView {
         let view = UIView()
         addSubview(view)
         view.snp.remakeConstraints { make in
-            make.top.equalTo(reactionContainerView.snp.bottom).offset(CGFloat.bubble.exBubbleTop)
+            make.bottom.equalToSuperview().offset(-UIEdgeInsets.bubble.contentEdge.bottom)
             make.size.equalTo(exBubbleSize)
             // 根据布局模式，设置约束
             switch layoutMode {
@@ -97,7 +97,6 @@ class MessageDetailView: UIView {
     }
     
     // 气泡的尺寸
-    private var isHiddenBubble = false
     private var bubbleSize = CGSize.bubble.bubbleEmptySize
     
     // Reaction 尺寸
@@ -111,21 +110,21 @@ class MessageDetailView: UIView {
     convenience init(layoutMode: MessageDetailLayoutMode, shownName: Bool, shownAvatar: Bool) {
         self.init(frame: .zero)
         self.layoutMode = layoutMode
-        self.isHiddenName = shownName
-        self.isHiddenAvatar = shownAvatar
+        self.isHiddenName = !shownName
+        self.isHiddenAvatar = !shownAvatar
         setupNameView()
         setupAvatarView()
         setupBubbleView()
     }
     
     func setupNameView() {
-        guard isHiddenName else { return }
+        guard !isHiddenName else { return }
         addSubview(nameView)
         let nameViewOffset = CGFloat.bubble.nameAvatarSpace + avatarSize.width
         nameView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(CGFloat.bubble.nameTop)
             make.height.equalTo(nameHeight)
-            make.width.equalToSuperview().multipliedBy(CGFloat.bubble.maxWidthRatio)
+            make.width.lessThanOrEqualToSuperview().multipliedBy(CGFloat.bubble.maxWidthRatio)
             // 根据布局模式，设置约束
             switch layoutMode {
             case .sender:
@@ -141,7 +140,7 @@ class MessageDetailView: UIView {
     }
     
     func setupAvatarView() {
-        guard isHiddenAvatar else { return }
+        guard !isHiddenAvatar else { return }
         addSubview(avatarView)
         avatarView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(CGFloat.bubble.avatarTop)
@@ -182,7 +181,7 @@ class MessageDetailView: UIView {
 extension MessageDetailView {
     
     // 更新名字
-    func update(name: String?, userId uid: String) {
+    func update(name: String?, userId uid: String?) {
         nameView.update(name: name, userId: uid)
     }
     
@@ -196,17 +195,13 @@ extension MessageDetailView {
     }
     
     // 更新气泡尺寸
-    func updateBubbleContainerView(isHidden: Bool, size: CGSize = .bubble.bubbleEmptySize) {
-        if isHiddenBubble != isHidden {
-            isHiddenBubble = isHidden
-            bubbleContainerView.isHidden = isHidden
+    func updateBubbleContainerView(size: CGSize) {
+        guard bubbleSize != size else {
+            return
         }
-        let realSize = isHiddenBubble ? .bubble.bubbleEmptySize : size
-        if bubbleSize != realSize {
-            bubbleSize = realSize
-            bubbleContainerView.snp.updateConstraints { make in
-                make.size.equalTo(realSize)
-            }
+        bubbleSize = size
+        bubbleContainerView.snp.updateConstraints { make in
+            make.size.equalTo(size)
         }
     }
     

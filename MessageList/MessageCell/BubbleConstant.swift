@@ -28,7 +28,7 @@ struct BubbleFloatConstant {
     static var maxWidth: CGFloat {
         let screenWidth = UIScreen.main.bounds.size.width
         let ratio = maxWidthRatio
-        return round(screenWidth*ratio) + 7
+        return round(screenWidth*ratio)
     }
         
     static let unreadLineHeight: CGFloat = 37

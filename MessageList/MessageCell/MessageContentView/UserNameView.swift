@@ -9,7 +9,7 @@ import UIKit
 
 class UserNameView: UIView {
     
-    func update(name: String?, userId uid: String) {
+    func update(name: String?, userId uid: String?) {
         nameLabel.text = name
         nameLabel.textColor = .bubble.nameColor(forUserId: uid)
     }

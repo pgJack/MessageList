@@ -9,15 +9,12 @@ import Foundation
 
 class MessageReceiverCell: MessageUserCell {
     
+    override func detailView() -> MessageDetailView? { _receiverDetailView }
     private lazy var _receiverDetailView: MessageDetailView? = {
         guard let bubbleModel = bubbleModel else { return nil }
         return MessageDetailView(layoutMode: .receiver,
                                  shownName: bubbleModel.shownSenderName,
                                  shownAvatar: bubbleModel.shownSenderName)
     }()
-    override var detailView: MessageDetailView? {
-        get { _receiverDetailView }
-        set { _receiverDetailView = newValue }
-    }
     
 }

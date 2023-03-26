@@ -29,8 +29,4 @@ class MessageBaseCell: UICollectionViewCell {
         baseView.setMessageDate(dateText: bubbleModel.dateText)
     }
     
-    func add(bubbleView: BubbleView) {
-        detailContainerView.addSubview(bubbleView)
-    }
-    
 }

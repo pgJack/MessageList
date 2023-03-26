@@ -12,7 +12,15 @@ import RongIMLib
 class ViewController: UITableViewController {
     
     private let userId = "cKvDAdIS4aSbku5o7pfdI9"
-    private var conversations = [Conversation]()
+    private let deviceId = "ZTZiZmZhNzA0NTI2M2E2OA"
+    private let token = "nsv+6LuaJjSIYNWYB8XZWmXWELHE4o6TLluyIqe6Cm0Kt6c+2mU6b+OblMfx7MXYeSlOaDIJBhFDXlO9tjsPmcLxc8doIJiMnmyVy73jEheB5ASv1c8E/AosIYyUIAwl"
+    
+    // iPhone 12
+//    private let userId = "ag9zx42_kEk8gSbgvnxnbE"
+//    private let deviceId = "ZmJiMmY2ZWYzYWZiNTA2OQ"
+//    private let token = "1NxMtBVBBuRB2QOWQuVzQAIt0Wj44QyP5UUGV5by6bIvXnST3RfauM7afcPk8Iaqv3GE+8meaZ/9amlGNGGOuCmOXHzm0prlKUxggFho9tBkOgxbk4LKRqPBtN+u50hL8QBWaA298WY="
+
+    private var conversations = [RCConversation]()
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,16 +29,15 @@ class ViewController: UITableViewController {
         setupUI()
         setupIM()
     }
-    
-    func setupNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .always
-        setTitle("未连接", attributes: [.foregroundColor: UIColor.black])
-    }
 
 }
 
 //MARK: UI
 extension ViewController {
+    
+    func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .always
+    }
     
     func setTitle(_ title: String, attributes: [NSAttributedString.Key: Any]) {
         self.title = title
@@ -50,7 +57,7 @@ extension ViewController {
         ]) else {
             return
         }
-        conversations = rcConversations.compactMap(MessageListModelGenerator.conversation(_:))
+        conversations = rcConversations
         tableView.reloadData()
     }
     
@@ -61,14 +68,17 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "conversation_cell", for: indexPath)
         let covnersation = conversations[indexPath.row]
-        cell.textLabel?.text = covnersation.targetId+" in "+covnersation.channelId
+        cell.textLabel?.text = covnersation.targetId+" in "+(covnersation.channelId ?? "_")
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let covnersation = conversations[indexPath.row]
-        let messageListController = MessageListController(currentUserId: userId, conversation: covnersation, listType: .chat, anchorMessage: nil)
+        let user = UserInfo(userId: userId, userName: "A")
+        guard let messageListController = MessageListController(currentUserInfo: user, rcConversation: covnersation, listType: .chat, anchorMessage: nil) else {
+            return
+        }
         messageListController.navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(messageListController, animated: true)
     }
@@ -76,25 +86,22 @@ extension ViewController {
 }
 
 //MARK: Connect IM
-extension ViewController {
-    
+extension ViewController: RCConnectionStatusChangeDelegate {
+        
     func setupIM() {
+        onDisconnectIM()
+
         // 沙特测试环境
-        // UserDefaults.standard.set("ZTZiZmZhNzA0NTI2M2E2OA", forKey: "RC_APP_UUID")
-        RCIMClient.shared().initWithAppKey("mgb7ka1nm7ezg")
-        RCIMClient.shared().setServerInfo("https://nav-sccc-test.rongcloud.net", fileServer: nil)
-        RCIMClient.shared().logLevel = .log_Level_Verbose
-        RCIMClient.shared().voiceMsgType = .highQuality
-        let token = "nsv+6LuaJjSIYNWYB8XZWmXWELHE4o6TLluyIqe6Cm0Kt6c+2mU6b+OblMfx7MXYeSlOaDIJBhFDXlO9tjsPmcLxc8doIJiMnmyVy73jEheB5ASv1c8E/AosIYyUIAwl"
-        RCIMClient.shared().connect(withToken: token) { [weak self] code in
+        UserDefaults.standard.set(deviceId, forKey: "RC_APP_UUID")
+        RCCoreClient.shared().initWithAppKey("mgb7ka1nm7ezg")
+        RCCoreClient.shared().setServerInfo("https://nav-sccc-test.rongcloud.net", fileServer: nil)
+        RCCoreClient.shared().logLevel = .log_Level_Verbose
+        RCCoreClient.shared().voiceMsgType = .highQuality
+        RCCoreClient.shared().setRCConnectionStatusChangeDelegate(self)
+        RCCoreClient.shared().connect(withToken: token, dbOpened: { [weak self] _ in
             guard let `self` = self else { return }
             self.onOpenDatabae()
-        } success: { [weak self] userId in
-            guard let `self` = self else { return }
-            self.onConnectIM()
-        } error: { errorCode in
-            print("\(errorCode)")
-        }
+        }, success: nil)
     }
     
     func onOpenDatabae() {
@@ -103,9 +110,24 @@ extension ViewController {
         }
     }
     
+    func onConnectionStatusChanged(_ status: RCConnectionStatus) {
+        switch status {
+        case .ConnectionStatus_Connected:
+            onConnectIM()
+        default:
+            onDisconnectIM()
+        }
+    }
+    
     func onConnectIM() {
         DispatchQueue.mainAction {
             self.setTitle("已连接", attributes: [.foregroundColor: UIColor.green])
+        }
+    }
+    
+    func onDisconnectIM() {
+        DispatchQueue.mainAction {
+            self.setTitle("未连接", attributes: [.foregroundColor: UIColor.black])
         }
     }
     

@@ -25,8 +25,8 @@ struct BubbleColor {
         UIColor(light: UIColor(0x1E242A), dark: UIColor(0xFFFFFF, alpha: 0.9))
     }
     // 发送人名称颜色，根据 userId 计算色值
-    func nameColor(forUserId uid: String) -> UIColor {
-        guard let firstAscii = uid.first?.asciiValue else {
+    func nameColor(forUserId uid: String?) -> UIColor {
+        guard let firstAscii = uid?.first?.asciiValue else {
             return UIColor(light: .gray, dark: UIColor(0x7A7A7A))
         }
         let colorKey = Int(firstAscii)

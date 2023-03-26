@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		330B089A29C446230088F9B0 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B089929C446230088F9B0 /* MessageList.swift */; };
 		330B08A729C46D240088F9B0 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08A629C46D240088F9B0 /* MessageListViewModel.swift */; };
-		330B08AE29C4727D0088F9B0 /* MessageListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08AD29C4727D0088F9B0 /* MessageListDataSource.swift */; };
+		330B08AE29C4727D0088F9B0 /* MessageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08AD29C4727D0088F9B0 /* MessageDataSource.swift */; };
 		330B08B129C493BA0088F9B0 /* MessageListCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */; };
 		330B08B329C4961E0088F9B0 /* Mesasge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B229C4961E0088F9B0 /* Mesasge.swift */; };
 		330B08B529C4974B0088F9B0 /* BubbleConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B429C4974B0088F9B0 /* BubbleConstant.swift */; };
 		330B08BA29C4A2480088F9B0 /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08B929C4A2480088F9B0 /* MessageProtocol.swift */; };
 		330B08BE29C4BBA80088F9B0 /* BubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */; };
 		330B08C029C59A350088F9B0 /* BubbleModelCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08BF29C59A350088F9B0 /* BubbleModelCache.swift */; };
-		330B08C229C5A2680088F9B0 /* MessageListModelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08C129C5A2680088F9B0 /* MessageListModelGenerator.swift */; };
+		330B08C229C5A2680088F9B0 /* RCGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08C129C5A2680088F9B0 /* RCGenerator.swift */; };
 		330B08D729C5AAA10088F9B0 /* MessageTipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D129C5AAA10088F9B0 /* MessageTipCell.swift */; };
 		330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D229C5AAA10088F9B0 /* MessageReceiverCell.swift */; };
 		330B08D929C5AAA10088F9B0 /* MessageUnknownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D329C5AAA10088F9B0 /* MessageUnknownCell.swift */; };
@@ -40,6 +40,12 @@
 		330B090629C5F9D70088F9B0 /* UIImage+MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090529C5F9D70088F9B0 /* UIImage+MessageList.swift */; };
 		330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */; };
 		330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */; };
+		33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */; };
+		33E473F729CD2F62000C7512 /* RCMessagesConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F629CD2F62000C7512 /* RCMessagesConverter.swift */; };
+		33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F829CD3078000C7512 /* TextBubbleModel.swift */; };
+		33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FA29CD308A000C7512 /* TextBubbleView.swift */; };
+		33E473FD29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */; };
+		33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FF29CEFC07000C7512 /* MessageAttributedTextView.swift */; };
 		33E6F7CF29C2EC27009013D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E6F7CE29C2EC27009013D2 /* AppDelegate.swift */; };
 		33E6F7D329C2EC27009013D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E6F7D229C2EC27009013D2 /* ViewController.swift */; };
 		33E6F7D929C2EC27009013D2 /* String.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33E6F7D729C2EC27009013D2 /* String.xcdatamodeld */; };
@@ -74,14 +80,14 @@
 /* Begin PBXFileReference section */
 		330B089929C446230088F9B0 /* MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageList.swift; sourceTree = "<group>"; };
 		330B08A629C46D240088F9B0 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
-		330B08AD29C4727D0088F9B0 /* MessageListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListDataSource.swift; sourceTree = "<group>"; };
+		330B08AD29C4727D0088F9B0 /* MessageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataSource.swift; sourceTree = "<group>"; };
 		330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCollectionViewLayout.swift; sourceTree = "<group>"; };
 		330B08B229C4961E0088F9B0 /* Mesasge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesasge.swift; sourceTree = "<group>"; };
 		330B08B429C4974B0088F9B0 /* BubbleConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleConstant.swift; sourceTree = "<group>"; };
 		330B08B929C4A2480088F9B0 /* MessageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
 		330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleModel.swift; sourceTree = "<group>"; };
 		330B08BF29C59A350088F9B0 /* BubbleModelCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleModelCache.swift; sourceTree = "<group>"; };
-		330B08C129C5A2680088F9B0 /* MessageListModelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListModelGenerator.swift; sourceTree = "<group>"; };
+		330B08C129C5A2680088F9B0 /* RCGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCGenerator.swift; sourceTree = "<group>"; };
 		330B08D129C5AAA10088F9B0 /* MessageTipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTipCell.swift; sourceTree = "<group>"; };
 		330B08D229C5AAA10088F9B0 /* MessageReceiverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageReceiverCell.swift; sourceTree = "<group>"; };
 		330B08D329C5AAA10088F9B0 /* MessageUnknownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUnknownCell.swift; sourceTree = "<group>"; };
@@ -105,6 +111,12 @@
 		330B090529C5F9D70088F9B0 /* UIImage+MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+MessageList.swift"; sourceTree = "<group>"; };
 		330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUnreadLineView.swift; sourceTree = "<group>"; };
 		330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellRegister.swift; sourceTree = "<group>"; };
+		33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCExtraGenerator.swift; sourceTree = "<group>"; };
+		33E473F629CD2F62000C7512 /* RCMessagesConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCMessagesConverter.swift; sourceTree = "<group>"; };
+		33E473F829CD3078000C7512 /* TextBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleModel.swift; sourceTree = "<group>"; };
+		33E473FA29CD308A000C7512 /* TextBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleView.swift; sourceTree = "<group>"; };
+		33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleAttributedTextUtil.swift; sourceTree = "<group>"; };
+		33E473FF29CEFC07000C7512 /* MessageAttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAttributedTextView.swift; sourceTree = "<group>"; };
 		33E6F7CB29C2EC27009013D2 /* String.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = String.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E6F7CE29C2EC27009013D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33E6F7D229C2EC27009013D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -170,8 +182,6 @@
 			children = (
 				330B089929C446230088F9B0 /* MessageList.swift */,
 				330B08B229C4961E0088F9B0 /* Mesasge.swift */,
-				330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */,
-				330B08C129C5A2680088F9B0 /* MessageListModelGenerator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,6 +191,7 @@
 			children = (
 				330B08A629C46D240088F9B0 /* MessageListViewModel.swift */,
 				330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */,
+				33E473F629CD2F62000C7512 /* RCMessagesConverter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -188,31 +199,23 @@
 		330B08AC29C472660088F9B0 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				330B08AD29C4727D0088F9B0 /* MessageListDataSource.swift */,
+				330B08AD29C4727D0088F9B0 /* MessageDataSource.swift */,
 				330B08BF29C59A350088F9B0 /* BubbleModelCache.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
 		};
-		330B08B629C49A940088F9B0 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
-		330B08C329C5AA4F0088F9B0 /* View */ = {
+		330B08C329C5AA4F0088F9B0 /* MessageCell */ = {
 			isa = PBXGroup;
 			children = (
 				330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */,
 				330B08B429C4974B0088F9B0 /* BubbleConstant.swift */,
 				330B08FD29C5E7FA0088F9B0 /* UIFont+Bubble.swift */,
 				330B08FF29C5E8170088F9B0 /* UIColor+Bubble.swift */,
-				330B08E329C5AB6D0088F9B0 /* BubbleView */,
 				330B08C429C5AA850088F9B0 /* MessageCell */,
 				330B08E729C5AB6D0088F9B0 /* MessageContentView */,
 			);
-			path = View;
+			path = MessageCell;
 			sourceTree = "<group>";
 		};
 		330B08C429C5AA850088F9B0 /* MessageCell */ = {
@@ -228,20 +231,11 @@
 			path = MessageCell;
 			sourceTree = "<group>";
 		};
-		330B08E329C5AB6D0088F9B0 /* BubbleView */ = {
-			isa = PBXGroup;
-			children = (
-				330B08E429C5AB6D0088F9B0 /* BubbleTimeView.swift */,
-				330B08E529C5AB6D0088F9B0 /* BubbleView.swift */,
-				330B08E629C5AB6D0088F9B0 /* ExBubbleView.swift */,
-			);
-			path = BubbleView;
-			sourceTree = "<group>";
-		};
 		330B08E729C5AB6D0088F9B0 /* MessageContentView */ = {
 			isa = PBXGroup;
 			children = (
 				330B08E029C5AB6D0088F9B0 /* CheckBoxView.swift */,
+				330B08E629C5AB6D0088F9B0 /* ExBubbleView.swift */,
 				330B08E129C5AB6D0088F9B0 /* MessageBaseView.swift */,
 				330B08EA29C5AB6D0088F9B0 /* MessageDetailView.swift */,
 				330B08E229C5AB6D0088F9B0 /* MessageDateView.swift */,
@@ -263,10 +257,61 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		3378FB8929C83CF700B1293B /* Bubbles */ = {
+			isa = PBXGroup;
+			children = (
+				3378FB8B29C83DAF00B1293B /* TextBubble */,
+				3378FB8A29C83D5300B1293B /* BaseBubble */,
+			);
+			path = Bubbles;
+			sourceTree = "<group>";
+		};
+		3378FB8A29C83D5300B1293B /* BaseBubble */ = {
+			isa = PBXGroup;
+			children = (
+				330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */,
+				330B08E429C5AB6D0088F9B0 /* BubbleTimeView.swift */,
+				330B08E529C5AB6D0088F9B0 /* BubbleView.swift */,
+			);
+			path = BaseBubble;
+			sourceTree = "<group>";
+		};
+		3378FB8B29C83DAF00B1293B /* TextBubble */ = {
+			isa = PBXGroup;
+			children = (
+				33E473F829CD3078000C7512 /* TextBubbleModel.swift */,
+				33E473FA29CD308A000C7512 /* TextBubbleView.swift */,
+			);
+			path = TextBubble;
+			sourceTree = "<group>";
+		};
+		3378FB8F29C8438900B1293B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */,
+				330B08C129C5A2680088F9B0 /* RCGenerator.swift */,
+				33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		33E473FE29CEFBCA000C7512 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				33E473FF29CEFC07000C7512 /* MessageAttributedTextView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		33E6F7C229C2EC26009013D2 = {
 			isa = PBXGroup;
 			children = (
+				33E6F80429C32AF0009013D2 /* Interface */,
 				33E6F80129C2F103009013D2 /* MessageList */,
+				3378FB8929C83CF700B1293B /* Bubbles */,
+				33E473FE29CEFBCA000C7512 /* CustomView */,
+				3378FB8F29C8438900B1293B /* Util */,
+				330B090429C5F9A10088F9B0 /* Resource */,
 				33E6F7CD29C2EC27009013D2 /* String */,
 				33E6F7E729C2EC27009013D2 /* StringTests */,
 				33E6F7F129C2EC27009013D2 /* StringUITests */,
@@ -323,10 +368,7 @@
 				330B08A529C46D120088F9B0 /* ViewModel */,
 				330B08AC29C472660088F9B0 /* DataSource */,
 				330B089829C446100088F9B0 /* Model */,
-				330B08C329C5AA4F0088F9B0 /* View */,
-				330B08B629C49A940088F9B0 /* Util */,
-				330B090429C5F9A10088F9B0 /* Resource */,
-				33E6F80429C32AF0009013D2 /* Interface */,
+				330B08C329C5AA4F0088F9B0 /* MessageCell */,
 			);
 			path = MessageList;
 			sourceTree = "<group>";
@@ -603,6 +645,7 @@
 				330B08DC29C5AAA10088F9B0 /* MessageSenderCell.swift in Sources */,
 				330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */,
 				330B08F329C5AB6D0088F9B0 /* BubbleTimeView.swift in Sources */,
+				33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */,
 				330B08FA29C5AB6D0088F9B0 /* MessageReactionView.swift in Sources */,
 				33E6F7D329C2EC27009013D2 /* ViewController.swift in Sources */,
 				33E6F7CF29C2EC27009013D2 /* AppDelegate.swift in Sources */,
@@ -610,11 +653,11 @@
 				33E6F7D929C2EC27009013D2 /* String.xcdatamodeld in Sources */,
 				330B08F529C5AB6D0088F9B0 /* ExBubbleView.swift in Sources */,
 				330B08F229C5AB6D0088F9B0 /* MessageDateView.swift in Sources */,
-				330B08AE29C4727D0088F9B0 /* MessageListDataSource.swift in Sources */,
+				330B08AE29C4727D0088F9B0 /* MessageDataSource.swift in Sources */,
 				330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */,
 				33E6F80629C32B19009013D2 /* MessageListProtocol.swift in Sources */,
 				330B08BA29C4A2480088F9B0 /* MessageProtocol.swift in Sources */,
-				330B08C229C5A2680088F9B0 /* MessageListModelGenerator.swift in Sources */,
+				330B08C229C5A2680088F9B0 /* RCGenerator.swift in Sources */,
 				330B090229C5F7B20088F9B0 /* Bundle+MessageList.swift in Sources */,
 				330B08FE29C5E7FA0088F9B0 /* UIFont+Bubble.swift in Sources */,
 				330B090629C5F9D70088F9B0 /* UIImage+MessageList.swift in Sources */,
@@ -624,10 +667,14 @@
 				33E6F80329C2F155009013D2 /* MessageListController.swift in Sources */,
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
 				330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */,
+				33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */,
+				33E473F729CD2F62000C7512 /* RCMessagesConverter.swift in Sources */,
+				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
 				330B090029C5E8170088F9B0 /* UIColor+Bubble.swift in Sources */,
 				330B08F929C5AB6D0088F9B0 /* MessageSentStatusView.swift in Sources */,
 				330B08F029C5AB6D0088F9B0 /* CheckBoxView.swift in Sources */,
 				330B08D929C5AAA10088F9B0 /* MessageUnknownCell.swift in Sources */,
+				33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */,
 				330B089A29C446230088F9B0 /* MessageList.swift in Sources */,
 				330B08DA29C5AAA10088F9B0 /* MessageBaseCell.swift in Sources */,
 				330B08F129C5AB6D0088F9B0 /* MessageBaseView.swift in Sources */,
@@ -635,6 +682,7 @@
 				330B08B329C4961E0088F9B0 /* Mesasge.swift in Sources */,
 				330B08B529C4974B0088F9B0 /* BubbleConstant.swift in Sources */,
 				330B08FB29C5AB6D0088F9B0 /* UserNameView.swift in Sources */,
+				33E473FD29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift in Sources */,
 				330B08D729C5AAA10088F9B0 /* MessageTipCell.swift in Sources */,
 				330B08F429C5AB6D0088F9B0 /* BubbleView.swift in Sources */,
 				330B08F829C5AB6D0088F9B0 /* MessageDetailView.swift in Sources */,
