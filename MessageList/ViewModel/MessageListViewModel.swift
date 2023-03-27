@@ -45,7 +45,7 @@ class MessageListViewModel: NSObject {
         let rcConversation = messageList.conversation.rcConversation
         let dataSource = MessageDataSource(rcConversation: rcConversation)
         let modelCache = BubbleModelCache.init(userId: messageList.currentUserInfo.userId)
-        let converter = RCMessagesConverter()
+        let converter = RCMessagesConverter(_bubbleModelCache: modelCache)
         self.dataSource = dataSource
         self._bubbleModelCache = modelCache
         self._bubbleConverter = converter

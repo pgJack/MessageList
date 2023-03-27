@@ -18,7 +18,7 @@ struct BubbleModelCache {
         recorder = BMKVRecorder(functionName:"BubbleContent", storeId:userId)
     }
     
-    func cache(_ bubble: BubbleModel, forMessageId mId:Int) {
+    func cache<T: BubbleModel>(_ bubble: T, forMessageId mId:Int) {
         guard mId > 0 else {
             return
         }

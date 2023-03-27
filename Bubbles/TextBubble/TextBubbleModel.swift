@@ -10,6 +10,11 @@ import RongIMLib
 
 class TextBubbleModel: BubbleModel {
     
+    private enum CodingKeys: CodingKey {
+        case messageText
+        case isLimited
+    }
+        
     static let limitCount = 1000
 
     static let textEdge = UIEdgeInsets(top: 7, left: 14, bottom: 7, right: 14)
@@ -35,8 +40,8 @@ class TextBubbleModel: BubbleModel {
         TextBubbleView.self
     }
     
-    override func loadMessages(_ rcMessages: [RCMessage], currentUserId: String) {
-        super.loadMessages(rcMessages, currentUserId: currentUserId)
+    required init?(rcMessages: [RCMessage], currentUserId: String) {
+        super.init(rcMessages: rcMessages, currentUserId: currentUserId)
         guard let rcMessage = rcMessages.first,
               let textContent = rcMessage.content as? RCTextMessage else {
             return
@@ -49,6 +54,20 @@ class TextBubbleModel: BubbleModel {
         let width = bubbleContentSize.width + textRect.size.width + TextBubbleModel.textEdge.left + TextBubbleModel.textEdge.right
         let height = bubbleContentSize.height + textRect.size.height + TextBubbleModel.textEdge.top + TextBubbleModel.textEdge.bottom
         bubbleContentSize = CGSize(width: ceil(width), height: ceil(height))
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        messageText = try container.decode(String.self, forKey: .messageText)
+        isLimited = try container.decode(Bool.self, forKey: .isLimited)
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(messageText, forKey: .messageText)
+        try container.encode(isLimited, forKey: .isLimited)
     }
     
 }

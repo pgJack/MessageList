@@ -70,12 +70,7 @@ extension Message {
             return thumbUpInfo
         }
         
-        switch objectName {
-        case RCTextMessage.getObjectName():
-            messageType = .text
-        default:
-            messageType = .unknown
-        }
+        messageType = rcMessage.content?.messageType ?? .unknown
         
         deliveredProgress = 1
         readProgress = 1
@@ -84,6 +79,17 @@ extension Message {
         isMentionedAll = rcMessage.content?.mentionedInfo?.type == .mentioned_All
     }
     
+}
+
+extension RCMessageContent {
+    var messageType: MessageType {
+        switch Self.self {
+        case is RCTextMessage.Type:
+            return .text
+        default:
+            return .unknown
+        }
+    }
 }
 
 //MARK: 消息发送状态

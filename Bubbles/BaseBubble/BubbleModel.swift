@@ -35,20 +35,17 @@ class BubbleModel: Codable {
     /// 扩展气泡视图
     var shownExBubble = false
     
+    //MARK: Override Method
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         guard rcMessages.count > 0 else { return nil }
-        messages = rcMessages.compactMap(Message.init)
         self.currentUserId = currentUserId
-        loadMessages(rcMessages, currentUserId: currentUserId)
+        messages = rcMessages.compactMap(Message.init)
     }
     
-    //MARK: Override Method
     /// 对应 Cell 类型
     var cellType: String { MessageCellRegister.placeholder }
     /// 对应气泡类型
     var bubbleViewType: BubbleView.Type { BubbleView.self }
-    /// 初始化方法
-    func loadMessages(_ rcMessages: [RCMessage], currentUserId: String) { }
     
 }
 
