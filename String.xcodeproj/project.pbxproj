@@ -41,7 +41,7 @@
 		330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */; };
 		330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */; };
 		33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */; };
-		33E473F729CD2F62000C7512 /* RCMessagesConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F629CD2F62000C7512 /* RCMessagesConverter.swift */; };
+		33E473F729CD2F62000C7512 /* MessageBubbleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F629CD2F62000C7512 /* MessageBubbleConverter.swift */; };
 		33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F829CD3078000C7512 /* TextBubbleModel.swift */; };
 		33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FA29CD308A000C7512 /* TextBubbleView.swift */; };
 		33E473FD29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */; };
@@ -112,7 +112,7 @@
 		330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUnreadLineView.swift; sourceTree = "<group>"; };
 		330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellRegister.swift; sourceTree = "<group>"; };
 		33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCExtraGenerator.swift; sourceTree = "<group>"; };
-		33E473F629CD2F62000C7512 /* RCMessagesConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCMessagesConverter.swift; sourceTree = "<group>"; };
+		33E473F629CD2F62000C7512 /* MessageBubbleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleConverter.swift; sourceTree = "<group>"; };
 		33E473F829CD3078000C7512 /* TextBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleModel.swift; sourceTree = "<group>"; };
 		33E473FA29CD308A000C7512 /* TextBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleView.swift; sourceTree = "<group>"; };
 		33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleAttributedTextUtil.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 			children = (
 				330B08A629C46D240088F9B0 /* MessageListViewModel.swift */,
 				330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */,
-				33E473F629CD2F62000C7512 /* RCMessagesConverter.swift */,
+				33E473F629CD2F62000C7512 /* MessageBubbleConverter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -668,7 +668,7 @@
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
 				330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */,
 				33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */,
-				33E473F729CD2F62000C7512 /* RCMessagesConverter.swift in Sources */,
+				33E473F729CD2F62000C7512 /* MessageBubbleConverter.swift in Sources */,
 				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
 				330B090029C5E8170088F9B0 /* UIColor+Bubble.swift in Sources */,
 				330B08F929C5AB6D0088F9B0 /* MessageSentStatusView.swift in Sources */,

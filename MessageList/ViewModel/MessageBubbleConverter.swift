@@ -1,5 +1,5 @@
 //
-//  RCMessagesConverter.swift
+//  MessageBubbleConverter.swift
 //  String
 //
 //  Created by Noah on 2023/3/24.
@@ -12,7 +12,7 @@ private let kBubbleModelClassTable: [String: BubbleModel.Type] = [
     RCTextMessage.getObjectName(): TextBubbleModel.self
 ]
 
-struct RCMessagesConverter {
+struct MessageBubbleConverter {
     
     // 是否聚合
     var needCombine = false
@@ -30,10 +30,10 @@ struct RCMessagesConverter {
                   let bubbleClass = kBubbleModelClassTable[objectName] else {
                 return nil
             }
-            if let cachedBubble = _bubbleModelCache?.bubbleModel(forMessageId: message.messageId, bubbleClass: bubbleClass),
-               cachedBubble.message.messageType == message.content?.messageType {
-                return cachedBubble
-            }
+//            if let cachedBubble = _bubbleModelCache?.bubbleModel(forMessageId: message.messageId, bubbleClass: bubbleClass),
+//               cachedBubble.message.messageType == message.content?.messageType {
+//                return cachedBubble
+//            }
             guard let bubbleModel = bubbleClass.init(rcMessages:[message], currentUserId: currentUserId) else {
                 return nil
             }

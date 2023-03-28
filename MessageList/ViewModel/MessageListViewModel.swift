@@ -29,7 +29,7 @@ class MessageListViewModel: NSObject {
     /// 气泡模型数据源
     private var _bubbleModels = [BubbleModel]()
     /// 消息数据源格式转换
-    private var _bubbleConverter: RCMessagesConverter
+    private var _bubbleConverter: MessageBubbleConverter
     /// 所有气泡 Frame
     private lazy var _bubbleFrames = [CGRect]()
     /// 消息数据源缓存
@@ -45,7 +45,7 @@ class MessageListViewModel: NSObject {
         let rcConversation = messageList.conversation.rcConversation
         let dataSource = MessageDataSource(rcConversation: rcConversation)
         let modelCache = BubbleModelCache.init(userId: messageList.currentUserInfo.userId)
-        let converter = RCMessagesConverter(_bubbleModelCache: modelCache)
+        let converter = MessageBubbleConverter(_bubbleModelCache: modelCache)
         self.dataSource = dataSource
         self._bubbleModelCache = modelCache
         self._bubbleConverter = converter

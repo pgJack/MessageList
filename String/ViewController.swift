@@ -86,7 +86,7 @@ extension ViewController {
 }
 
 //MARK: Connect IM
-extension ViewController: RCConnectionStatusChangeDelegate {
+extension ViewController: RCConnectionStatusChangeDelegate, RCIMClientReceiveMessageDelegate {
         
     func setupIM() {
         onDisconnectIM()
@@ -98,10 +98,17 @@ extension ViewController: RCConnectionStatusChangeDelegate {
         RCCoreClient.shared().logLevel = .log_Level_Verbose
         RCCoreClient.shared().voiceMsgType = .highQuality
         RCCoreClient.shared().setRCConnectionStatusChangeDelegate(self)
+        RCCoreClient.shared().setReceiveMessageDelegate(self, object: nil)
         RCCoreClient.shared().connect(withToken: token, dbOpened: { [weak self] _ in
             guard let `self` = self else { return }
             self.onOpenDatabae()
         }, success: nil)
+    }
+    
+    func onOfflineMessageSyncCompleted() {
+        DispatchQueue.mainAction {
+            self.reloadConversations()
+        }
     }
     
     func onOpenDatabae() {
