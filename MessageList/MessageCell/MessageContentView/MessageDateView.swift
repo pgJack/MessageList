@@ -36,6 +36,7 @@ class MessageDateView: UIView {
             make.trailing.equalTo(label).offset(UIEdgeInsets.bubble.dateBackgroundEdge.right)
             make.bottom.equalTo(label).offset(UIEdgeInsets.bubble.dateBackgroundEdge.bottom)
         }
+        bringSubviewToFront(label)
         label.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(CGFloat.bubble.dateBackgroundTop + UIEdgeInsets.bubble.dateBackgroundEdge.top)
             make.centerX.equalToSuperview()

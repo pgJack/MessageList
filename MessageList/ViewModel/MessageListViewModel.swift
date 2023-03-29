@@ -8,140 +8,95 @@
 import UIKit
 
 class MessageListViewModel: NSObject {
-        
+    
     /// 消息列表模型
     var messageList: MessageListProtocol?
+    
     /// 消息列表视图控制器
     weak var controller: MessageListControllerProtocol?
     /// 消息列表容器视图
     var collectionView: UICollectionView? { controller?.collectionView }
-    /// 消息定位，滚动到锚点位置
-    var anchorMessage: AnchorMessageProtocol?
+    var collectionViewLayout: MessageListCollectionViewLayout? { collectionView?.collectionViewLayout as? MessageListCollectionViewLayout }
     
     /// 消息数据源接口
-    var dataSource: MessageDataSource?
+    lazy var dataSource: MessageDataSource? = MessageDataSource(viewModel: self, messageList: messageList)
+    
+    /// 消息数据源
+    private var _bubbleModels: [BubbleModel] { dataSource?.bubbleModels ?? [] }
+    /// 消息定位，滚动到锚点位置
+    private var _anchorMessage: AnchorMessageProtocol?
     
     /// 控制器是否加载完成
     private lazy var _collectionViewHasLoaded = false
     /// 强制刷新全部数据源
     private lazy var _forceResetBubbleModels = true
-    
-    /// 气泡模型数据源
-    private var _bubbleModels = [BubbleModel]()
-    /// 消息数据源格式转换
-    private var _bubbleConverter: MessageBubbleConverter
-    /// 所有气泡 Frame
-    private lazy var _bubbleFrames = [CGRect]()
-    /// 消息数据源缓存
-    private var _bubbleModelCache: BubbleModelCache?
+        
     /// 所有气泡视图
     private lazy var _bubbleViewCache = [Int: BubbleView]()
-    /// 所有气泡高度和
-    private lazy var _bubbleModelsTotalHeight: CGFloat = 0
-
+    
     //MARK: LifeCycle
     init(messageList: MessageListProtocol, anchorMessage: AnchorMessageProtocol?) {
         self.messageList = messageList
-        let rcConversation = messageList.conversation.rcConversation
-        let dataSource = MessageDataSource(rcConversation: rcConversation)
-        let modelCache = BubbleModelCache.init(userId: messageList.currentUserInfo.userId)
-        let converter = MessageBubbleConverter(_bubbleModelCache: modelCache)
-        self.dataSource = dataSource
-        self._bubbleModelCache = modelCache
-        self._bubbleConverter = converter
-        guard let messages = dataSource?.initMessages(anchorMessage) else {
-            return
-        }
-        _bubbleModels = converter.convert(messages, currentUserId: messageList.currentUserInfo.userId)
+        _anchorMessage = anchorMessage
     }
     
     func onViewDidLoad() {
         guard let collectionView = collectionView else { return }
+        initializeDataSource()
         MessageCellRegister.registerCells(for: collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
     }
     
     func onViewWillAppear(_ animated: Bool) { }
-
+    
     func onViewDidAppear(_ animated: Bool) { }
     
     func onViewWillDisappear(_ animated: Bool) { }
-
+    
     func onViewDidDisappear(_ animated: Bool) { }
     
     func onViewDidLayoutSubviews() {
         guard !_collectionViewHasLoaded else { return }
         _collectionViewHasLoaded = true
+        firstLayout()
+    }
+    
+    func onReceiveMemoryWarning() {
+        _bubbleViewCache.removeAll()
+    }
+    
+}
+
+//MARK: Layout Interface
+extension MessageListViewModel {
+    
+    func onCollectionViewPrepareLayout() {
+        guard _forceResetBubbleModels else { return }
+        _forceResetBubbleModels = false
+        resetBubbleLayouts()
+    }
+    
+}
+
+//MARK: Layout Method
+private extension MessageListViewModel {
+    
+    func firstLayout() {
         guard let collectionView = collectionView else { return }
         collectionView.layoutIfNeeded()
         scorllToBottom()
         reloadCollectionView()
     }
     
-    func onCollectionViewPrepareLayout() {
-        guard _forceResetBubbleModels else { return }
-        _forceResetBubbleModels = false
-        reloadBubbles()
-    }
-    
-    func onReceiveMemoryWarning() {
-        _bubbleModelCache?.clearMemoryCache()
-        _bubbleViewCache.removeAll()
-    }
-    
-}
-
-//MARK: Layout Output
-extension MessageListViewModel {
-    
-    var collectionViewSize: CGSize {
-        collectionView?.frame.size ?? .zero
-    }
-    
-    var messagesTotalHeight: CGFloat {
-        _bubbleModelsTotalHeight
-    }
-    
-    func layoutAttributesForMessage(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard _bubbleFrames.count > indexPath.row else { return nil }
-        let layoutAttribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-        layoutAttribute.frame = _bubbleFrames[indexPath.row]
-        return layoutAttribute
-    }
-    
-    func layoutAttributesForMessages(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        _bubbleFrames.enumerated().filter {
-            !rect.intersection($0.element).isNull
-        }.map {
-            let indexPath = IndexPath(item: $0.offset, section: 0)
-            let layoutAttribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-            layoutAttribute.frame = $0.element
-            return layoutAttribute
-        }
-    }
-    
-}
-
-//MARK: Bubble DataSource
-private extension MessageListViewModel {
-    
-    private func reloadBubbles() {
-        _bubbleModelsTotalHeight = 0
-        _bubbleFrames = []
-        
+    func resetBubbleLayouts() {
+        guard let collectionViewLayout = collectionViewLayout else { return }
+        var totalHeight: CGFloat = 0
+        var bubbleFrames = [CGRect]()
         let x: CGFloat = 0
-        let width = collectionViewSize.width
-        
-        var lastBubble: BubbleModel? = nil
+        let width = collectionViewLayout.layoutWidth
         _bubbleModels.forEach { bubble in
-            let message = bubble.message
-            let messageId = message.messageId
-            let sentTime = message.sentTime
-            updateUnreadLine(bubble, messageId: messageId)
-            updateDateText(bubble, sentTime: sentTime, lastBubble: lastBubble)
-            
-            let y = _bubbleModelsTotalHeight
+            let y = totalHeight
             /// 气泡内容高度
             var height = bubble.bubbleHeight
             /// 显示 unreadLine，高度增加
@@ -152,34 +107,11 @@ private extension MessageListViewModel {
             if bubble.dateText != nil {
                 height += .bubble.dateViewHeight
             }
-            _bubbleModelsTotalHeight += height
-            _bubbleFrames.append(CGRect(x: x, y: y, width: width, height: height))
-            lastBubble = bubble
+            totalHeight += height
+            bubbleFrames.append(CGRect(x: x, y: y, width: width, height: height))
         }
-    }
-    
-    func updateUnreadLine(_ bubble: BubbleModel, messageId: Int) {
-        guard let anchorMessage = anchorMessage,
-              anchorMessage.isFirstUnreadMessage,
-              anchorMessage.anchorMessageId == messageId else {
-            bubble.shownUnreadLine = false
-            return
-        }
-        bubble.shownUnreadLine = true
-    }
-    
-    func updateDateText(_ bubble: BubbleModel, sentTime: Int64, lastBubble: BubbleModel?) {
-        guard let lastSentTime = lastBubble?.message.sentTime else {
-            bubble.dateText = nil
-            return
-        }
-        let date = NSDate(timeIntervalSince1970: TimeInterval(sentTime) / 1000)
-        let previousDate = Date(timeIntervalSince1970: TimeInterval(lastSentTime) / 1000)
-        guard !date.isSameDay(previousDate) else {
-            bubble.dateText = nil
-            return
-        }
-        bubble.dateText = date.beautyTime()
+        collectionViewLayout.layoutHeight = totalHeight
+        collectionViewLayout.bubbleFrames = bubbleFrames
     }
     
     func bubbleView<T: BubbleModel>(forModel bubble: T) -> BubbleView? {
@@ -191,6 +123,29 @@ private extension MessageListViewModel {
             _bubbleViewCache[messageId] = bubbleView
         }
         return bubbleView
+    }
+    
+}
+
+//MARK: DataSource Interface
+extension MessageListViewModel {
+    
+    func dataSourceDidReset(unreadCount: Int32 = 0) {
+        _forceResetBubbleModels = true
+        reloadCollectionView()
+    }
+    
+}
+
+//MARK: DataSource Method
+private extension MessageListViewModel {
+    
+    func initializeDataSource() {
+        if let anchorMessage = _anchorMessage {
+            dataSource?.anchor(at: anchorMessage)
+        } else {
+            dataSource?.anchorAtFirstUnreadMessage()
+        }
     }
     
 }
@@ -246,12 +201,12 @@ extension MessageListViewModel: UICollectionViewDelegate {
 }
 
 //MARK: CollectionView Control
-private extension MessageListViewModel {
+extension MessageListViewModel {
     
     func reloadCollectionView() {
-        if _collectionViewHasLoaded {
-            collectionView?.reloadData()
-        }
+        guard _collectionViewHasLoaded else { return }
+        guard let collectionView = collectionView else { return }
+        collectionView.reloadData()
     }
     
     func scorllToBottom() {

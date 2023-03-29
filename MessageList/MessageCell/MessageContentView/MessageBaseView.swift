@@ -12,6 +12,9 @@ class MessageBaseView: UIView {
     
     // 消息日期显示视图
     private var isUnreadLineViewHidden = true
+    private var unreadLineHeight: CGFloat {
+        isUnreadLineViewHidden ? 0 : CGFloat.bubble.unreadLineHeight
+    }
     private(set) lazy var unreadLineView = {
         let view = MessageUnreadLineView()
         addSubview(view)
@@ -24,11 +27,14 @@ class MessageBaseView: UIView {
     
     // 消息日期显示视图
     private var isDateViewHidden = true
+    private var dateViewHeight: CGFloat {
+        isDateViewHidden ? 0 : CGFloat.bubble.dateViewHeight
+    }
     private(set) lazy var dateView: MessageDateView = {
         let view = MessageDateView()
         addSubview(view)
         view.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(CGFloat.bubble.unreadLineHeight)
+            make.top.equalToSuperview().offset(unreadLineHeight)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(CGFloat.bubble.dateViewHeight)
         }
@@ -38,27 +44,28 @@ class MessageBaseView: UIView {
     // 选中按钮视图
     var checkBoxStatus: CheckBoxStatus { checkBoxView.status }
     private var isCheckBoxViewHidden = true
+    private var checkBoxViewWidth: CGFloat {
+        isCheckBoxViewHidden ? 0 : CGFloat.bubble.checkBoxWidth
+    }
     private(set) lazy var checkBoxView: CheckBoxView = {
         let view = CheckBoxView()
         addSubview(view)
         view.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.equalTo(detailContainerView.snp.top)
-            make.bottom.equalTo(detailContainerView.snp.bottom)
+            make.top.equalTo(dateView.snp.bottom)
+            make.bottom.equalToSuperview()
             make.width.equalTo(CGFloat.bubble.checkBoxWidth)
         }
         return view
     }()
 
     // 消息详情容器
-    private(set) lazy var detailContainerView: UIView = {
-        let view = UIView()
-        addSubview(view)
-        view.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
-        }
-        return view
-    }()
+    private(set) lazy var detailView: UIView? = nil
+    func setupDetailView(_ detailView: UIView) {
+        self.detailView = detailView
+        addSubview(detailView)
+        remakeDetailViewLayout()
+    }
     
 }
 
@@ -72,6 +79,7 @@ extension MessageBaseView {
         }
         isUnreadLineViewHidden = isHidden
         unreadLineView.isHidden = isHidden
+        remakeDateViewLayout()
         remakeDetailViewLayout()
     }
     
@@ -87,6 +95,7 @@ extension MessageBaseView {
         }
         isDateViewHidden = isHidden
         dateView.isHidden = isHidden
+        remakeDateViewLayout()
         remakeDetailViewLayout()
     }
     
@@ -101,7 +110,7 @@ extension MessageBaseView {
         }
         isCheckBoxViewHidden = isHidden
         checkBoxView.isHidden = isHidden
-        detailContainerView.isUserInteractionEnabled = isHidden
+        detailView?.isUserInteractionEnabled = !isHidden
         remakeDetailViewLayout()
         layoutIfNeeded(animated: animated)
     }
@@ -111,21 +120,19 @@ extension MessageBaseView {
 //MARK: DetailView Layout
 extension MessageBaseView {
     
+    private func remakeDateViewLayout() {
+        guard !isDateViewHidden else { return }
+        dateView.snp.remakeConstraints { make in
+            make.top.equalToSuperview().offset(unreadLineHeight)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(CGFloat.bubble.dateViewHeight)
+        }
+    }
+    
     private func remakeDetailViewLayout() {
-        var top: CGFloat = 0
-        var leading: CGFloat = 0
-        if !isDateViewHidden {
-            top += .bubble.dateViewHeight
-        }
-        if !isUnreadLineViewHidden {
-            top += .bubble.unreadLineHeight
-        }
-        if !isCheckBoxViewHidden {
-            leading += .bubble.checkBoxWidth
-        }
-        detailContainerView.snp.remakeConstraints { make in
-            make.top.equalToSuperview().offset(top)
-            make.leading.equalToSuperview().offset(leading)
+        detailView?.snp.remakeConstraints { make in
+            make.top.lessThanOrEqualToSuperview().offset(dateViewHeight + unreadLineHeight)
+            make.leading.equalToSuperview().offset(checkBoxViewWidth)
             make.trailing.bottom.equalToSuperview()
         }
     }

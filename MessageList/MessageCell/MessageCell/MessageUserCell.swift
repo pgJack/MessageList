@@ -9,22 +9,17 @@ import Foundation
 
 class MessageUserCell: MessageBaseCell {
     
-    var bubbleView: BubbleView? {
-        didSet {
-            guard let detailView = detailView() else { return }
-            baseView.detailContainerView.addSubview(detailView)
-            detailView.snp.makeConstraints { make in
-                make.leading.trailing.top.bottom.equalToSuperview()
-            }
-        }
-    }
+    var bubbleView: BubbleView?
     
     // 消息视图：发送人信息，消息内容，消息点赞，扩展消息
-    func detailView() -> MessageDetailView? { nil }
+    var detailView: MessageDetailView? { nil }
     
     override func updateSubviewsOnReuse(_ bubbleModel: BubbleModel) {
         super.updateSubviewsOnReuse(bubbleModel)
-        guard let detailView = detailView() else { return }
+        guard let detailView = detailView else { return }
+        if detailView.superview == nil {
+            baseView.setupDetailView(detailView)
+        }
         let message = bubbleModel.message
         detailView.update(name: message.senderName, userId: message.senderId)
         detailView.updateAvatar(url: message.senderAvatar, placeholder: message.senderPlaceholderAvatar)
@@ -34,7 +29,7 @@ class MessageUserCell: MessageBaseCell {
     }
     
     func addBubbleView(_ bubbleView: BubbleView?) {
-        guard let detailView = detailView() else { return }
+        guard let detailView = detailView else { return }
         guard let bubbleView = bubbleView else { return }
         self.bubbleView = bubbleView
         detailView.bubbleContainerView.addSubview(bubbleView)

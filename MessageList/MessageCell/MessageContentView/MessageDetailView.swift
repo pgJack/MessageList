@@ -23,7 +23,7 @@ class MessageDetailView: UIView {
     private(set) lazy var sentStatusView: MessageSentStatusView = {
         let view = MessageSentStatusView(frame: CGRect(origin: .zero, size: .bubble.sentStatusSize))
         addSubview(view)
-        view.snp.remakeConstraints { make in
+        view.snp.makeConstraints { make in
             make.bottom.equalTo(bubbleContainerView.snp.bottom)
             make.trailing.equalTo(bubbleContainerView.snp.leading).offset(-CGFloat.bubble.sentStatusBubbleSpace)
             make.size.equalTo(CGSize.bubble.sentStatusSize)
@@ -34,7 +34,7 @@ class MessageDetailView: UIView {
     private(set) lazy var reactionContainerView: UIView = {
         let view = UIView()
         addSubview(view)
-        view.snp.remakeConstraints { make in
+        view.snp.makeConstraints { make in
             make.top.equalTo(bubbleContainerView.snp.bottom).offset(CGFloat.bubble.reactionTop)
             make.size.equalTo(reactionSize)
             // 根据布局模式，设置约束
@@ -55,7 +55,7 @@ class MessageDetailView: UIView {
     private(set) lazy var exBubbleContainerView: UIView = {
         let view = UIView()
         addSubview(view)
-        view.snp.remakeConstraints { make in
+        view.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-UIEdgeInsets.bubble.contentEdge.bottom)
             make.size.equalTo(exBubbleSize)
             // 根据布局模式，设置约束

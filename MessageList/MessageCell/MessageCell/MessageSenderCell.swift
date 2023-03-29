@@ -9,7 +9,7 @@ import Foundation
 
 class MessageSenderCell: MessageUserCell {
     
-    override func detailView() -> MessageDetailView? { _senderDetailView }
+    override var detailView: MessageDetailView? { _senderDetailView }
     private lazy var _senderDetailView: MessageDetailView? = {
         guard let bubbleModel = bubbleModel else { return nil }
         return MessageDetailView(layoutMode: .sender,

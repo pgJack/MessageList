@@ -19,9 +19,6 @@ class MessageBaseCell: UICollectionViewCell {
         }
         return view
     }()
-    var detailContainerView: UIView {
-        baseView.detailContainerView
-    }
     
     func updateSubviewsOnReuse(_ bubbleModel: BubbleModel) {
         self.bubbleModel = bubbleModel
