@@ -40,6 +40,9 @@
 		330B090629C5F9D70088F9B0 /* UIImage+MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090529C5F9D70088F9B0 /* UIImage+MessageList.swift */; };
 		330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */; };
 		330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */; };
+		33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */; };
+		33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */; };
+		33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */; };
 		33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */; };
 		33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F829CD3078000C7512 /* TextBubbleModel.swift */; };
 		33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FA29CD308A000C7512 /* TextBubbleView.swift */; };
@@ -110,6 +113,9 @@
 		330B090529C5F9D70088F9B0 /* UIImage+MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+MessageList.swift"; sourceTree = "<group>"; };
 		330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUnreadLineView.swift; sourceTree = "<group>"; };
 		330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellRegister.swift; sourceTree = "<group>"; };
+		33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBubbleModel.swift; sourceTree = "<group>"; };
+		33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBubbleModel.swift; sourceTree = "<group>"; };
+		33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifBubbleModel.swift; sourceTree = "<group>"; };
 		33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCExtraGenerator.swift; sourceTree = "<group>"; };
 		33E473F829CD3078000C7512 /* TextBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleModel.swift; sourceTree = "<group>"; };
 		33E473FA29CD308A000C7512 /* TextBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleView.swift; sourceTree = "<group>"; };
@@ -257,6 +263,7 @@
 		3378FB8929C83CF700B1293B /* Bubbles */ = {
 			isa = PBXGroup;
 			children = (
+				33CA1B6629D5A06E00D995AA /* MediaBubble */,
 				3378FB8B29C83DAF00B1293B /* TextBubble */,
 				3378FB8A29C83D5300B1293B /* BaseBubble */,
 			);
@@ -290,6 +297,16 @@
 				33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		33CA1B6629D5A06E00D995AA /* MediaBubble */ = {
+			isa = PBXGroup;
+			children = (
+				33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */,
+				33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */,
+				33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */,
+			);
+			path = MediaBubble;
 			sourceTree = "<group>";
 		};
 		33E473FE29CEFBCA000C7512 /* CustomView */ = {
@@ -660,12 +677,15 @@
 				330B090629C5F9D70088F9B0 /* UIImage+MessageList.swift in Sources */,
 				330B08C029C59A350088F9B0 /* BubbleModelCache.swift in Sources */,
 				330B08BE29C4BBA80088F9B0 /* BubbleModel.swift in Sources */,
+				33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */,
+				33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */,
 				330B08B129C493BA0088F9B0 /* MessageListCollectionViewLayout.swift in Sources */,
 				33E6F80329C2F155009013D2 /* MessageListController.swift in Sources */,
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
 				330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */,
 				33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */,
 				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
+				33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */,
 				330B090029C5E8170088F9B0 /* UIColor+Bubble.swift in Sources */,
 				330B08F929C5AB6D0088F9B0 /* MessageSentStatusView.swift in Sources */,
 				330B08F029C5AB6D0088F9B0 /* CheckBoxView.swift in Sources */,

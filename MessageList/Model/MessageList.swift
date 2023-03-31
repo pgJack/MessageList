@@ -30,14 +30,12 @@ struct Conversation: ConversationProtocol, Codable {
 }
 
 struct AnchorMessage: AnchorMessageProtocol, Codable {
-    let anchorMessageSentTime: Int64
     let anchorMessageId: Int
     let highlightedText: String?
     let isHighlightedBackground: Bool
     
-    init(anchorMessageId: Int, anchorMessageSentTime: Int64, highlightedText: String?, isHighlightedBackground: Bool) {
+    init(anchorMessageId: Int, highlightedText: String?, isHighlightedBackground: Bool) {
         self.anchorMessageId = anchorMessageId
-        self.anchorMessageSentTime = anchorMessageSentTime
         self.highlightedText = highlightedText
         self.isHighlightedBackground = isHighlightedBackground
     }
@@ -45,7 +43,6 @@ struct AnchorMessage: AnchorMessageProtocol, Codable {
     init?(_ anchorMessage: AnchorMessageProtocol?) {
         guard let anchorMessage = anchorMessage else { return nil }
         anchorMessageId = anchorMessage.anchorMessageId
-        anchorMessageSentTime = anchorMessage.anchorMessageSentTime
         highlightedText = anchorMessage.highlightedText
         isHighlightedBackground = anchorMessage.isHighlightedBackground
     }

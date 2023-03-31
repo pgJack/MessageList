@@ -26,7 +26,6 @@ public protocol ConversationProtocol {
 
 public protocol AnchorMessageProtocol {
     var anchorMessageId: Int { get }
-    var anchorMessageSentTime: Int64 { get }
     var highlightedText: String? { get }
     var isHighlightedBackground: Bool { get }
 }

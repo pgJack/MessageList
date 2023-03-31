@@ -107,7 +107,8 @@ extension MessageListController {
         view.backgroundColor = .lightGray
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
         

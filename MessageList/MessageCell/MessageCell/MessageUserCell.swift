@@ -21,7 +21,7 @@ class MessageUserCell: MessageBaseCell {
             baseView.setupDetailView(detailView)
         }
         let message = bubbleModel.message
-        detailView.update(name: message.senderName, userId: message.senderId)
+        detailView.update(name: "\(message.messageId)", userId: message.senderId)
         detailView.updateAvatar(url: message.senderAvatar, placeholder: message.senderPlaceholderAvatar)
         detailView.updateBubbleContainerView(size: bubbleModel.bubbleContentSize)
         detailView.updateReactionContainerView(isHidden: !bubbleModel.shownThumbUp, size: .zero)
@@ -29,6 +29,7 @@ class MessageUserCell: MessageBaseCell {
     }
     
     func addBubbleView(_ bubbleView: BubbleView?) {
+        removeBubbleView()
         guard let detailView = detailView else { return }
         guard let bubbleView = bubbleView else { return }
         self.bubbleView = bubbleView
