@@ -80,34 +80,34 @@ extension MessageDataSource {
 //MARK: Public Method
 extension MessageDataSource {
     
+    func initializeDataSource(anchorMessageId: Int?) {
+        if let anchorMessageId = anchorMessageId, anchorMessageId > 0 {
+            anchor(atMessageId: anchorMessageId)
+        } else {
+            anchorAtFirstUnreadOrLatestMessage()
+        }
+    }
+    
     func anchor(atMessageId mid: Int, animated: Bool = false) {
-        self._startLoadingLaterSign()
-        self._startLoadingOlderSign()
+        _setMessage(isReloading: true)
         _sourceQueue.async { [weak self] in
             guard let `self` = self else { return }
-            defer {
-                self._endloadingOlderSign()
-                self._endloadingLaterSign()
-            }
+            defer { self._setMessage(isReloading: false) }
             guard let message = RCCoreClient.shared().getMessage(mid) else { return }
             /// 重置加载标记
-            self._resetHasMoreSign()
+            self._resetHasMoreSignal()
             let messages = self._anchor(at: message)
             self._reset(messages: messages, anchorMessageId: message.messageId, animated: animated)
         }
     }
     
-    func anchorAtFirstUnreadMessage() {
-        self._startLoadingLaterSign()
-        self._startLoadingOlderSign()
+    func anchorAtFirstUnreadOrLatestMessage() {
+        _setMessage(isReloading: true)
         _sourceQueue.async { [weak self] in
             guard let `self` = self else { return }
-            defer {
-                self._endloadingOlderSign()
-                self._endloadingLaterSign()
-            }
+            defer { self._setMessage(isReloading: false) }
             /// 重置加载标记
-            self._resetHasMoreSign()
+            self._resetHasMoreSignal()
             guard let firstUnreadMessage = self._rcManager.getFirstUnreadMessage(self._rcConversation.conversationType, targetId: self._rcConversation.targetId, channelId: self._rcConversation.channelId) else {
                 let messages = self._latestMessages()
                 self._reset(messages: messages)
@@ -122,12 +122,12 @@ extension MessageDataSource {
     func loadMoreOlderMessages() {
         guard let firstMessage = self.bubbleModels.first?.message else { return }
         guard !_isLoadingOlderMessage else { return }
-        _startLoadingOlderSign()
+        _setOlder(isLoading: true)
         _sourceQueue.async { [weak self] in
             guard let `self` = self else { return }
             
             // 取消标记
-            defer { self._endloadingOlderSign() }
+            defer { self._setOlder(isLoading: false) }
             
             // 没有更多历史消息，不处理
             guard self._hasMoreOlderMessages else { return }
@@ -141,12 +141,12 @@ extension MessageDataSource {
     func loadMoreLaterMessages() {
         guard let lastMessage = bubbleModels.last?.messages.last else { return }
         guard !_isLoadingLaterMessage else { return }
-        _startLoadingLaterSign()
+        _setLater(isLoading: true)
         _sourceQueue.async { [weak self] in
             guard let `self` = self else { return }
             
             // 取消标记
-            defer { self._endloadingLaterSign() }
+            defer { self._setLater(isLoading: false) }
             
             // 没有新消息，不处理
             guard self._hasMoreLaterMessages else { return }
@@ -170,8 +170,7 @@ extension MessageDataSource {
 private extension MessageDataSource {
     
     func _reset(messages: [RCMessage]?, firstUnreadMessageId: Int? = nil, anchorMessageId: Int? = nil, animated: Bool = false) {
-        DispatchQueue.mainAction { [weak self] in
-            guard let `self` = self else { return }
+        DispatchQueue.mainAction {
             guard let messages = messages else {
                 self.bubbleModels = []
                 self._viewModel?.dataSourceDidReset()
@@ -179,17 +178,13 @@ private extension MessageDataSource {
             }
             let bubbles = self.convert(messages, firstUnreadMessageId: firstUnreadMessageId)
             self.bubbleModels = bubbles
-            self._viewModel?.dataSourceDidReset()
-            if let anchorMessageId = anchorMessageId {
-                self._viewModel?.scrollToCenter(messageId: anchorMessageId, animated: animated)
-            }
+            self._viewModel?.dataSourceDidReset(anchorMessageId: anchorMessageId)
         }
     }
     
     func _insertOlder(messages: [RCMessage]?) {
         guard let messages = messages, messages.count > 0 else { return }
-        DispatchQueue.mainAction { [weak self] in
-            guard let `self` = self else { return }
+        DispatchQueue.mainAction {
             let bubbles = self.convert(messages)
             self.bubbleModels.insert(contentsOf: bubbles, at: 0)
             self._viewModel?.dataSourceDidInsert(bubbles, at: 0)
@@ -199,8 +194,7 @@ private extension MessageDataSource {
     
     func _insertLater(messages: [RCMessage]?) {
         guard let messages = messages, messages.count > 0 else { return }
-        DispatchQueue.mainAction { [weak self] in
-            guard let `self` = self else { return }
+        DispatchQueue.mainAction {
             let bubbles = self.convert(messages)
             let index = self.bubbleModels.count
             self.bubbleModels += bubbles
@@ -254,45 +248,33 @@ private extension MessageDataSource {
     
 }
 
-//MARK: Load Sign
+//MARK: Loading Signal
 private extension MessageDataSource {
     
     // 重置是否可以加载更多标记，_sourceQueue 中维护
-    private func _resetHasMoreSign() {
+    private func _resetHasMoreSignal() {
         _hasMoreOlderMessages = true
         _hasMoreLaterMessages = true
         _olderRequestSentTime = nil
     }
     
-    // 历史消息记载中
-    private func _startLoadingOlderSign() {
-        DispatchQueue.mainAction { [weak self] in
-            guard let `self` = self else { return }
-            self._isLoadingOlderMessage = true
+    // 历史消息是否加载中
+    private func _setOlder(isLoading: Bool) {
+        DispatchQueue.mainAction {
+            self._isLoadingOlderMessage = isLoading
         }
     }
-    
-    // 历史消息未加载中
-    private func _endloadingOlderSign() {
-        DispatchQueue.mainAction { [weak self] in
-            guard let `self` = self else { return }
-            self._isLoadingOlderMessage = false
+    // 新消息是否加载中
+    private func _setLater(isLoading: Bool) {
+        DispatchQueue.mainAction {
+            self._isLoadingLaterMessage = isLoading
         }
     }
-    
-    // 新消息
-    private func _startLoadingLaterSign() {
-        DispatchQueue.mainAction { [weak self] in
-            guard let `self` = self else { return }
-            self._isLoadingLaterMessage = true
-        }
-    }
-    
-    // 新消息未在加载中
-    private func _endloadingLaterSign() {
-        DispatchQueue.mainAction { [weak self] in
-            guard let `self` = self else { return }
-            self._isLoadingLaterMessage = false
+    // 所有消息是否重载中
+    private func _setMessage(isReloading: Bool) {
+        DispatchQueue.mainAction {
+            self._isLoadingOlderMessage = isReloading
+            self._isLoadingLaterMessage = isReloading
         }
     }
     

@@ -29,9 +29,12 @@ class MessageListViewModel: NSObject {
     
     /// 控制器是否加载完成
     private lazy var _collectionViewHasLoaded = false
+    /// 视图是否正在重新加载
+    private lazy var _collectionViewIsReloading = false
+    
     /// 强制刷新全部数据源
-    private lazy var _forceResetBubbleModels = true
-        
+    private lazy var _forceResetBubbleFrames = true
+            
     /// 所有气泡视图
     private lazy var _bubbleViewCache = [Int: BubbleView]()
     
@@ -39,11 +42,12 @@ class MessageListViewModel: NSObject {
     init(messageList: MessageListProtocol, anchorMessage: AnchorMessageProtocol?) {
         self.messageList = messageList
         _anchorMessage = anchorMessage
+        super.init()
+        dataSource?.initializeDataSource(anchorMessageId: anchorMessage?.anchorMessageId)
     }
     
     func onViewDidLoad() {
         guard let collectionView = collectionView else { return }
-        initializeDataSource()
         MessageCellRegister.registerCells(for: collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -51,17 +55,17 @@ class MessageListViewModel: NSObject {
     
     func onViewWillAppear(_ animated: Bool) { }
     
-    func onViewDidAppear(_ animated: Bool) { }
+    func onViewDidAppear(_ animated: Bool) {
+        if !_collectionViewHasLoaded {
+            _collectionViewHasLoaded = true
+        }
+    }
     
     func onViewWillDisappear(_ animated: Bool) { }
     
     func onViewDidDisappear(_ animated: Bool) { }
     
-    func onViewDidLayoutSubviews() {
-        guard !_collectionViewHasLoaded else { return }
-        _collectionViewHasLoaded = true
-        firstLayout()
-    }
+    func onViewDidLayoutSubviews() { }
     
     func onReceiveMemoryWarning() {
         _bubbleViewCache.removeAll()
@@ -73,27 +77,29 @@ class MessageListViewModel: NSObject {
 extension MessageListViewModel {
     
     func onCollectionViewPrepareLayout() {
-        guard _forceResetBubbleModels else { return }
-        _forceResetBubbleModels = false
-        resetBubbleLayouts()
+        _collectionViewIsReloading = false
+        if _forceResetBubbleFrames {
+            _forceResetBubbleFrames = false
+            resetBubbleLayouts()
+        }
+        if let anchorMessage = _anchorMessage {
+            _anchorMessage = nil
+            DispatchQueue.main.async {
+                self.scrollTo(anchor: anchorMessage)
+            }
+        }
+    }
+    
+    private func _reloadCollectionView() {
+        guard let collectionView = collectionView else { return }
+        _collectionViewIsReloading = true
+        collectionView.reloadData()
     }
     
 }
 
 //MARK: Layout Method
 private extension MessageListViewModel {
-    
-    func firstLayout() {
-        guard let collectionView = collectionView else { return }
-        collectionView.layoutIfNeeded()
-        if let anchorMessage = _anchorMessage {
-            _anchorMessage = nil
-            scrollTo(anchor: anchorMessage)
-        } else {
-            scrollToBottom()
-        }
-        reloadCollectionView()
-    }
     
     func resetBubbleLayouts() {
         guard let collectionViewLayout = collectionViewLayout else { return }
@@ -170,9 +176,12 @@ private extension MessageListViewModel {
 //MARK: DataSource Interface
 extension MessageListViewModel {
     
-    func dataSourceDidReset() {
-        _forceResetBubbleModels = true
-        reloadCollectionView()
+    func dataSourceDidReset(anchorMessageId: Int? = nil) {
+        _forceResetBubbleFrames = true
+        _reloadCollectionView()
+        if let anchorMessageId = anchorMessageId {
+            scrollToCenter(messageId: anchorMessageId, animated: false)
+        }
     }
     
     func dataSourceDidInsert(_ bubbles: [BubbleModel], at index: Int) {
@@ -187,19 +196,6 @@ extension MessageListViewModel {
         
 }
 
-//MARK: DataSource Method
-private extension MessageListViewModel {
-    
-    func initializeDataSource() {
-        if let anchorMessage = _anchorMessage, anchorMessage.anchorMessageId > 0 {
-            dataSource?.anchor(atMessageId: anchorMessage.anchorMessageId)
-        } else {
-            dataSource?.anchorAtFirstUnreadMessage()
-        }
-    }
-    
-}
-
 //MARK: CollectionView DataSource
 extension MessageListViewModel: UICollectionViewDataSource {
     
@@ -208,9 +204,6 @@ extension MessageListViewModel: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard _collectionViewHasLoaded else {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: .cellType.placeholder, for: indexPath)
-        }
         let bubbleContent = _bubbleModels[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bubbleContent.cellType, for: indexPath)
         return cell
@@ -261,12 +254,6 @@ extension MessageListViewModel: UICollectionViewDelegate {
 //MARK: CollectionView Control
 extension MessageListViewModel {
     
-    func reloadCollectionView() {
-        guard _collectionViewHasLoaded else { return }
-        guard let collectionView = collectionView else { return }
-        collectionView.reloadData()
-    }
-    
     func scrollToCenter(messageId: Int, animated: Bool = false) {
         if let anchor = _anchorMessage, anchor.anchorMessageId == messageId {
             scrollTo(anchor: anchor, animated: animated)
@@ -277,7 +264,8 @@ extension MessageListViewModel {
     }
     
     private func scrollTo(anchor: AnchorMessageProtocol, animated: Bool = false) {
-        guard _collectionViewHasLoaded else {
+        // reload 未结束时，不进行滚动操作
+        guard !_collectionViewIsReloading else {
             _anchorMessage = anchor
             return
         }
@@ -303,7 +291,6 @@ extension MessageListViewModel {
     }
     
     private func _scrollTo(contentY: CGFloat, animated: Bool = false) {
-        guard _collectionViewHasLoaded else { return }
         guard let collectionView = collectionView else { return }
         
         let viewHeight = collectionView.frame.height

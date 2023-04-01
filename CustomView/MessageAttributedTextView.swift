@@ -58,8 +58,8 @@ public class MessageAttributedTextView: UITextView {
             }
             highlightedText = BubbleAttributedTextUtil.linkAndPhoneNumberAttributedString(highlightedText, isExcludeMail: true)
             guard let highlightedText = highlightedText else { return }
-            DispatchQueue.main.async { [weak self] in
-                guard let `self` = self, messageId == self.messageId else { return }
+            DispatchQueue.main.async {
+                guard messageId == self.messageId else { return }
                 self.attributedText = highlightedText
             }
         }

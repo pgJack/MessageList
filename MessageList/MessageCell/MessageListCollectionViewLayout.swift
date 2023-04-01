@@ -38,6 +38,10 @@ class MessageListCollectionViewLayout: UICollectionViewFlowLayout {
         return layoutAttributesForMessages(in: rect)
     }
     
+    override func finalizeCollectionViewUpdates() {
+        print("---> layout end")
+    }
+    
 }
 
 extension MessageListCollectionViewLayout {
