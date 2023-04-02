@@ -29,7 +29,6 @@ class MessageUserCell: MessageBaseCell {
     }
     
     func addBubbleView(_ bubbleView: BubbleView?) {
-        removeBubbleView()
         guard let detailView = detailView else { return }
         guard let bubbleView = bubbleView else { return }
         self.bubbleView = bubbleView

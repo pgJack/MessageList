@@ -95,7 +95,7 @@ extension MessageDataSource {
             defer { self._setMessage(isReloading: false) }
             guard let message = RCCoreClient.shared().getMessage(mid) else { return }
             /// 重置加载标记
-            self._resetHasMoreSignal()
+            self._resetHasMore()
             let messages = self._anchor(at: message)
             self._reset(messages: messages, anchorMessageId: message.messageId, animated: animated)
         }
@@ -107,7 +107,7 @@ extension MessageDataSource {
             guard let `self` = self else { return }
             defer { self._setMessage(isReloading: false) }
             /// 重置加载标记
-            self._resetHasMoreSignal()
+            self._resetHasMore()
             guard let firstUnreadMessage = self._rcManager.getFirstUnreadMessage(self._rcConversation.conversationType, targetId: self._rcConversation.targetId, channelId: self._rcConversation.channelId) else {
                 let messages = self._latestMessages()
                 self._reset(messages: messages)
@@ -248,11 +248,11 @@ private extension MessageDataSource {
     
 }
 
-//MARK: Loading Signal
+//MARK: Loading Sign
 private extension MessageDataSource {
     
     // 重置是否可以加载更多标记，_sourceQueue 中维护
-    private func _resetHasMoreSignal() {
+    private func _resetHasMore() {
         _hasMoreOlderMessages = true
         _hasMoreLaterMessages = true
         _olderRequestSentTime = nil

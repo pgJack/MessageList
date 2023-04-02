@@ -185,11 +185,15 @@ extension MessageListViewModel {
     }
     
     func dataSourceDidInsert(_ bubbles: [BubbleModel], at index: Int) {
-        let indexPaths = [Int](0..<bubbles.count).map { IndexPath(row: $0, section: 0) }
+        let startIndex = index
+        let endIndex = bubbles.count + startIndex
+        let indexPaths = [Int](startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
         guard indexPaths.count > 0 else { return }
         guard let collectionView = collectionView else { return }
+        guard let collectionViewLayout = collectionViewLayout else { return }
         insertBubbleLayouts(for: bubbles, at: index)
-        collectionView.performBatchUpdates {
+        collectionViewLayout.isLoadingOlder = index == 0
+        UIView.performWithoutAnimation {
             collectionView.insertItems(at: indexPaths)
         }
     }
@@ -224,6 +228,7 @@ extension MessageListViewModel: UICollectionViewDelegate {
             guard let cell = cell as? MessageUserCell else { return }
             cell.addBubbleView(bubbleView(forModel: bubbleModel))
             cell.updateCheckBox(isHidden: true, status: .disabled, animated: false)
+            
             guard let cell = cell as? MessageSenderCell else { return }
             cell.updateSentStatus(bubbleModel.message.sentStatus,
                                   deliveredProgress: bubbleModel.message.deliveredProgress,

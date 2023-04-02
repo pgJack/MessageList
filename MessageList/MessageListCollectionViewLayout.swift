@@ -11,6 +11,9 @@ class MessageListCollectionViewLayout: UICollectionViewFlowLayout {
     
     weak var viewModel: MessageListViewModel?
     
+    /// 加载历史消息标记，加载完历史消息，列表显示消息保持在加载前的位置
+    var isLoadingOlder = false
+    
     /// 布局整体高度，所有气泡高度和
     var layoutHeight: CGFloat = 0
     /// 布局整体宽度，列表视图宽度
@@ -21,25 +24,30 @@ class MessageListCollectionViewLayout: UICollectionViewFlowLayout {
     /// 所有气泡 Frame
     lazy var bubbleFrames = [CGRect]()
 
-    public override func prepare() {
+    override func prepare() {
         super.prepare()
         viewModel?.onCollectionViewPrepareLayout()
     }
     
-    public override var collectionViewContentSize: CGSize {
+    override var collectionViewContentSize: CGSize {
         return CGSize(width: layoutWidth, height: layoutHeight)
     }
     
-    public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return layoutAttributesForMessage(at: indexPath)
     }
     
-    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         return layoutAttributesForMessages(in: rect)
     }
     
     override func finalizeCollectionViewUpdates() {
-        print("---> layout end")
+        guard let collectionView = collectionView else { return }
+        guard isLoadingOlder else { return }
+        isLoadingOlder = false
+        var offset = collectionView.contentOffset
+        offset.y = layoutHeight - collectionView.contentSize.height
+        collectionView.contentOffset = offset
     }
     
 }

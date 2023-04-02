@@ -211,7 +211,6 @@
 		330B08C329C5AA4F0088F9B0 /* MessageCell */ = {
 			isa = PBXGroup;
 			children = (
-				330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */,
 				330B08B429C4974B0088F9B0 /* BubbleConstant.swift */,
 				330B08FD29C5E7FA0088F9B0 /* UIFont+Bubble.swift */,
 				330B08FF29C5E8170088F9B0 /* UIColor+Bubble.swift */,
@@ -379,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				33E6F80229C2F155009013D2 /* MessageListController.swift */,
+				330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */,
 				330B08A529C46D120088F9B0 /* ViewModel */,
 				330B08AC29C472660088F9B0 /* DataSource */,
 				330B089829C446100088F9B0 /* Model */,
