@@ -22,6 +22,9 @@ class MessageListViewModel: NSObject {
     /// 消息数据源接口
     lazy var dataSource: MessageDataSource? = MessageDataSource(viewModel: self, messageList: messageList)
     
+    /// 消息气泡事件处理
+    lazy var actionHander = MessageCellGestureHandler(viewModel: self)
+    
     /// 消息数据源
     private var _bubbleModels: [BubbleModel] { dataSource?.bubbleModels ?? [] }
     /// 消息定位，滚动到锚点位置
@@ -224,6 +227,7 @@ extension MessageListViewModel: UICollectionViewDelegate {
             
             guard let cell = cell as? MessageBaseCell else { return }
             cell.updateSubviewsOnReuse(bubbleModel)
+            cell.actionDelegate = actionHander
             
             guard let cell = cell as? MessageUserCell else { return }
             cell.addBubbleView(bubbleView(forModel: bubbleModel))

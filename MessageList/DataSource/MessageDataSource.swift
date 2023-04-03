@@ -176,7 +176,7 @@ private extension MessageDataSource {
                 self._viewModel?.dataSourceDidReset()
                 return
             }
-            let bubbles = self.convert(messages, firstUnreadMessageId: firstUnreadMessageId)
+            let bubbles = self._convert(messages, firstUnreadMessageId: firstUnreadMessageId)
             self.bubbleModels = bubbles
             self._viewModel?.dataSourceDidReset(anchorMessageId: anchorMessageId)
         }
@@ -185,7 +185,7 @@ private extension MessageDataSource {
     func _insertOlder(messages: [RCMessage]?) {
         guard let messages = messages, messages.count > 0 else { return }
         DispatchQueue.mainAction {
-            let bubbles = self.convert(messages)
+            let bubbles = self._convert(messages)
             self.bubbleModels.insert(contentsOf: bubbles, at: 0)
             self._viewModel?.dataSourceDidInsert(bubbles, at: 0)
             self._isLoadingOlderMessage = false
@@ -195,7 +195,7 @@ private extension MessageDataSource {
     func _insertLater(messages: [RCMessage]?) {
         guard let messages = messages, messages.count > 0 else { return }
         DispatchQueue.mainAction {
-            let bubbles = self.convert(messages)
+            let bubbles = self._convert(messages)
             let index = self.bubbleModels.count
             self.bubbleModels += bubbles
             self._viewModel?.dataSourceDidInsert(bubbles, at: index)
@@ -208,7 +208,7 @@ private extension MessageDataSource {
 //MARK: RCMessage -> Bubble
 private extension MessageDataSource {
     
-    func convert(_ messages:[RCMessage], firstUnreadMessageId: Int? = nil, lastBubble: BubbleModel? = nil) -> [BubbleModel] {
+    func _convert(_ messages:[RCMessage], firstUnreadMessageId: Int? = nil, lastBubble: BubbleModel? = nil) -> [BubbleModel] {
         var lastBubble = lastBubble
         let bubbles = messages.compactMap { message -> BubbleModel? in
             guard let objectName = message.objectName,
@@ -222,7 +222,7 @@ private extension MessageDataSource {
                bubble.message.messageId == firstUnreadMessageId {
                 bubble.shownUnreadLine = true
             }
-            updateDateText(bubble, lastBubble: lastBubble)
+            _updateDateText(bubble, lastBubble: lastBubble)
             lastBubble = bubble
             return bubble
         }
@@ -230,7 +230,7 @@ private extension MessageDataSource {
     }
     
     
-    func updateDateText(_ bubble: BubbleModel, lastBubble: BubbleModel?) {
+    func _updateDateText(_ bubble: BubbleModel, lastBubble: BubbleModel?) {
         let date = NSDate(timeIntervalSince1970: TimeInterval(bubble.message.sentTime) / 1000)
         guard let lastBubble = lastBubble else {
             bubble.dateText = date.beautyTime()
