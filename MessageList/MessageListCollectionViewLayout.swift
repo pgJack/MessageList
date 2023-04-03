@@ -11,8 +11,8 @@ class MessageListCollectionViewLayout: UICollectionViewFlowLayout {
     
     weak var viewModel: MessageListViewModel?
     
-    /// 加载历史消息标记，加载完历史消息，列表显示消息保持在加载前的位置
-    var isLoadingOlder = false
+    /// 加载完历史消息，列表显示消息保持在加载前的位置
+    var addedHeight: CGFloat = 0
     
     /// 布局整体高度，所有气泡高度和
     var layoutHeight: CGFloat = 0
@@ -43,11 +43,11 @@ class MessageListCollectionViewLayout: UICollectionViewFlowLayout {
     
     override func finalizeCollectionViewUpdates() {
         guard let collectionView = collectionView else { return }
-        guard isLoadingOlder else { return }
-        isLoadingOlder = false
+        guard addedHeight > 0 else { return }
         var offset = collectionView.contentOffset
-        offset.y = layoutHeight - collectionView.contentSize.height
+        offset.y += addedHeight
         collectionView.contentOffset = offset
+        addedHeight = 0
     }
     
 }

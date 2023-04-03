@@ -120,10 +120,11 @@ private extension MessageListViewModel {
         collectionViewLayout.bubbleFrames = bubbleFrames
     }
     
-    func insertBubbleLayouts(for bubbles: [BubbleModel], at index: Int) {
-        guard let collectionViewLayout = collectionViewLayout else { return }
+    /// 重置气泡布局，并计算出指定气泡的偏移量
+    func insertBubbleLayouts(for bubbles: [BubbleModel], at index: Int, offsetForIndex baseIndex: Int?) -> CGPoint {
+        guard let collectionViewLayout = collectionViewLayout else { return .zero }
         var existFrames = collectionViewLayout.bubbleFrames
-        guard existFrames.count >= index else { return }
+        guard existFrames.count >= index else { return .zero }
         var totalHeight: CGFloat = 0
         if index > 0 {
             totalHeight = existFrames[index - 1].maxY
@@ -140,13 +141,19 @@ private extension MessageListViewModel {
             frames.append(CGRect(x: x, y: y, width: width, height: height))
         }
         collectionViewLayout.layoutHeight += addedHeight
+        var baseViewOffset = CGPoint.zero
         for i in index..<existFrames.count {
             var frame = existFrames[i]
             frame.origin.y += addedHeight
             existFrames[i] = frame
+            if let baseIndex = baseIndex,
+               i == baseIndex {
+                baseViewOffset = CGPoint(x: 0, y: addedHeight)
+            }
         }
         existFrames.insert(contentsOf: frames, at: index)
         collectionViewLayout.bubbleFrames = existFrames
+        return baseViewOffset
     }
     
     func messageCellHeight(for bubble: BubbleModel) -> CGFloat {
@@ -194,8 +201,9 @@ extension MessageListViewModel {
         guard indexPaths.count > 0 else { return }
         guard let collectionView = collectionView else { return }
         guard let collectionViewLayout = collectionViewLayout else { return }
-        insertBubbleLayouts(for: bubbles, at: index)
-        collectionViewLayout.isLoadingOlder = index == 0
+        let firstVisiableIndex = collectionView.indexPathsForVisibleItems.sorted(by: { $0.row < $1.row }).first?.row
+        let addedHeight = insertBubbleLayouts(for: bubbles, at: index, offsetForIndex: firstVisiableIndex).y
+        collectionViewLayout.addedHeight = addedHeight
         UIView.performWithoutAnimation {
             collectionView.insertItems(at: indexPaths)
         }
@@ -251,9 +259,10 @@ extension MessageListViewModel: UICollectionViewDelegate {
         let offsetY = scrollView.contentOffset.y
         let viewHeight = scrollView.frame.height
         let contentHeight = scrollView.contentSize.height
-        if offsetY <= 0 {
+        let triggerHeight = viewHeight / 2
+        if offsetY <= triggerHeight {
             dataSource.loadMoreOlderMessages()
-        } else if offsetY + viewHeight >= contentHeight {
+        } else if offsetY + viewHeight >= contentHeight - triggerHeight {
             dataSource.loadMoreLaterMessages()
         }
     }
