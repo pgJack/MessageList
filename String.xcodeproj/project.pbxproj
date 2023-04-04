@@ -3,10 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03786F0629DC0A1A00128CDC /* FileBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F0529DC0A1A00128CDC /* FileBubbleModel.swift */; };
+		03786F0829DC0A3900128CDC /* HQVoiceBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F0729DC0A3900128CDC /* HQVoiceBubbleModel.swift */; };
+		03786F0B29DC0AE600128CDC /* LocationBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F0A29DC0AE600128CDC /* LocationBubbleModel.swift */; };
+		03786F0E29DC0B8C00128CDC /* ContactCardBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F0D29DC0B8C00128CDC /* ContactCardBubbleModel.swift */; };
+		03786F1929DC0E2700128CDC /* PollBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F1829DC0E2600128CDC /* PollBubbleModel.swift */; };
+		03786F1C29DC0E5300128CDC /* MeetingBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F1B29DC0E5300128CDC /* MeetingBubbleModel.swift */; };
+		03786F1F29DC0E9E00128CDC /* OnlineDocumentBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F1E29DC0E9E00128CDC /* OnlineDocumentBubbleModel.swift */; };
+		03786F2229DC0EE900128CDC /* RobotBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F2129DC0EE900128CDC /* RobotBubbleModel.swift */; };
+		03786F2429DC1F9100128CDC /* StickerBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F2329DC1F9100128CDC /* StickerBubbleModel.swift */; };
+		03786F2729DC369600128CDC /* ReferenceBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F2629DC369600128CDC /* ReferenceBubbleModel.swift */; };
+		03786F2A29DC36D500128CDC /* RecallNotificationBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F2929DC36D500128CDC /* RecallNotificationBubbleModel.swift */; };
+		03786F2C29DC36DD00128CDC /* GroupNotificationBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F2B29DC36DD00128CDC /* GroupNotificationBubbleModel.swift */; };
+		03786F2E29DC36E500128CDC /* InfomationNotificationBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F2D29DC36E500128CDC /* InfomationNotificationBubbleModel.swift */; };
+		03786F3029DC36EF00128CDC /* CallMissBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F2F29DC36EF00128CDC /* CallMissBubbleModel.swift */; };
+		03786F3229DC370A00128CDC /* WhatsAppFileBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3129DC370A00128CDC /* WhatsAppFileBubbleModel.swift */; };
+		03786F3429DC371300128CDC /* WhatsAppImageBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3329DC371300128CDC /* WhatsAppImageBubbleModel.swift */; };
+		03786F3629DC371C00128CDC /* WhatsAppSightBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3529DC371C00128CDC /* WhatsAppSightBubbleModel.swift */; };
+		03786F3829DC372500128CDC /* WhatsAppTextBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3729DC372500128CDC /* WhatsAppTextBubbleModel.swift */; };
+		03786F3A29DC374000128CDC /* GroupAnnouncementBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3929DC374000128CDC /* GroupAnnouncementBubbleModel.swift */; };
+		03786F3C29DC378000128CDC /* SecretChatScreenShotBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3B29DC378000128CDC /* SecretChatScreenShotBubbleModel.swift */; };
+		03786F3E29DC37D900128CDC /* PinBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3D29DC37D900128CDC /* PinBubbleModel.swift */; };
+		03786F4029DC380E00128CDC /* UnknownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3F29DC380E00128CDC /* UnknownModel.swift */; };
+		03786F4329DC383800128CDC /* SecretChatDescriptionBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F4229DC383800128CDC /* SecretChatDescriptionBubbleModel.swift */; };
 		330B089A29C446230088F9B0 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B089929C446230088F9B0 /* MessageList.swift */; };
 		330B08A729C46D240088F9B0 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08A629C46D240088F9B0 /* MessageListViewModel.swift */; };
 		330B08AE29C4727D0088F9B0 /* MessageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08AD29C4727D0088F9B0 /* MessageDataSource.swift */; };
@@ -82,6 +105,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03786F0529DC0A1A00128CDC /* FileBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBubbleModel.swift; sourceTree = "<group>"; };
+		03786F0729DC0A3900128CDC /* HQVoiceBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQVoiceBubbleModel.swift; sourceTree = "<group>"; };
+		03786F0A29DC0AE600128CDC /* LocationBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationBubbleModel.swift; sourceTree = "<group>"; };
+		03786F0D29DC0B8C00128CDC /* ContactCardBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCardBubbleModel.swift; sourceTree = "<group>"; };
+		03786F1829DC0E2600128CDC /* PollBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollBubbleModel.swift; sourceTree = "<group>"; };
+		03786F1B29DC0E5300128CDC /* MeetingBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingBubbleModel.swift; sourceTree = "<group>"; };
+		03786F1E29DC0E9E00128CDC /* OnlineDocumentBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineDocumentBubbleModel.swift; sourceTree = "<group>"; };
+		03786F2129DC0EE900128CDC /* RobotBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotBubbleModel.swift; sourceTree = "<group>"; };
+		03786F2329DC1F9100128CDC /* StickerBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerBubbleModel.swift; sourceTree = "<group>"; };
+		03786F2629DC369600128CDC /* ReferenceBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBubbleModel.swift; sourceTree = "<group>"; };
+		03786F2929DC36D500128CDC /* RecallNotificationBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecallNotificationBubbleModel.swift; sourceTree = "<group>"; };
+		03786F2B29DC36DD00128CDC /* GroupNotificationBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNotificationBubbleModel.swift; sourceTree = "<group>"; };
+		03786F2D29DC36E500128CDC /* InfomationNotificationBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationNotificationBubbleModel.swift; sourceTree = "<group>"; };
+		03786F2F29DC36EF00128CDC /* CallMissBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMissBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3129DC370A00128CDC /* WhatsAppFileBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsAppFileBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3329DC371300128CDC /* WhatsAppImageBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsAppImageBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3529DC371C00128CDC /* WhatsAppSightBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsAppSightBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3729DC372500128CDC /* WhatsAppTextBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsAppTextBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3929DC374000128CDC /* GroupAnnouncementBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAnnouncementBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3B29DC378000128CDC /* SecretChatScreenShotBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretChatScreenShotBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3D29DC37D900128CDC /* PinBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinBubbleModel.swift; sourceTree = "<group>"; };
+		03786F3F29DC380E00128CDC /* UnknownModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownModel.swift; sourceTree = "<group>"; };
+		03786F4229DC383800128CDC /* SecretChatDescriptionBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretChatDescriptionBubbleModel.swift; sourceTree = "<group>"; };
 		330B089929C446230088F9B0 /* MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageList.swift; sourceTree = "<group>"; };
 		330B08A629C46D240088F9B0 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		330B08AD29C4727D0088F9B0 /* MessageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataSource.swift; sourceTree = "<group>"; };
@@ -174,6 +220,85 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03786F0929DC0AC400128CDC /* LocationBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F0A29DC0AE600128CDC /* LocationBubbleModel.swift */,
+			);
+			path = LocationBubble;
+			sourceTree = "<group>";
+		};
+		03786F0C29DC0B7800128CDC /* ContactCardBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F0D29DC0B8C00128CDC /* ContactCardBubbleModel.swift */,
+			);
+			path = ContactCardBubble;
+			sourceTree = "<group>";
+		};
+		03786F1729DC0E1A00128CDC /* PollBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F1829DC0E2600128CDC /* PollBubbleModel.swift */,
+			);
+			path = PollBubble;
+			sourceTree = "<group>";
+		};
+		03786F1A29DC0E4600128CDC /* MeetingBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F1B29DC0E5300128CDC /* MeetingBubbleModel.swift */,
+			);
+			path = MeetingBubble;
+			sourceTree = "<group>";
+		};
+		03786F1D29DC0E8C00128CDC /* DocumentBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F1E29DC0E9E00128CDC /* OnlineDocumentBubbleModel.swift */,
+			);
+			path = DocumentBubble;
+			sourceTree = "<group>";
+		};
+		03786F2029DC0ED800128CDC /* RobotBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F2129DC0EE900128CDC /* RobotBubbleModel.swift */,
+			);
+			path = RobotBubble;
+			sourceTree = "<group>";
+		};
+		03786F2529DC368F00128CDC /* ReferenceBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F2629DC369600128CDC /* ReferenceBubbleModel.swift */,
+			);
+			path = ReferenceBubble;
+			sourceTree = "<group>";
+		};
+		03786F2829DC36CD00128CDC /* TipBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F2929DC36D500128CDC /* RecallNotificationBubbleModel.swift */,
+				03786F2B29DC36DD00128CDC /* GroupNotificationBubbleModel.swift */,
+				03786F2D29DC36E500128CDC /* InfomationNotificationBubbleModel.swift */,
+				03786F2F29DC36EF00128CDC /* CallMissBubbleModel.swift */,
+				03786F3929DC374000128CDC /* GroupAnnouncementBubbleModel.swift */,
+				03786F3B29DC378000128CDC /* SecretChatScreenShotBubbleModel.swift */,
+				03786F3D29DC37D900128CDC /* PinBubbleModel.swift */,
+				03786F3F29DC380E00128CDC /* UnknownModel.swift */,
+			);
+			path = TipBubble;
+			sourceTree = "<group>";
+		};
+		03786F4129DC383000128CDC /* CustomBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F4229DC383800128CDC /* SecretChatDescriptionBubbleModel.swift */,
+			);
+			path = CustomBubble;
+			sourceTree = "<group>";
+		};
 		262C35CBB419651D6526F970 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +399,15 @@
 		3378FB8929C83CF700B1293B /* Bubbles */ = {
 			isa = PBXGroup;
 			children = (
+				03786F4129DC383000128CDC /* CustomBubble */,
+				03786F2829DC36CD00128CDC /* TipBubble */,
+				03786F2529DC368F00128CDC /* ReferenceBubble */,
+				03786F2029DC0ED800128CDC /* RobotBubble */,
+				03786F1D29DC0E8C00128CDC /* DocumentBubble */,
+				03786F1A29DC0E4600128CDC /* MeetingBubble */,
+				03786F1729DC0E1A00128CDC /* PollBubble */,
+				03786F0C29DC0B7800128CDC /* ContactCardBubble */,
+				03786F0929DC0AC400128CDC /* LocationBubble */,
 				33CA1B6629D5A06E00D995AA /* MediaBubble */,
 				3378FB8B29C83DAF00B1293B /* TextBubble */,
 				3378FB8A29C83D5300B1293B /* BaseBubble */,
@@ -294,6 +428,7 @@
 		3378FB8B29C83DAF00B1293B /* TextBubble */ = {
 			isa = PBXGroup;
 			children = (
+				03786F3729DC372500128CDC /* WhatsAppTextBubbleModel.swift */,
 				33E473F829CD3078000C7512 /* TextBubbleModel.swift */,
 				33E473FA29CD308A000C7512 /* TextBubbleView.swift */,
 			);
@@ -316,6 +451,12 @@
 				33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */,
 				33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */,
 				33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */,
+				03786F0529DC0A1A00128CDC /* FileBubbleModel.swift */,
+				03786F0729DC0A3900128CDC /* HQVoiceBubbleModel.swift */,
+				03786F2329DC1F9100128CDC /* StickerBubbleModel.swift */,
+				03786F3129DC370A00128CDC /* WhatsAppFileBubbleModel.swift */,
+				03786F3329DC371300128CDC /* WhatsAppImageBubbleModel.swift */,
+				03786F3529DC371C00128CDC /* WhatsAppSightBubbleModel.swift */,
 			);
 			path = MediaBubble;
 			sourceTree = "<group>";
@@ -505,7 +646,7 @@
 				};
 			};
 			buildConfigurationList = 33E6F7C629C2EC26009013D2 /* Build configuration list for PBXProject "String" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -671,29 +812,42 @@
 			buildActionMask = 2147483647;
 			files = (
 				330B08DC29C5AAA10088F9B0 /* MessageSenderCell.swift in Sources */,
+				03786F0829DC0A3900128CDC /* HQVoiceBubbleModel.swift in Sources */,
 				330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */,
 				330B08F329C5AB6D0088F9B0 /* BubbleTimeView.swift in Sources */,
 				33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */,
 				330B08FA29C5AB6D0088F9B0 /* MessageReactionView.swift in Sources */,
+				03786F3A29DC374000128CDC /* GroupAnnouncementBubbleModel.swift in Sources */,
 				33E6F7D329C2EC27009013D2 /* ViewController.swift in Sources */,
 				33E6F7CF29C2EC27009013D2 /* AppDelegate.swift in Sources */,
 				330B08F729C5AB6D0088F9B0 /* UserAvatarView.swift in Sources */,
 				33E6F7D929C2EC27009013D2 /* String.xcdatamodeld in Sources */,
 				330B08F529C5AB6D0088F9B0 /* ExBubbleView.swift in Sources */,
+				03786F2A29DC36D500128CDC /* RecallNotificationBubbleModel.swift in Sources */,
 				330B08F229C5AB6D0088F9B0 /* MessageDateView.swift in Sources */,
 				330B08AE29C4727D0088F9B0 /* MessageDataSource.swift in Sources */,
+				03786F1F29DC0E9E00128CDC /* OnlineDocumentBubbleModel.swift in Sources */,
 				330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */,
+				03786F0B29DC0AE600128CDC /* LocationBubbleModel.swift in Sources */,
+				03786F0629DC0A1A00128CDC /* FileBubbleModel.swift in Sources */,
 				33E6F80629C32B19009013D2 /* MessageListProtocol.swift in Sources */,
 				330B08BA29C4A2480088F9B0 /* MessageProtocol.swift in Sources */,
+				03786F3C29DC378000128CDC /* SecretChatScreenShotBubbleModel.swift in Sources */,
 				330B08C229C5A2680088F9B0 /* RCGenerator.swift in Sources */,
 				330B090229C5F7B20088F9B0 /* Bundle+MessageList.swift in Sources */,
 				330B08FE29C5E7FA0088F9B0 /* UIFont+Bubble.swift in Sources */,
 				330B090629C5F9D70088F9B0 /* UIImage+MessageList.swift in Sources */,
+				03786F2229DC0EE900128CDC /* RobotBubbleModel.swift in Sources */,
 				330B08C029C59A350088F9B0 /* BubbleModelCache.swift in Sources */,
 				330B08BE29C4BBA80088F9B0 /* BubbleModel.swift in Sources */,
+				03786F3829DC372500128CDC /* WhatsAppTextBubbleModel.swift in Sources */,
 				33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */,
 				33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */,
+				03786F4029DC380E00128CDC /* UnknownModel.swift in Sources */,
+				03786F3629DC371C00128CDC /* WhatsAppSightBubbleModel.swift in Sources */,
+				03786F1929DC0E2700128CDC /* PollBubbleModel.swift in Sources */,
 				330B08B129C493BA0088F9B0 /* MessageListCollectionViewLayout.swift in Sources */,
+				03786F3E29DC37D900128CDC /* PinBubbleModel.swift in Sources */,
 				33E6F80329C2F155009013D2 /* MessageListController.swift in Sources */,
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
 				330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */,
@@ -701,12 +855,15 @@
 				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
 				33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */,
 				330B090029C5E8170088F9B0 /* UIColor+Bubble.swift in Sources */,
+				03786F2429DC1F9100128CDC /* StickerBubbleModel.swift in Sources */,
 				330B08F929C5AB6D0088F9B0 /* MessageSentStatusView.swift in Sources */,
 				330B08F029C5AB6D0088F9B0 /* CheckBoxView.swift in Sources */,
 				332BE2CF29D9D37D00E1D7DA /* MessageCellGestureHandler.swift in Sources */,
 				3320930329DACB9600354488 /* MessageListCollectionView.swift in Sources */,
 				330B08D929C5AAA10088F9B0 /* MessageUnknownCell.swift in Sources */,
+				03786F1C29DC0E5300128CDC /* MeetingBubbleModel.swift in Sources */,
 				33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */,
+				03786F3029DC36EF00128CDC /* CallMissBubbleModel.swift in Sources */,
 				330B089A29C446230088F9B0 /* MessageList.swift in Sources */,
 				330B08DA29C5AAA10088F9B0 /* MessageBaseCell.swift in Sources */,
 				330B08F129C5AB6D0088F9B0 /* MessageBaseView.swift in Sources */,
@@ -714,9 +871,16 @@
 				330B08B329C4961E0088F9B0 /* Mesasge.swift in Sources */,
 				330B08B529C4974B0088F9B0 /* BubbleConstant.swift in Sources */,
 				330B08FB29C5AB6D0088F9B0 /* UserNameView.swift in Sources */,
+				03786F3429DC371300128CDC /* WhatsAppImageBubbleModel.swift in Sources */,
 				33E473FD29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift in Sources */,
 				330B08D729C5AAA10088F9B0 /* MessageTipCell.swift in Sources */,
+				03786F2E29DC36E500128CDC /* InfomationNotificationBubbleModel.swift in Sources */,
 				330B08F429C5AB6D0088F9B0 /* BubbleView.swift in Sources */,
+				03786F3229DC370A00128CDC /* WhatsAppFileBubbleModel.swift in Sources */,
+				03786F2C29DC36DD00128CDC /* GroupNotificationBubbleModel.swift in Sources */,
+				03786F2729DC369600128CDC /* ReferenceBubbleModel.swift in Sources */,
+				03786F0E29DC0B8C00128CDC /* ContactCardBubbleModel.swift in Sources */,
+				03786F4329DC383800128CDC /* SecretChatDescriptionBubbleModel.swift in Sources */,
 				330B08F829C5AB6D0088F9B0 /* MessageDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
