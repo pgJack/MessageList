@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
+import RxCocoa
 import BMMagazine
 
 private let kMessageListCacheKey = "kMessageList"
 
 class MessageListController: BMBaseViewController, MessageListControllerProtocol {
+    
+    private let disposeBag = DisposeBag()
     
     private var _messageList: MessageList
     private var _viewModel: MessageListViewModel
@@ -21,10 +26,11 @@ class MessageListController: BMBaseViewController, MessageListControllerProtocol
         return layout
     }()
     private lazy var _collectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: _collectionViewLayout)
+        let view = MessageListCollectionView(frame: .zero, collectionViewLayout: _collectionViewLayout)
         view.backgroundColor = .clear
         view.showsHorizontalScrollIndicator = false
         view.alwaysBounceVertical = true
+        view.viewModel = _viewModel
         return view
     }()
     
@@ -110,6 +116,15 @@ extension MessageListController {
             make.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
+        
+        let button = UIButton(frame: .init(origin: .zero, size: .init(width: 44, height: 44)))
+        button.setTitle("123", for: .normal)
+        button.rx.tap.asDriver().drive(onNext: { [weak self] in
+            guard let `self` = self else { return }
+            self._viewModel.dataSource?.loadMoreOlderMessages()
+        }).disposed(by: disposeBag)
+        let item = UIBarButtonItem(customView: button)
+        navigationItem.setRightBarButton(item, animated: false)
     }
         
 }

@@ -15,7 +15,7 @@ class MessageListViewModel: NSObject {
     /// 消息列表视图控制器
     weak var controller: MessageListControllerProtocol?
     /// 消息列表容器视图
-    var collectionView: UICollectionView? { controller?.collectionView }
+    var collectionView: MessageListCollectionView? { controller?.collectionView as? MessageListCollectionView }
     /// 消息列表容器视图布局
     var collectionViewLayout: MessageListCollectionViewLayout? { collectionView?.collectionViewLayout as? MessageListCollectionViewLayout }
     
@@ -30,14 +30,6 @@ class MessageListViewModel: NSObject {
     /// 消息定位，滚动到锚点位置
     private var _anchorMessage: AnchorMessageProtocol?
     
-    /// 控制器是否加载完成
-    private lazy var _collectionViewHasLoaded = false
-    /// 视图是否正在重新加载
-    private lazy var _collectionViewIsReloading = false
-    
-    /// 强制刷新全部数据源
-    private lazy var _forceResetBubbleFrames = true
-            
     /// 所有气泡视图
     private lazy var _bubbleViewCache = [Int: BubbleView]()
     
@@ -58,11 +50,7 @@ class MessageListViewModel: NSObject {
     
     func onViewWillAppear(_ animated: Bool) { }
     
-    func onViewDidAppear(_ animated: Bool) {
-        if !_collectionViewHasLoaded {
-            _collectionViewHasLoaded = true
-        }
-    }
+    func onViewDidAppear(_ animated: Bool) { }
     
     func onViewWillDisappear(_ animated: Bool) { }
     
@@ -76,119 +64,11 @@ class MessageListViewModel: NSObject {
     
 }
 
-//MARK: Layout Interface
-extension MessageListViewModel {
-    
-    func onCollectionViewPrepareLayout() {
-        _collectionViewIsReloading = false
-        if _forceResetBubbleFrames {
-            _forceResetBubbleFrames = false
-            resetBubbleLayouts()
-        }
-        if let anchorMessage = _anchorMessage {
-            _anchorMessage = nil
-            DispatchQueue.main.async {
-                self.scrollTo(anchor: anchorMessage)
-            }
-        }
-    }
-    
-    private func _reloadCollectionView() {
-        guard let collectionView = collectionView else { return }
-        _collectionViewIsReloading = true
-        collectionView.reloadData()
-    }
-    
-}
-
-//MARK: Layout Method
-private extension MessageListViewModel {
-    
-    func resetBubbleLayouts() {
-        guard let collectionViewLayout = collectionViewLayout else { return }
-        var totalHeight: CGFloat = 0
-        var bubbleFrames = [CGRect]()
-        let x: CGFloat = 0
-        let width = collectionViewLayout.layoutWidth
-        _bubbleModels.forEach { bubble in
-            let y = totalHeight
-            let height = messageCellHeight(for: bubble)
-            totalHeight += height
-            bubbleFrames.append(CGRect(x: x, y: y, width: width, height: height))
-        }
-        collectionViewLayout.layoutHeight = totalHeight
-        collectionViewLayout.bubbleFrames = bubbleFrames
-    }
-    
-    /// 重置气泡布局，并计算出指定气泡的偏移量
-    func insertBubbleLayouts(for bubbles: [BubbleModel], at index: Int, offsetForIndex baseIndex: Int?) -> CGPoint {
-        guard let collectionViewLayout = collectionViewLayout else { return .zero }
-        var existFrames = collectionViewLayout.bubbleFrames
-        guard existFrames.count >= index else { return .zero }
-        var totalHeight: CGFloat = 0
-        if index > 0 {
-            totalHeight = existFrames[index - 1].maxY
-        }
-        let x: CGFloat = 0
-        let width = collectionViewLayout.layoutWidth
-        var frames = [CGRect]()
-        var addedHeight: CGFloat = 0
-        bubbles.forEach { bubble in
-            let y = totalHeight
-            let height = messageCellHeight(for: bubble)
-            totalHeight += height
-            addedHeight += height
-            frames.append(CGRect(x: x, y: y, width: width, height: height))
-        }
-        collectionViewLayout.layoutHeight += addedHeight
-        var baseViewOffset = CGPoint.zero
-        for i in index..<existFrames.count {
-            var frame = existFrames[i]
-            frame.origin.y += addedHeight
-            existFrames[i] = frame
-            if let baseIndex = baseIndex,
-               i == baseIndex {
-                baseViewOffset = CGPoint(x: 0, y: addedHeight)
-            }
-        }
-        existFrames.insert(contentsOf: frames, at: index)
-        collectionViewLayout.bubbleFrames = existFrames
-        return baseViewOffset
-    }
-    
-    func messageCellHeight(for bubble: BubbleModel) -> CGFloat {
-        /// 气泡内容高度
-        var height = bubble.bubbleHeight
-        /// 显示 unreadLine，高度增加
-        if bubble.shownUnreadLine {
-            height += .bubble.unreadLineHeight
-        }
-        /// 显示 date，高度增加
-        if bubble.dateText != nil {
-            height += .bubble.dateViewHeight
-        }
-        return height
-    }
-    
-    func bubbleView<T: BubbleModel>(forModel bubble: T) -> BubbleView? {
-        let messageId = bubble.message.messageId
-        var bubbleView = _bubbleViewCache[messageId]
-        if bubbleView == nil {
-            bubbleView = bubble.bubbleViewType.init(bubble: bubble)
-            bubbleView?.bubbleModel = bubble
-            _bubbleViewCache[messageId] = bubbleView
-        }
-        return bubbleView
-    }
-    
-}
-
 //MARK: DataSource Interface
 extension MessageListViewModel {
     
     func dataSourceDidReset(anchorMessageId: Int? = nil) {
-        _forceResetBubbleFrames = true
-        _reloadCollectionView()
+        collectionView?.reloadData()
         if let anchorMessageId = anchorMessageId {
             scrollToCenter(messageId: anchorMessageId, animated: false)
         }
@@ -197,16 +77,19 @@ extension MessageListViewModel {
     func dataSourceDidInsert(_ bubbles: [BubbleModel], at index: Int) {
         let startIndex = index
         let endIndex = bubbles.count + startIndex
-        let indexPaths = [Int](startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+        let indexPaths = (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
         guard indexPaths.count > 0 else { return }
         guard let collectionView = collectionView else { return }
         guard let collectionViewLayout = collectionViewLayout else { return }
+
         let firstVisiableIndex = collectionView.indexPathsForVisibleItems.sorted(by: { $0.row < $1.row }).first?.row
-        let addedHeight = insertBubbleLayouts(for: bubbles, at: index, offsetForIndex: firstVisiableIndex).y
-        collectionViewLayout.addedHeight = addedHeight
-        UIView.performWithoutAnimation {
-            collectionView.insertItems(at: indexPaths)
-        }
+        let offsetY = collectionViewLayout.insertBubbleLayouts(for: bubbles, at: index, offsetForIndex: firstVisiableIndex)
+        
+        var offset = collectionView.contentOffset
+        collectionView.reloadData()
+        guard offsetY > 0 else { return }
+        offset.y = ceil(offset.y + offsetY)
+        collectionView.contentOffset = offset
     }
         
 }
@@ -215,7 +98,8 @@ extension MessageListViewModel {
 extension MessageListViewModel: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        _bubbleModels.count
+        print("---> section: \(_bubbleModels.count)")
+        return _bubbleModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -254,17 +138,29 @@ extension MessageListViewModel: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard _collectionViewHasLoaded else { return }
         guard let dataSource = dataSource else { return }
         let offsetY = scrollView.contentOffset.y
         let viewHeight = scrollView.frame.height
         let contentHeight = scrollView.contentSize.height
-        let triggerHeight = viewHeight / 2
+        let triggerHeight: CGFloat = viewHeight / 3
         if offsetY <= triggerHeight {
+            /// Offset 小于触发点，加载更多历史
             dataSource.loadMoreOlderMessages()
-        } else if offsetY + viewHeight >= contentHeight - triggerHeight {
+        } else if offsetY + viewHeight + triggerHeight >= contentHeight  {
+            /// Offset + 视图高度 + 触发点，大于内容高度，加载更多最新
             dataSource.loadMoreLaterMessages()
         }
+    }
+    
+    private func bubbleView<T: BubbleModel>(forModel bubble: T) -> BubbleView? {
+        let messageId = bubble.message.messageId
+        var bubbleView = _bubbleViewCache[messageId]
+        if bubbleView == nil {
+            bubbleView = bubble.bubbleViewType.init(bubble: bubble)
+            bubbleView?.bubbleModel = bubble
+            _bubbleViewCache[messageId] = bubbleView
+        }
+        return bubbleView
     }
     
 }
@@ -282,11 +178,6 @@ extension MessageListViewModel {
     }
     
     private func scrollTo(anchor: AnchorMessageProtocol, animated: Bool = false) {
-        // reload 未结束时，不进行滚动操作
-        guard !_collectionViewIsReloading else {
-            _anchorMessage = anchor
-            return
-        }
         let messageId = anchor.anchorMessageId
         guard messageId > 0 else { return }
         guard let bubbleIndex = dataSource?.bubbleModels.enumerated().first(where: { $0.element.message.messageId == messageId })?.offset else { return }
@@ -301,9 +192,9 @@ extension MessageListViewModel {
     }
     
     private func _scrollTo(Index: Int, animated: Bool = false) {
-        guard let bubbleFrames = collectionViewLayout?.bubbleFrames else { return }
-        guard bubbleFrames.count > Index else { return }
-        let targetFrame = bubbleFrames[Index]
+        guard let bubbleLayouts = collectionViewLayout?.bubbleLayouts else { return }
+        guard bubbleLayouts.count > Index else { return }
+        let targetFrame = bubbleLayouts[Index].frame
         let targetY = targetFrame.midY
         _scrollTo(contentY: targetY, animated: animated)
     }

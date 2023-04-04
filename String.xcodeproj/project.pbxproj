@@ -40,6 +40,7 @@
 		330B090629C5F9D70088F9B0 /* UIImage+MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090529C5F9D70088F9B0 /* UIImage+MessageList.swift */; };
 		330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */; };
 		330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */; };
+		3320930329DACB9600354488 /* MessageListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3320930229DACB9600354488 /* MessageListCollectionView.swift */; };
 		332BE2CF29D9D37D00E1D7DA /* MessageCellGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332BE2CE29D9D37D00E1D7DA /* MessageCellGestureHandler.swift */; };
 		33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */; };
 		33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */; };
@@ -114,6 +115,7 @@
 		330B090529C5F9D70088F9B0 /* UIImage+MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+MessageList.swift"; sourceTree = "<group>"; };
 		330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUnreadLineView.swift; sourceTree = "<group>"; };
 		330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellRegister.swift; sourceTree = "<group>"; };
+		3320930229DACB9600354488 /* MessageListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCollectionView.swift; sourceTree = "<group>"; };
 		332BE2CE29D9D37D00E1D7DA /* MessageCellGestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellGestureHandler.swift; sourceTree = "<group>"; };
 		33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBubbleModel.swift; sourceTree = "<group>"; };
 		33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBubbleModel.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				33E6F80229C2F155009013D2 /* MessageListController.swift */,
+				3320930229DACB9600354488 /* MessageListCollectionView.swift */,
 				330B08B029C493BA0088F9B0 /* MessageListCollectionViewLayout.swift */,
 				332BE2CD29D9D32F00E1D7DA /* ActionHandler */,
 				330B08A529C46D120088F9B0 /* ViewModel */,
@@ -701,6 +704,7 @@
 				330B08F929C5AB6D0088F9B0 /* MessageSentStatusView.swift in Sources */,
 				330B08F029C5AB6D0088F9B0 /* CheckBoxView.swift in Sources */,
 				332BE2CF29D9D37D00E1D7DA /* MessageCellGestureHandler.swift in Sources */,
+				3320930329DACB9600354488 /* MessageListCollectionView.swift in Sources */,
 				330B08D929C5AAA10088F9B0 /* MessageUnknownCell.swift in Sources */,
 				33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */,
 				330B089A29C446230088F9B0 /* MessageList.swift in Sources */,
