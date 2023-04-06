@@ -7,11 +7,26 @@
 
 import Foundation
 import RongIMLib
+import BMIMLib
+import RongLocation
 
 private let kQuantumCount: Int32 = 20
 
 private let kBubbleModelClassTable: [String: BubbleModel.Type] = [
-    RCTextMessage.getObjectName(): TextBubbleModel.self
+    // SDK Messages
+    RCTextMessage.getObjectName(): TextBubbleModel.self,
+    RCReferenceMessage.getObjectName(): ReferenceBubbleModel.self,
+    RCGIFMessage.getObjectName(): GifBubbleModel.self,
+    RCImageMessage.getObjectName(): ImageBubbleModel.self,
+    RCSightMessage.getObjectName(): VideoBubbleModel.self,
+    RCFileMessage.getObjectName(): FileBubbleModel.self,
+    RCHQVoiceMessage.getObjectName(): HQVoiceBubbleModel.self,
+    RCLocationMessage.getObjectName(): LocationBubbleModel.self,
+    RCContactCardMessage.getObjectName(): ContactCardBubbleModel.self,
+    RCRecallNotificationMessage.getObjectName(): RecallNotificationBubbleModel.self,
+    RCGroupNotificationMessage.getObjectName(): GroupNotificationBubbleModel.self,
+    RCInformationNotificationMessage.getObjectName(): InfomationNotificationBubbleModel.self
+    // App Messages
 ]
 
 class MessageDataSource {
