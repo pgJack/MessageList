@@ -10,7 +10,10 @@ import UIKit
 class MessageListViewModel: NSObject {
     
     /// 消息列表模型
-    var messageList: MessageListProtocol?
+    var messageList: MessageListProtocol
+    
+    // 是否当前会话为只读，不可发送消息
+    var readonly = false
     
     /// 消息列表视图控制器
     weak var controller: MessageListControllerProtocol?
@@ -21,10 +24,7 @@ class MessageListViewModel: NSObject {
     
     /// 消息数据源接口
     lazy var dataSource: MessageDataSource? = MessageDataSource(viewModel: self, messageList: messageList)
-    
-    /// 消息气泡事件处理
-    lazy var actionHander = MessageCellGestureHandler(viewModel: self)
-    
+   
     /// 消息数据源
     private var _bubbleModels: [BubbleModel] { dataSource?.bubbleModels ?? [] }
     /// 消息定位，滚动到锚点位置
@@ -119,7 +119,6 @@ extension MessageListViewModel: UICollectionViewDelegate {
             
             guard let cell = cell as? MessageBaseCell else { return }
             cell.updateSubviewsOnReuse(bubbleModel)
-            cell.actionDelegate = actionHander
             
             guard let cell = cell as? MessageUserCell else { return }
             cell.addBubbleView(bubbleView(forModel: bubbleModel))

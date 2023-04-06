@@ -22,8 +22,21 @@ class BubbleView: UIView {
         super.init(frame: .zero)
     }
     
-    func setupBubbleSubviews() {
-        
-    }
+    func setupBubbleSubviews() { }
+    
+    /// 响应气泡点击事件
+    /// - Parameter gesture: 事件手势
+    /// - Returns: 是否已响应事件，并终止事件传递
+    func onTapBubble(_ gesture: UITapGestureRecognizer) -> Bool { return false }
+    
+    /// 响应气泡长摁事件
+    /// - Parameter gesture: 事件手势
+    /// - Returns: 是否已响应事件，并终止事件传递
+    func onLongPressBubble(_ gesture: UILongPressGestureRecognizer) -> Bool { return false }
+    
+    /// 响应气泡拖动事件
+    /// - Parameter gesture: 事件手势
+    /// - Returns: 是否已响应事件，并终止事件传递
+    func onPanBubble(_ gesture: UIPanGestureRecognizer) -> Bool { return false }
     
 }

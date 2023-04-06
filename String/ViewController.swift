@@ -7,7 +7,7 @@
 
 import UIKit
 import BMMagazine
-import RongIMLib
+import BMIMLib
 
 class ViewController: UITableViewController {
     
@@ -138,7 +138,7 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let covnersation = conversations[indexPath.row]
-        let user = UserInfo(userId: userId, userName: "A")
+        let user = UserInfo(userId: userId)
         guard let messageListController = MessageListController(currentUserInfo: user, rcConversation: covnersation, listType: .chat, anchorMessage: nil) else {
             return
         }

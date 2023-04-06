@@ -95,7 +95,7 @@ extension MessageDataSource {
 //MARK: Public Method
 extension MessageDataSource {
     
-    func initializeDataSource(anchorMessageId: Int?) {
+    func initializeDataSource(anchorMessageId: Int? = nil) {
         if let anchorMessageId = anchorMessageId, anchorMessageId > 0 {
             anchor(atMessageId: anchorMessageId)
         } else {
@@ -259,6 +259,16 @@ private extension MessageDataSource {
             return
         }
         bubble.dateText = date.beautyTime()
+    }
+    
+    func _updateActionSign(_ bubble: BubbleModel) {
+        guard let viewModel = _viewModel else { return }
+        let messageList = viewModel.messageList
+        
+        if messageList.listType != .chat
+            || viewModel.readonly {
+            bubble.canPanReference = false
+        }
     }
     
 }

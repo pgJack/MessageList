@@ -71,7 +71,7 @@ struct BubbleFloatConstant {
     static let bubbleTimeBackgroundHeight: CGFloat = 16
     static let bubbleTimeBackgroundRadius: CGFloat = 4
     
-    static let forwardTipLeading: CGFloat = -40
+    static let referenceTipLeading: CGFloat = -40
 }
 
 struct BubbleSizeConstant {
@@ -94,7 +94,7 @@ struct BubbleSizeConstant {
 
     static let centerMediaLoadingSize: CGSize = CGSize(width: 40, height: 40)
     
-    static let forwardTipSize: CGSize = CGSize(width: 32, height: 32)
+    static let referenceTipSize: CGSize = CGSize(width: 32, height: 32)
 
 }
 

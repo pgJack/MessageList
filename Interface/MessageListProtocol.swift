@@ -12,7 +12,7 @@ import UIKit
 }
 
 @objc public enum MessageListType: Int, Codable {
-    case chat, pin, star, search
+    case chat, pin, star, search, detail
 }
 
 public protocol ConversationProtocol {
@@ -39,13 +39,15 @@ public protocol MessageListProtocol {
 public protocol MessageListControllerProtocol: NSObjectProtocol {
     var controller: UIViewController { get }
     var collectionView: UICollectionView { get }
-    var messageList: MessageListProtocol { get }
+    
+    // 是否当前会话为只读，不可发送消息
+    var readonly: Bool { get set }
     init?(currentUserInfo: UserInfoProtocol, rcConversation: RCConversationDescriptionProtocol, listType: MessageListType, anchorMessage: AnchorMessageProtocol?)
 }
 
 public protocol UserInfoProtocol {
     var userId: String { get }
-    var userName: String { get }
+    var userName: String? { get }
     var userAvatar: String? { get }
     var userPlaceholderAvatar: String? { get }
 }

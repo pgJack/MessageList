@@ -14,10 +14,9 @@ import BMMagazine
 private let kMessageListCacheKey = "kMessageList"
 
 class MessageListController: BMBaseViewController, MessageListControllerProtocol {
-    
+        
     private let disposeBag = DisposeBag()
     
-    private var _messageList: MessageList
     private var _viewModel: MessageListViewModel
     
     private lazy var _collectionViewLayout = {
@@ -36,12 +35,14 @@ class MessageListController: BMBaseViewController, MessageListControllerProtocol
     
     var controller: UIViewController { self }
     var collectionView: UICollectionView { _collectionView }
-    var messageList: MessageListProtocol { _messageList }
+    var readonly: Bool {
+        get { _viewModel.readonly }
+        set { _viewModel.readonly = newValue }
+    }
     
     required init?(currentUserInfo: UserInfoProtocol, rcConversation: RCConversationDescriptionProtocol, listType: MessageListType, anchorMessage: AnchorMessageProtocol?) {
         guard let conversation = Conversation(rcConversation) else { return nil }
         let messageList = MessageList(currentUserInfo: currentUserInfo, conversation: conversation, listType: listType)
-        _messageList = messageList
         _viewModel = MessageListViewModel(messageList: messageList, anchorMessage: anchorMessage)
         super.init(nibName: nil, bundle: nil)
         _viewModel.controller = self
@@ -50,15 +51,9 @@ class MessageListController: BMBaseViewController, MessageListControllerProtocol
     required init?(coder: NSCoder) {
         guard let cacheData = coder.decodeObject(forKey: kMessageListCacheKey) as? Data else { return nil }
         guard let cacheList = try? JSONDecoder().decode(MessageList.self, from: cacheData) else { return nil }
-        _messageList = cacheList
         _viewModel = MessageListViewModel(messageList: cacheList, anchorMessage: nil)
         super.init(coder: coder)
         _viewModel.controller = self
-    }
-    
-    override func encode(with coder: NSCoder) {
-        guard let cacheData = try? JSONEncoder().encode(_messageList) else { return }
-        coder.encode(cacheData, forKey: kMessageListCacheKey)
     }
     
     private let startDate = Date()

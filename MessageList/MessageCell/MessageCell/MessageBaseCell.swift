@@ -7,28 +7,11 @@
 
 import UIKit
 
-protocol MessageCellActionDelegate: UIGestureRecognizerDelegate {
-    func onTapMessageCell<T: MessageBaseCell>(_ messageCell: T, gesture: UITapGestureRecognizer)
-    func onLongPressMessageCell<T: MessageBaseCell>(_ messageCell: T, gesture: UILongPressGestureRecognizer)
-    func onPanMessageCell<T: MessageBaseCell>(_ messageCell: T, gesture: UIPanGestureRecognizer)
-}
-
-extension MessageCellActionDelegate {
-    func onTapMessageCell<T: MessageBaseCell>(_ messageCell: T, gesture: UITapGestureRecognizer) { }
-    func onLongPressMessageCell<T: MessageBaseCell>(_ messageCell: T, gesture:  UILongPressGestureRecognizer) { }
-    func onPanMessageCell<T: MessageBaseCell>(_ messageCell: T, gesture: UIPanGestureRecognizer) { }
-}
+private let kPanSafeSpace: CGFloat = 60
 
 class MessageBaseCell: UICollectionViewCell {
     
     var bubbleModel: BubbleModel?
-    weak var actionDelegate: MessageCellActionDelegate? {
-        didSet {
-            _tapGesture.delegate = actionDelegate
-            _longPressGesture.delegate = actionDelegate
-            _panGesutre.delegate = actionDelegate
-        }
-    }
     
     lazy var baseView: MessageBaseView = {
         let view = MessageBaseView()
@@ -57,6 +40,7 @@ class MessageBaseCell: UICollectionViewCell {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(onPanMessageCell))
         pan.minimumNumberOfTouches = 1
         pan.maximumNumberOfTouches = 1
+        pan.delegate = self
         return pan
     }()
     
@@ -78,6 +62,37 @@ class MessageBaseCell: UICollectionViewCell {
     
 }
 
+//MARK: Gesture Delegate
+extension MessageBaseCell: UIGestureRecognizerDelegate {
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        switch gestureRecognizer {
+        case let gestureRecognizer as UIPanGestureRecognizer where gestureRecognizer == _panGesutre:
+            return _isVaildPanAction(gestureRecognizer)
+        default:
+            return true
+        }
+    }
+    
+    func _isVaildPanAction(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
+        guard let view = gestureRecognizer.view else { return true }
+
+        // 靠近边缘不处理，以免影响右滑返回
+        let isRTL = view.semanticContentAttribute == .forceRightToLeft
+        let viewWidth = view.frame.width
+        let location = gestureRecognizer.location(in: view)
+        let inSafeEdge = isRTL ? (location.x < viewWidth - kPanSafeSpace) : location.x > kPanSafeSpace
+        guard inSafeEdge else { return false }
+        
+        // 垂直拖动不处理
+        let velocity = gestureRecognizer.velocity(in: view)
+        guard abs(velocity.x) > abs(velocity.y) else { return false }
+        
+        return true
+    }
+    
+}
+
 //MARK: Gesture
 @objc extension MessageBaseCell {
     
@@ -87,19 +102,10 @@ class MessageBaseCell: UICollectionViewCell {
         addGestureRecognizer(_panGesutre)
     }
     
-    func onTapMessageCell(_ gesture: UITapGestureRecognizer) {
-        guard let actionDelegate = actionDelegate else { return }
-        actionDelegate.onTapMessageCell(self, gesture: gesture)
-    }
+    func onTapMessageCell(_ gesture: UITapGestureRecognizer) { }
     
-    func onLongPressMessageCell(_ gesture: UILongPressGestureRecognizer) {
-        guard let actionDelegate = actionDelegate else { return }
-        actionDelegate.onLongPressMessageCell(self, gesture: gesture)
-    }
+    func onLongPressMessageCell(_ gesture: UILongPressGestureRecognizer) { }
     
-    func onPanMessageCell(_ gesture: UIPanGestureRecognizer) {
-        guard let actionDelegate = actionDelegate else { return }
-        actionDelegate.onPanMessageCell(self, gesture: gesture)
-    }
+    func onPanMessageCell(_ gesture: UIPanGestureRecognizer) { }
     
 }

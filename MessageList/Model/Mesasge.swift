@@ -31,6 +31,7 @@ struct Message: MessageProtocol, Codable {
     /// 撤回后，消息类型会改变
     var messageType: MessageType
 
+    var isSent: Bool { messageUId != nil }
     var sentTime: Int64
     var sentStatus: MessageSentStatus
     var deliveredProgress: CGFloat

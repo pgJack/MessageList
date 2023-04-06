@@ -86,15 +86,12 @@ struct MessageList: MessageListProtocol, Codable {
 
 struct UserInfo: UserInfoProtocol, Codable {
     var userId: String
-    var userName: String
+    var userName: String?
     var userAvatar: String?
     var userPlaceholderAvatar: String?
     
-    init(userId: String, userName: String) {
+    init(userId: String) {
         self.userId = userId
-        self.userName = userName
-        userAvatar = nil
-        userPlaceholderAvatar = nil
     }
     
     init(_ userInfo: UserInfoProtocol) {
