@@ -34,4 +34,18 @@ struct BubbleImage {
     var sentStatusFail: UIImage? {
         UIImage(named: "message_status_error")
     }
+    
+    /// Location
+    var defaultThumbnailImage: UIImage? {
+        UIImage(named: "map_location_default")
+    }
+    
+    /// ContactCard
+    var defaultPortrait: UIImage? {
+        UIImage(named: "default_portrait_msg")
+    }
+    var arrowImage: UIImage? {
+        UIImage(named: "contact_card_arrow")
+    }
+    
 }

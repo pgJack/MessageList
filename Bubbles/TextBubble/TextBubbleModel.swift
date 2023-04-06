@@ -51,8 +51,8 @@ class TextBubbleModel: BubbleModel {
         guard let textRect = attributedText?.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil) else {
             return
         }
-        let width = bubbleContentSize.width + textRect.size.width + TextBubbleModel.textEdge.left + TextBubbleModel.textEdge.right
-        let height = bubbleContentSize.height + textRect.size.height + TextBubbleModel.textEdge.top + TextBubbleModel.textEdge.bottom
+        let width = textRect.size.width + TextBubbleModel.textEdge.left + TextBubbleModel.textEdge.right
+        let height = textRect.size.height + TextBubbleModel.textEdge.top + TextBubbleModel.textEdge.bottom
         bubbleContentSize = CGSize(width: ceil(width), height: ceil(height))
     }
     

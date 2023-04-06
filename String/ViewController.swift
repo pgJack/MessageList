@@ -15,6 +15,69 @@ class ViewController: UITableViewController {
     private let deviceId = "ZTZiZmZhNzA0NTI2M2E2OA"
     private let token = "nsv+6LuaJjSIYNWYB8XZWmXWELHE4o6TLluyIqe6Cm0Kt6c+2mU6b+OblMfx7MXYeSlOaDIJBhFDXlO9tjsPmcLxc8doIJiMnmyVy73jEheB5ASv1c8E/AosIYyUIAwl"
     
+    let registMessageClass = [
+        RCContactCardMessage.self,
+        
+        BMIMSEncryptCancelMessage.self,
+        BMIMSEncryptConfirmMessage.self,
+        BMIMSEncryptedMessage.self,
+        BMIMSEncryptRequestMessage.self,
+        BMIMSEncryptResponseMessage.self,
+        BMIMSEncryptTerminateMessage.self,
+        BMIMSSecretChatDescriptionMessage.self,
+        BMIMSSecretChatScreenShotMessage.self,
+        
+        BMUserKickNotificationMessage.self,
+        BMContactUploadMessage.self,
+        BMStarFavoriteNotificationMessage.self,
+        RCOldMessageNotificationMessage.self,
+        UMBGroupNotificationMessage.self,
+        UMBGroupAnnouncementNotificationMessage.self,
+        UMBLGroupUpdateNotificationMessage.self,
+        UMBLNewContactMessage.self,
+        UMBLOrganizationNotificationMessage.self,
+        UMBLThumUpNotificationMessage.self,
+        UMBPCOnlineNotificationMessage.self,
+        
+        UMBLLastSeenChangeNotificationMessage.self,
+        UMBLOnlineStatusNotificationMessage.self,
+        BMSystemUserNotificationMessage.self,
+
+        UMBPollMessage.self,
+
+        UMBLCalendarRobotMessage.self,
+        UMBLJoinOrgApproveNotificationMessage.self,
+        UMBLRequestJoinOrgNotificationMessage.self,
+        UMBLMeetingRobotMessage.self,
+
+        UMBStickerMessage.self,
+        
+        UMBWhatsAppFileMessage.self,
+        UMBWhatsAppImageMessage.self,
+        UMBWhatsAppSightMessage.self,
+        UMBWhatsAppTextMessage.self,
+        
+
+        // robot message
+        BMIMCommonRobotMessage.self,
+        BMIMCommonRobotMessageV2.self,
+        BMIMCommonRobotExtendMessage.self,
+        BMOnlineDocumentMessage.self,
+
+        // orgMsg
+        BMIMPersonalExternalNotificationMessage.self,
+        BMIMLeaveOrgMessage.self,
+        
+        // pinned notification message
+        BMIMPInnedNotificationMessage.self,
+        RCLogCommandMessage.self,
+
+        // missed call
+        BMIMCallMissMessage.self,
+        
+        BMSaveToDriveMessage.self
+    ]
+    
     // iPhone 12
 //    private let userId = "ag9zx42_kEk8gSbgvnxnbE"
 //    private let deviceId = "ZmJiMmY2ZWYzYWZiNTA2OQ"
@@ -99,6 +162,11 @@ extension ViewController: RCConnectionStatusChangeDelegate, RCIMClientReceiveMes
         RCCoreClient.shared().voiceMsgType = .highQuality
         RCCoreClient.shared().setRCConnectionStatusChangeDelegate(self)
         RCCoreClient.shared().setReceiveMessageDelegate(self, object: nil)
+        
+        registMessageClass.forEach { messageClass in
+            RCCoreClient.shared().registerMessageType(messageClass)
+        }
+        
         RCCoreClient.shared().connect(withToken: token, dbOpened: { [weak self] _ in
             guard let `self` = self else { return }
             self.onOpenDatabae()

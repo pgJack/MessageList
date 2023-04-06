@@ -15,26 +15,29 @@ public struct MessageMentionedInfo: Codable {
 }
 
 public struct MessageExtraInfo: MessageExtraDecodeProtocol {
-    let translateStatus: Int
-    let translateResultString: String
+    let translateStatus: Int?
+    let translateResultString: String?
 }
 
 public struct MessageContentExtraInfo: MessageExtraDecodeProtocol {
     
     // 消息会话名称，发送端设置
-    let name: String
+    let name: String?
     
     // "forward" 代表为转发消息
-    let action: String
+    let action: String?
     
     // 是否显示转发标记
-    let forward: Bool
+    let forward: Bool?
     
     // {"id":"name"}
-    let mentionInfo: [String: String]
+    let mentionInfo: [String: String]?
     
     // 被引用消息 messageUId
-    let referenceMessageId: String
+    let referenceMessageId: String?
+    
+    // 谷歌地图定位后的详细街道
+    let locationName: String?
 }
 
 let kEndMeetingKey = "meetingEnd"
@@ -43,13 +46,13 @@ let kEndMeetingKey = "meetingEnd"
 public struct MessageExpansionThumbUpAction: MessageExtraDecodeProtocol {
     // 消息点赞
     var userId: String?
-    let e: String
-    let ts: Int
+    let e: String?
+    let ts: Int?
 }
 public struct MessageExpansionPollAction: MessageExtraDecodeProtocol {
     // 投票结果
     var userId: String?
-    let p: [Int]
+    let p: [Int]?
 }
 
 public protocol MessageExtraDecodeProtocol: Codable {
