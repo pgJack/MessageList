@@ -38,6 +38,9 @@ public struct MessageContentExtraInfo: MessageExtraDecodeProtocol {
     
     // 谷歌地图定位后的详细街道
     let locationName: String?
+    
+    // 发送名片消息时，名片消息的oid
+    let profileOid: String?
 }
 
 let kEndMeetingKey = "meetingEnd"

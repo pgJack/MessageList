@@ -13,7 +13,7 @@ class LocationBubbleView: BubbleView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.image = .bubble.defaultThumbnailImage
+        imageView.image = .bubble.defaultLocationThumbnail
         return imageView
     }()
 

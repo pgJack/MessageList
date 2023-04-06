@@ -59,7 +59,9 @@ class ContactCardBubbleView: BubbleView {
                 nameLabel.text = nil
                 return
             }
-//            portraitImageView.image
+            if let portraitUrl = cardBubble.portraitUrl, let url = URL(string: portraitUrl) {
+                portraitImageView.sd_setImage(with: url, placeholderImage: .bubble.defaultPortrait)
+            }
             nameLabel.text = cardBubble.cardName
         }
     }

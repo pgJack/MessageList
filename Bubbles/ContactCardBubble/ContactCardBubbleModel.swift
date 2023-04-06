@@ -40,7 +40,7 @@ class ContactCardBubbleModel: BubbleModel {
         }
         cardName = contactCardContent.name
         portraitUrl = contactCardContent.portraitUri
-        orgId = message.channelId
+        orgId = message.contentExtra?.profileOid
 
         bubbleContentSize = CGSize(width: ceil(CGFloat.bubble.maxWidth), height: ceil(ContactCardBubbleModel.cellHeight))
     }

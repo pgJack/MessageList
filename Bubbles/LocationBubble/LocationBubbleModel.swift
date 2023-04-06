@@ -19,7 +19,7 @@ class LocationBubbleModel: BubbleModel {
     }
 
     static let nameEdge = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
-    static let addressEdge = UIEdgeInsets(top: 4, left: 12, bottom: 0, right: 12)
+    static let addressEdge = UIEdgeInsets(top: 4, left: 12, bottom: 21, right: 12)
     static let bubbleWidth: CGFloat = 326
     static let thumbnailHeight: CGFloat = 326 / 2
     static let textMaxWidth = bubbleWidth - addressEdge.left - addressEdge.right

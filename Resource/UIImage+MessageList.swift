@@ -36,7 +36,7 @@ struct BubbleImage {
     }
     
     /// Location
-    var defaultThumbnailImage: UIImage? {
+    var defaultLocationThumbnail: UIImage? {
         UIImage(named: "map_location_default")
     }
     
