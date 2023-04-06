@@ -103,8 +103,11 @@ extension MessageListViewModel: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let bubbleContent = _bubbleModels[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bubbleContent.cellType, for: indexPath)
+        var cellId = MessageCellRegister.unknown
+        if let bubbleInfo = _bubbleModels[indexPath.item] as? BubbleInfoProtocol {
+            cellId = bubbleInfo.cellType
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         return cell
     }
     
@@ -155,7 +158,8 @@ extension MessageListViewModel: UICollectionViewDelegate {
         let messageId = bubble.message.messageId
         var bubbleView = _bubbleViewCache[messageId]
         if bubbleView == nil {
-            bubbleView = bubble.bubbleViewType.init(bubble: bubble)
+            guard let bubbleInfo = bubble as? BubbleInfoProtocol else { return BubbleView.init(bubble: bubble) }
+            bubbleView = bubbleInfo.bubbleViewType.init(bubble: bubble)
             bubbleView?.bubbleModel = bubble
             _bubbleViewCache[messageId] = bubbleView
         }

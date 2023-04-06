@@ -261,13 +261,13 @@ private extension MessageDataSource {
         bubble.dateText = date.beautyTime()
     }
     
-    func _updateActionSign(_ bubble: BubbleModel) {
+    func _updateActionSign( _ bubble: BubbleModel) {
         guard let viewModel = _viewModel else { return }
+        guard var bubbleInfo = bubble as? BubbleInfoProtocol else { return }
         let messageList = viewModel.messageList
-        
         if messageList.listType != .chat
             || viewModel.readonly {
-            bubble.canPanReference = false
+            bubbleInfo.canPanReference = false
         }
     }
     

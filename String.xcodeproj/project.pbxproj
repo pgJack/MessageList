@@ -66,7 +66,7 @@
 		330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */; };
 		330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */; };
 		3320930329DACB9600354488 /* MessageListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3320930229DACB9600354488 /* MessageListCollectionView.swift */; };
-		3324FE5F29DEC33F004D9C6D /* BubbleConstructorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324FE5E29DEC33F004D9C6D /* BubbleConstructorProtocol.swift */; };
+		3324FE5F29DEC33F004D9C6D /* BubbleInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */; };
 		33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */; };
 		33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */; };
 		33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */; };
@@ -166,7 +166,7 @@
 		330B090829C60CB10088F9B0 /* MessageUnreadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUnreadLineView.swift; sourceTree = "<group>"; };
 		330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellRegister.swift; sourceTree = "<group>"; };
 		3320930229DACB9600354488 /* MessageListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCollectionView.swift; sourceTree = "<group>"; };
-		3324FE5E29DEC33F004D9C6D /* BubbleConstructorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleConstructorProtocol.swift; sourceTree = "<group>"; };
+		3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleInfoProtocol.swift; sourceTree = "<group>"; };
 		33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBubbleModel.swift; sourceTree = "<group>"; };
 		33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBubbleModel.swift; sourceTree = "<group>"; };
 		33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifBubbleModel.swift; sourceTree = "<group>"; };
@@ -406,7 +406,6 @@
 				03786F1729DC0E1A00128CDC /* PollBubble */,
 				03786F0C29DC0B7800128CDC /* ContactCardBubble */,
 				03786F0929DC0AC400128CDC /* LocationBubble */,
-				3324FE5E29DEC33F004D9C6D /* BubbleConstructorProtocol.swift */,
 				33CA1B6629D5A06E00D995AA /* MediaBubble */,
 				3378FB8B29C83DAF00B1293B /* TextBubble */,
 				3378FB8A29C83D5300B1293B /* BaseBubble */,
@@ -417,6 +416,7 @@
 		3378FB8A29C83D5300B1293B /* BaseBubble */ = {
 			isa = PBXGroup;
 			children = (
+				3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */,
 				330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */,
 				330B08E429C5AB6D0088F9B0 /* BubbleTimeView.swift */,
 				330B08E529C5AB6D0088F9B0 /* BubbleView.swift */,
@@ -854,7 +854,7 @@
 				33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */,
 				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
 				33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */,
-				3324FE5F29DEC33F004D9C6D /* BubbleConstructorProtocol.swift in Sources */,
+				3324FE5F29DEC33F004D9C6D /* BubbleInfoProtocol.swift in Sources */,
 				330B090029C5E8170088F9B0 /* UIColor+Bubble.swift in Sources */,
 				03786F2429DC1F9100128CDC /* StickerBubbleModel.swift in Sources */,
 				330B08F929C5AB6D0088F9B0 /* MessageSentStatusView.swift in Sources */,

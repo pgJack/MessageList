@@ -35,27 +35,12 @@ class BubbleModel: Codable {
     /// 扩展气泡视图
     var shownExBubble = false
     
-    //MARK: Action Control
-    /// 是否允许响应点击头像
-    var canTapAvatar = true
-    
-    /// 是否允许长摁头像 @ 用户
-    lazy var canLongPressAvatarMention = message.conversationType == .group
-    
-    /// 是否允许右滑引用
-    lazy var canPanReference = message.conversationType != .person_encrypted
-    
     //MARK: Override Method
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         guard rcMessages.count > 0 else { return nil }
         self.currentUserId = currentUserId
         messages = rcMessages.compactMap(Message.init)
     }
-    
-    /// 对应 Cell 类型
-    var cellType: String { MessageCellRegister.placeholder }
-    /// 对应气泡类型
-    var bubbleViewType: BubbleView.Type { BubbleView.self }
     
 }
 

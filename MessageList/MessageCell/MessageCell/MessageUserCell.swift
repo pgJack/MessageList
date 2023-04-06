@@ -10,6 +10,7 @@ import UIKit
 class MessageUserCell: MessageBaseCell {
     
     var bubbleView: BubbleView?
+    var bubbleInfo: BubbleInfoProtocol? { bubbleModel as? BubbleInfoProtocol }
     
     lazy var referenceTipView: UIView = {
         let view = UIView()
@@ -104,14 +105,14 @@ extension MessageUserCell {
 private extension MessageUserCell {
     
     func _avatarTapAction(_ gesture: UITapGestureRecognizer) {
-        guard let isValid = bubbleModel?.canTapAvatar, isValid else { return }
+        guard let isValid = bubbleInfo?.canTapAvatar, isValid else { return }
         guard let userInfo = _userInfoForAvatarAction(gesture) else { return }
         let name = userInfo.userName ?? "-"
         UIView.toastText("Tap: \(name)")
     }
     
     func _avatarMentionAction(_ gesture: UILongPressGestureRecognizer) {
-        guard let isValid = bubbleModel?.canLongPressAvatarMention, isValid else { return }
+        guard let isValid = bubbleInfo?.canLongPressAvatarMention, isValid else { return }
         guard let userInfo = _userInfoForAvatarAction(gesture) else { return }
         let name = userInfo.userName ?? "-"
         UIView.toastText("Press: \(name)")
@@ -137,7 +138,7 @@ private extension MessageUserCell {
 private extension MessageUserCell {
  
     func _startReferenceAction(_ gesture: UIPanGestureRecognizer) {
-        guard let isValid = bubbleModel?.canPanReference, isValid else { return }
+        guard let isValid = bubbleInfo?.canPanReference, isValid else { return }
         let translation = gesture.translation(in: self)
         guard let moveView = detailView else { return }
         let tipView = referenceTipView
@@ -162,7 +163,7 @@ private extension MessageUserCell {
     }
     
     func _endReferenceAction(_ gesture: UIPanGestureRecognizer) {
-        guard let isValid = bubbleModel?.canPanReference, isValid else { return }
+        guard let isValid = bubbleInfo?.canPanReference, isValid else { return }
         let tipView = referenceTipView
         guard tipView.alpha != 0 else { return }
         guard let moveView = detailView else { return }

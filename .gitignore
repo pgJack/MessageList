@@ -1,7 +1,43 @@
-Pods
-Podfile.lock
-Build
+# macOS
+.DS_Store
+
+# Xcode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+profile
+*.moved-aside
 DerivedData
-framework
-String.xcodeproj/xcuserdata
-String.xcworkspace/xcuserdata
+*.hmap
+*.ipa
+
+# Pod
+Pods/
+#Podfile.lock
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddat
+!*/xcuserdata/admin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlista/
+!*.xcworkspace/contents.xcworkspacedata
+/*.gcno
+*.xcscmblueprint
+*.xcuserstate
+
+# Bundler
+.bundle
+
+
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
+
+Carthage/Build

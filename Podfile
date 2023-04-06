@@ -4,10 +4,15 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'String' do
   platform :ios, '11.0'
-  pod 'BMProtocols', :path => '../../Beem/ios-beemworkspace.git/protocols/'
-  pod 'BMMagazine', :path => '../../Beem/ios-beemworkspace.git/ios-magazine/'
-  pod 'BMIMLib', :path => '../../Beem/ios-beemworkspace.git/bmimlib/'
-  pod 'BMCommonLib', :path => '../../Beem/ios-beemworkspace.git/ios-commonlib/'
+#  pod 'BMProtocols', :path => '../../Beem/ios-beemworkspace.git/protocols/'
+#  pod 'BMMagazine', :path => '../../Beem/ios-beemworkspace.git/ios-magazine/'
+#  pod 'BMIMLib', :path => '../../Beem/ios-beemworkspace.git/bmimlib/'
+#  pod 'BMCommonLib', :path => '../../Beem/ios-beemworkspace.git/ios-commonlib/'
+    
+  pod 'BMProtocols', :path => '../../Rong/Git/ios-beemworkspace/protocols/'
+  pod 'BMMagazine', :path => '../../Rong/Git/ios-beemworkspace/ios-magazine/'
+  pod 'BMIMLib', :path => '../../Rong/Git/ios-beemworkspace/bmimlib/'
+  pod 'BMCommonLib', :path => '../../Rong/Git/ios-beemworkspace/ios-commonlib/'
 
   target 'StringTests' do
     platform :ios, '11.0'

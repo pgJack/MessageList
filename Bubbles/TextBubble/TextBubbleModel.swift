@@ -8,7 +8,7 @@
 import UIKit
 import RongIMLib
 
-class TextBubbleModel: BubbleModel {
+class TextBubbleModel: BubbleModel, BubbleInfoProtocol {
     
     private enum CodingKeys: CodingKey {
         case messageText
@@ -24,21 +24,30 @@ class TextBubbleModel: BubbleModel {
     var messageText: String?
     lazy var attributedText = textUtil?.attributedString(limitCount: TextBubbleModel.limitCount, isLimited: &isLimited)
     
-    lazy var textUtil: BubbleAttributedTextUtil? = { () -> BubbleAttributedTextUtil? in
+    lazy var textUtil: BubbleAttributedTextUtil? = {
         guard let messageText = messageText else { return nil }
         let mentionInfo = message.contentExtra?.mentionInfo
         return BubbleAttributedTextUtil(currentUserId: currentUserId, roughText: messageText, maxWidth: TextBubbleModel.textMaxWidth, isBigEmoji: true, mentionedInfo: mentionInfo)
     }()
     
-    override var cellType: String {
+    //MARK: Bind View
+    /// 对应 Cell 类型
+    var cellType: String {
         message.messageDirection == .send
         ? MessageCellRegister.sender
         : MessageCellRegister.receiver
     }
-    
-    override var bubbleViewType: BubbleView.Type {
+    var bubbleViewType: BubbleView.Type {
         TextBubbleView.self
     }
+    
+    //MARK: Action Control
+    /// 是否允许响应点击头像
+    var canTapAvatar = true
+    /// 是否允许长摁头像 @ 用户
+    lazy var canLongPressAvatarMention = message.conversationType == .group
+    /// 是否允许右滑引用
+    lazy var canPanReference = message.conversationType != .person_encrypted
     
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         super.init(rcMessages: rcMessages, currentUserId: currentUserId)

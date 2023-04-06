@@ -32,13 +32,13 @@ class LocationBubbleModel: BubbleModel {
     // TODO: - 缩略图处理
     var thumbnailImage: UIImage?
     
-    override var cellType: String {
+    var cellType: String {
         message.messageDirection == .send
         ? MessageCellRegister.sender
         : MessageCellRegister.receiver
     }
     
-    override var bubbleViewType: BubbleView.Type {
+    var bubbleViewType: BubbleView.Type {
         LocationBubbleView.self
     }
     
