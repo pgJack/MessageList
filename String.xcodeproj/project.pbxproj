@@ -36,6 +36,8 @@
 		03878E1C29DFF5720064ADA2 /* MediaBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1B29DFF5720064ADA2 /* MediaBubbleModel.swift */; };
 		03878E1E29E004B80064ADA2 /* HQVoiceBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1D29E004B80064ADA2 /* HQVoiceBubbleView.swift */; };
 		03878E2029E00F320064ADA2 /* VoiceProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1F29E00F320064ADA2 /* VoiceProgressView.swift */; };
+		03878E2229E02E700064ADA2 /* TipBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E2129E02E700064ADA2 /* TipBubbleModel.swift */; };
+		03878E2429E0320C0064ADA2 /* MessageListGlobalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E2329E0320C0064ADA2 /* MessageListGlobalConfig.swift */; };
 		039C780929DEA7BA0041C9AE /* ContactCardBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C780829DEA7BA0041C9AE /* ContactCardBubbleView.swift */; };
 		330B089A29C446230088F9B0 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B089929C446230088F9B0 /* MessageList.swift */; };
 		330B08A729C46D240088F9B0 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08A629C46D240088F9B0 /* MessageListViewModel.swift */; };
@@ -141,6 +143,8 @@
 		03878E1B29DFF5720064ADA2 /* MediaBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaBubbleModel.swift; sourceTree = "<group>"; };
 		03878E1D29E004B80064ADA2 /* HQVoiceBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQVoiceBubbleView.swift; sourceTree = "<group>"; };
 		03878E1F29E00F320064ADA2 /* VoiceProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceProgressView.swift; sourceTree = "<group>"; };
+		03878E2129E02E700064ADA2 /* TipBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipBubbleModel.swift; sourceTree = "<group>"; };
+		03878E2329E0320C0064ADA2 /* MessageListGlobalConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListGlobalConfig.swift; sourceTree = "<group>"; };
 		039C780829DEA7BA0041C9AE /* ContactCardBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCardBubbleView.swift; sourceTree = "<group>"; };
 		330B089929C446230088F9B0 /* MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageList.swift; sourceTree = "<group>"; };
 		330B08A629C46D240088F9B0 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 				03786F3B29DC378000128CDC /* SecretChatScreenShotBubbleModel.swift */,
 				03786F3D29DC37D900128CDC /* PinBubbleModel.swift */,
 				03786F3F29DC380E00128CDC /* UnknownModel.swift */,
+				03878E2129E02E700064ADA2 /* TipBubbleModel.swift */,
 			);
 			path = TipBubble;
 			sourceTree = "<group>";
@@ -450,6 +455,7 @@
 				33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */,
 				330B08C129C5A2680088F9B0 /* RCGenerator.swift */,
 				33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */,
+				03878E2329E0320C0064ADA2 /* MessageListGlobalConfig.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -840,6 +846,7 @@
 				03786F2A29DC36D500128CDC /* RecallNotificationBubbleModel.swift in Sources */,
 				330B08F229C5AB6D0088F9B0 /* MessageDateView.swift in Sources */,
 				330B08AE29C4727D0088F9B0 /* MessageDataSource.swift in Sources */,
+				03878E2429E0320C0064ADA2 /* MessageListGlobalConfig.swift in Sources */,
 				03786F1F29DC0E9E00128CDC /* OnlineDocumentBubbleModel.swift in Sources */,
 				330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */,
 				039C780929DEA7BA0041C9AE /* ContactCardBubbleView.swift in Sources */,
@@ -861,6 +868,7 @@
 				33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */,
 				33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */,
 				03878E1929DFC0EE0064ADA2 /* FileBubbleView.swift in Sources */,
+				03878E2229E02E700064ADA2 /* TipBubbleModel.swift in Sources */,
 				03786F4029DC380E00128CDC /* UnknownModel.swift in Sources */,
 				03786F3629DC371C00128CDC /* WhatsAppSightBubbleModel.swift in Sources */,
 				03786F1929DC0E2700128CDC /* PollBubbleModel.swift in Sources */,

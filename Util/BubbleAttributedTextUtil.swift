@@ -154,6 +154,10 @@ extension BubbleAttributedTextUtil {
         return attributedString(byAdding: highlightAttributes, for: text, in: attributedText)
     }
     
+    static func boundingRect(_ attributedText: NSAttributedString?, maxSize: CGSize) -> CGRect? {
+        return attributedText?.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil)
+    }
+    
 }
 
 //MARK: Mention Method
