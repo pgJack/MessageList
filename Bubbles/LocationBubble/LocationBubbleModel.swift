@@ -9,29 +9,7 @@ import UIKit
 import RongIMLib
 import RongLocation
 
-class LocationBubbleModel: BubbleModel {
-    
-    private enum CodingKeys: CodingKey {
-        case locationName
-        case addressName
-        case latitude
-        case longitude
-    }
-
-    static let nameEdge = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
-    static let addressEdge = UIEdgeInsets(top: 4, left: 12, bottom: 21, right: 12)
-    static let bubbleWidth: CGFloat = 326
-    static let thumbnailHeight: CGFloat = 326 / 2
-    static let textMaxWidth = bubbleWidth - addressEdge.left - addressEdge.right
-    
-    var locationName: String?
-    var addressName: String?
-    var latitude: Double = 0
-    var longitude: Double = 0
-    
-    // TODO: - 缩略图处理
-    var thumbnailImage: UIImage?
-    
+class LocationBubbleModel: BubbleModel, BubbleInfoProtocol {
     var cellType: String {
         message.messageDirection == .send
         ? MessageCellRegister.sender
@@ -41,6 +19,24 @@ class LocationBubbleModel: BubbleModel {
     var bubbleViewType: BubbleView.Type {
         LocationBubbleView.self
     }
+    
+    var canTapAvatar = true
+    lazy var canLongPressAvatarMention = message.conversationType == .group
+    lazy var canPanReference = message.conversationType != .person_encrypted
+
+    static let nameEdge = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
+    static let addressEdge = UIEdgeInsets(top: 4, left: 12, bottom: 21, right: 12)
+    static let bubbleWidth: CGFloat = .bubble.maxWidth
+    static let thumbnailHeight: CGFloat = bubbleWidth / 2
+    static let textMaxWidth = bubbleWidth - addressEdge.left - addressEdge.right
+    
+    var locationName: String?
+    var addressName: String?
+    var latitude: Double = 0
+    var longitude: Double = 0
+    
+    // TODO: - 缩略图处理
+    var thumbnailImage: UIImage?
     
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         super.init(rcMessages: rcMessages, currentUserId: currentUserId)
@@ -69,21 +65,8 @@ class LocationBubbleModel: BubbleModel {
         bubbleContentSize = CGSize(width: ceil(width), height: ceil(height))
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        locationName = try container.decode(String.self, forKey: .locationName)
-        addressName = try container.decode(String.self, forKey: .addressName)
-        latitude = try container.decode(Double.self, forKey: .latitude)
-        longitude = try container.decode(Double.self, forKey: .longitude)
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
     
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(locationName, forKey: .locationName)
-        try container.encode(addressName, forKey: .addressName)
-        try container.encode(latitude, forKey: .latitude)
-        try container.encode(longitude, forKey: .longitude)
-    }
 }

@@ -31,6 +31,11 @@
 		03786F3E29DC37D900128CDC /* PinBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3D29DC37D900128CDC /* PinBubbleModel.swift */; };
 		03786F4029DC380E00128CDC /* UnknownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F3F29DC380E00128CDC /* UnknownModel.swift */; };
 		03786F4329DC383800128CDC /* SecretChatDescriptionBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03786F4229DC383800128CDC /* SecretChatDescriptionBubbleModel.swift */; };
+		03878E1729DFB7350064ADA2 /* FileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1629DFB7350064ADA2 /* FileInfoView.swift */; };
+		03878E1929DFC0EE0064ADA2 /* FileBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1829DFC0EE0064ADA2 /* FileBubbleView.swift */; };
+		03878E1C29DFF5720064ADA2 /* MediaBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1B29DFF5720064ADA2 /* MediaBubbleModel.swift */; };
+		03878E1E29E004B80064ADA2 /* HQVoiceBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1D29E004B80064ADA2 /* HQVoiceBubbleView.swift */; };
+		03878E2029E00F320064ADA2 /* VoiceProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03878E1F29E00F320064ADA2 /* VoiceProgressView.swift */; };
 		039C780929DEA7BA0041C9AE /* ContactCardBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C780829DEA7BA0041C9AE /* ContactCardBubbleView.swift */; };
 		330B089A29C446230088F9B0 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B089929C446230088F9B0 /* MessageList.swift */; };
 		330B08A729C46D240088F9B0 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08A629C46D240088F9B0 /* MessageListViewModel.swift */; };
@@ -131,6 +136,11 @@
 		03786F3D29DC37D900128CDC /* PinBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinBubbleModel.swift; sourceTree = "<group>"; };
 		03786F3F29DC380E00128CDC /* UnknownModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownModel.swift; sourceTree = "<group>"; };
 		03786F4229DC383800128CDC /* SecretChatDescriptionBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretChatDescriptionBubbleModel.swift; sourceTree = "<group>"; };
+		03878E1629DFB7350064ADA2 /* FileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileInfoView.swift; sourceTree = "<group>"; };
+		03878E1829DFC0EE0064ADA2 /* FileBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBubbleView.swift; sourceTree = "<group>"; };
+		03878E1B29DFF5720064ADA2 /* MediaBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaBubbleModel.swift; sourceTree = "<group>"; };
+		03878E1D29E004B80064ADA2 /* HQVoiceBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQVoiceBubbleView.swift; sourceTree = "<group>"; };
+		03878E1F29E00F320064ADA2 /* VoiceProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceProgressView.swift; sourceTree = "<group>"; };
 		039C780829DEA7BA0041C9AE /* ContactCardBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCardBubbleView.swift; sourceTree = "<group>"; };
 		330B089929C446230088F9B0 /* MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageList.swift; sourceTree = "<group>"; };
 		330B08A629C46D240088F9B0 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
@@ -447,11 +457,14 @@
 		33CA1B6629D5A06E00D995AA /* MediaBubble */ = {
 			isa = PBXGroup;
 			children = (
+				03878E1B29DFF5720064ADA2 /* MediaBubbleModel.swift */,
 				33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */,
 				33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */,
 				33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */,
 				03786F0529DC0A1A00128CDC /* FileBubbleModel.swift */,
+				03878E1829DFC0EE0064ADA2 /* FileBubbleView.swift */,
 				03786F0729DC0A3900128CDC /* HQVoiceBubbleModel.swift */,
+				03878E1D29E004B80064ADA2 /* HQVoiceBubbleView.swift */,
 				03786F2329DC1F9100128CDC /* StickerBubbleModel.swift */,
 				03786F3129DC370A00128CDC /* WhatsAppFileBubbleModel.swift */,
 				03786F3329DC371300128CDC /* WhatsAppImageBubbleModel.swift */,
@@ -464,6 +477,8 @@
 			isa = PBXGroup;
 			children = (
 				33E473FF29CEFC07000C7512 /* MessageAttributedTextView.swift */,
+				03878E1629DFB7350064ADA2 /* FileInfoView.swift */,
+				03878E1F29E00F320064ADA2 /* VoiceProgressView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -814,6 +829,7 @@
 				330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */,
 				330B08F329C5AB6D0088F9B0 /* BubbleTimeView.swift in Sources */,
 				33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */,
+				03878E1E29E004B80064ADA2 /* HQVoiceBubbleView.swift in Sources */,
 				330B08FA29C5AB6D0088F9B0 /* MessageReactionView.swift in Sources */,
 				03786F3A29DC374000128CDC /* GroupAnnouncementBubbleModel.swift in Sources */,
 				33E6F7D329C2EC27009013D2 /* ViewController.swift in Sources */,
@@ -835,6 +851,8 @@
 				330B08C229C5A2680088F9B0 /* RCGenerator.swift in Sources */,
 				330B090229C5F7B20088F9B0 /* Bundle+MessageList.swift in Sources */,
 				330B08FE29C5E7FA0088F9B0 /* UIFont+Bubble.swift in Sources */,
+				03878E1729DFB7350064ADA2 /* FileInfoView.swift in Sources */,
+				03878E2029E00F320064ADA2 /* VoiceProgressView.swift in Sources */,
 				330B090629C5F9D70088F9B0 /* UIImage+MessageList.swift in Sources */,
 				03786F2229DC0EE900128CDC /* RobotBubbleModel.swift in Sources */,
 				330B08C029C59A350088F9B0 /* BubbleModelCache.swift in Sources */,
@@ -842,6 +860,7 @@
 				03786F3829DC372500128CDC /* WhatsAppTextBubbleModel.swift in Sources */,
 				33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */,
 				33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */,
+				03878E1929DFC0EE0064ADA2 /* FileBubbleView.swift in Sources */,
 				03786F4029DC380E00128CDC /* UnknownModel.swift in Sources */,
 				03786F3629DC371C00128CDC /* WhatsAppSightBubbleModel.swift in Sources */,
 				03786F1929DC0E2700128CDC /* PollBubbleModel.swift in Sources */,
@@ -865,6 +884,7 @@
 				33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */,
 				03786F3029DC36EF00128CDC /* CallMissBubbleModel.swift in Sources */,
 				330B089A29C446230088F9B0 /* MessageList.swift in Sources */,
+				03878E1C29DFF5720064ADA2 /* MediaBubbleModel.swift in Sources */,
 				330B08DA29C5AAA10088F9B0 /* MessageBaseCell.swift in Sources */,
 				330B08F129C5AB6D0088F9B0 /* MessageBaseView.swift in Sources */,
 				330B08A729C46D240088F9B0 /* MessageListViewModel.swift in Sources */,

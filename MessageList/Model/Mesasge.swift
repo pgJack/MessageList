@@ -27,6 +27,8 @@ struct Message: MessageProtocol, Codable {
     
     let forwardType: MessageForwardType
     let isFromWhatsApp: Bool
+    var originalTime: String? = nil
+    var originalSender: String? = nil
 
     /// 撤回后，消息类型会改变
     var messageType: MessageType

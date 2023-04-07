@@ -9,7 +9,6 @@ import UIKit
 import BMIMLib
 
 class WhatsAppTextBubbleModel: TextBubbleModel {
-
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         super.init(rcMessages: rcMessages, currentUserId: currentUserId)
         guard let rcMessage = rcMessages.first,

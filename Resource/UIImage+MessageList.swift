@@ -48,4 +48,10 @@ struct BubbleImage {
         UIImage(named: "contact_card_arrow")
     }
     
+    /// File
+    var fileTypeIcon: UIImage? {
+        // TODO: - fileIcon 需要实现
+        UIImage(named: "fileTypeIcon")
+    }
+    
 }

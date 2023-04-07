@@ -6,7 +6,47 @@
 //
 
 import UIKit
+import RongIMLibCore
 
-class HQVoiceBubbleModel: BubbleModel {
+class HQVoiceBubbleModel: MediaBubbleModel, BubbleInfoProtocol {
+    var cellType: String {
+        message.messageDirection == .send
+        ? MessageCellRegister.sender
+        : MessageCellRegister.receiver
+    }
     
+    var bubbleViewType: BubbleView.Type {
+        HQVoiceBubbleView.self
+    }
+    
+    var canTapAvatar: Bool = true
+    lazy var canLongPressAvatarMention = message.conversationType == .group
+    lazy var canPanReference = message.conversationType != .person_encrypted
+    
+    static let voiceHeight = 66
+    static let avatarSendEdge = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+    static let avatarReceiveEdge = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 0)
+    static let avatarSideSize = CGSize(width: 40, height: 40)
+    static let voiceBubbleWidth = 270 * CGFloat.bubble.maxWidthRatio
+    
+    var duration: Int = 0
+    
+    required init?(rcMessages: [RCMessage], currentUserId: String) {
+        super.init(rcMessages: rcMessages, currentUserId: currentUserId)
+        guard let rcMessage = rcMessages.first,
+              let voiceContent = rcMessage.content as? RCHQVoiceMessage else {
+            return
+        }
+        
+        duration = voiceContent.duration
+        
+        let width = HQVoiceBubbleModel.voiceBubbleWidth
+
+        let height = FileBubbleModel.fileViewHeight
+        bubbleContentSize = CGSize(width: ceil(width), height: ceil(height))
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
 }

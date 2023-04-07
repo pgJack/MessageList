@@ -9,19 +9,8 @@ import UIKit
 import RongIMLib
 import BMIMLib
 
-class ContactCardBubbleModel: BubbleModel {
-    private enum CodingKeys: CodingKey {
-        case cardName
-        case portraitUrl
-        case orgId
-    }
-
-    static let cellHeight: CGFloat = 110
+class ContactCardBubbleModel: BubbleModel, BubbleInfoProtocol {
     
-    var cardName: String?
-    var portraitUrl: String?
-    var orgId: String?
-
     var cellType: String {
         message.messageDirection == .send
         ? MessageCellRegister.sender
@@ -31,6 +20,17 @@ class ContactCardBubbleModel: BubbleModel {
     var bubbleViewType: BubbleView.Type {
         ContactCardBubbleView.self
     }
+    
+    var canTapAvatar = true
+    lazy var canLongPressAvatarMention = message.conversationType == .group
+    lazy var canPanReference = message.conversationType != .person_encrypted
+    
+    
+    static let cellHeight: CGFloat = 110
+    
+    var cardName: String?
+    var portraitUrl: String?
+    var orgId: String?
 
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         super.init(rcMessages: rcMessages, currentUserId: currentUserId)
@@ -44,20 +44,8 @@ class ContactCardBubbleModel: BubbleModel {
 
         bubbleContentSize = CGSize(width: ceil(CGFloat.bubble.maxWidth), height: ceil(ContactCardBubbleModel.cellHeight))
     }
-
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        cardName = try container.decode(String.self, forKey: .cardName)
-        portraitUrl = try container.decode(String.self, forKey: .portraitUrl)
-        orgId = try container.decode(String.self, forKey: .orgId)
-    }
-
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(cardName, forKey: .cardName)
-        try container.encode(portraitUrl, forKey: .portraitUrl)
-        try container.encode(orgId, forKey: .orgId)
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
 }
