@@ -72,6 +72,8 @@ struct BubbleFloatConstant {
     static let bubbleTimeBackgroundRadius: CGFloat = 4
     
     static let referenceTipLeading: CGFloat = -40
+    
+    static let bubbleImageHornWidth = 5
 }
 
 struct BubbleSizeConstant {

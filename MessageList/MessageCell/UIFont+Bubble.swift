@@ -24,17 +24,14 @@ struct BubbleFont {
     var sixEmoji: UIFont { .systemFont(ofSize: 42) }
     var threeEmoji: UIFont { .systemFont(ofSize: 48) }
     
-    func font(text: String, isBigEmoji: Bool) -> UIFont {
+    func font(text: String, isBigEmoji: Bool, isFullEmoji: Bool, realCount: Int) -> UIFont {
         guard isBigEmoji else {
             return .bubble.normal
         }
-        return bigEmojiFont(text: text)
+        return bigEmojiFont(text: text, isFullEmoji: isFullEmoji, realCount: realCount)
     }
     
-    private func bigEmojiFont(text: String) -> UIFont {
-        let limitCount = 9
-        var realCount = 0
-        let isFullEmoji = (text as NSString).isOnlyContainsLimitCount(limitCount, realCount: &realCount)
+    private func bigEmojiFont(text: String, isFullEmoji: Bool, realCount: Int) -> UIFont {
         guard isFullEmoji else {
             return .bubble.normal
         }

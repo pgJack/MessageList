@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        UIView.appearance().semanticContentAttribute = .forceRightToLeft
+//        UISearchBar.appearance().semanticContentAttribute = .forceRightToLeft
+//        UINavigationBar.appearance().semanticContentAttribute = .forceRightToLeft
+//        UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
+
         window = UIWindow()
         window?.rootViewController = BMBaseNavigationController(rootViewController: ViewController())
         window?.makeKeyAndVisible()

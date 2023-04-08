@@ -121,13 +121,11 @@ extension MessageListViewModel: UICollectionViewDelegate {
             let bubbleModel = _bubbleModels[indexPath.row]
             
             guard let cell = cell as? MessageBaseCell else { return }
-            cell.updateSubviewsOnReuse(bubbleModel)
+            let bubbleView = bubbleView(forModel: bubbleModel)
+            cell.willDisplayForReuse(bubbleModel, bubbleView: bubbleView)
             
             guard let cell = cell as? MessageUserCell else { return }
-            cell.addBubbleView(bubbleView(forModel: bubbleModel))
-            cell.updateCheckBox(isHidden: true, status: .disabled, animated: false)
-            
-            guard let cell = cell as? MessageSenderCell else { return }
+            cell.updateCheckBox(isHidden: true, status: .disabled, animated: false)            
             cell.updateSentStatus(bubbleModel.message.sentStatus,
                                   deliveredProgress: bubbleModel.message.deliveredProgress,
                                   readProgress: bubbleModel.message.readProgress)
@@ -135,8 +133,8 @@ extension MessageListViewModel: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? MessageUserCell else { return }
-        cell.removeBubbleView()
+        guard let cell = cell as? MessageBaseCell else { return }
+        cell.didEndDisplayingForReuse()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

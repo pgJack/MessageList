@@ -7,6 +7,11 @@
 
 import UIKit
 
+// 气泡背景图片类型
+enum BubbleImageType {
+    case none, white, purple_v1, purple_v2, purple_v3, gray, opaque, square_opaque
+}
+
 extension UIImage {
     static let bubble = BubbleImage()
 }
@@ -33,6 +38,29 @@ struct BubbleImage {
     }
     var sentStatusFail: UIImage? {
         UIImage(named: "message_status_error")
+    }
+    
+    func bubbleImage(_ type: BubbleImageType) -> UIImage? {
+        var image: UIImage? = nil
+        switch type {
+        case .white:
+            image = UIImage(named: "bubble_image_white")
+        case .purple_v1:
+            image = UIImage(named: "bubble_image_purple_v1")
+        case .purple_v2:
+            image = UIImage(named: "bubble_image_purple_v2")
+        case .purple_v3:
+            image = UIImage(named: "bubble_image_purple_v3")
+        case .gray:
+            image = UIImage(named: "bubble_image_gray")
+        case .opaque:
+            image = UIImage(named: "bubble_image_opaque")
+        case .square_opaque:
+            image = UIImage(named: "bubble_image_square_opaque")
+        default:
+            break
+        }
+        return image
     }
     
     /// Location

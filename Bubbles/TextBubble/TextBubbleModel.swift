@@ -8,8 +8,8 @@
 import UIKit
 import RongIMLib
 
-class TextBubbleModel: BubbleModel, BubbleInfoProtocol {
-    
+class TextBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
+        
     private enum CodingKeys: CodingKey {
         case messageText
         case isLimited
@@ -49,6 +49,28 @@ class TextBubbleModel: BubbleModel, BubbleInfoProtocol {
     /// 是否允许右滑引用
     lazy var canPanReference = message.conversationType != .person_encrypted
     
+    //MARK: Bubble Background Image
+    var isHighlighted: Bool = false
+    var bubbleForegroundImageType: BubbleImageType {
+        guard let textUtil = textUtil, textUtil.isFullEmoji else { return .none }
+        switch message.messageDirection {
+        case .send:
+            return isHighlighted ? .square_opaque : .none
+        default:
+            return isHighlighted ? .square_opaque : .none
+        }
+    }
+    var bubbleBackgroundImageType: BubbleImageType {
+        guard let textUtil = textUtil, !textUtil.isFullEmoji else { return .none }
+        switch message.messageDirection {
+        case .send:
+            return isHighlighted ? .purple_v2 : .purple_v1
+        default:
+            return isHighlighted ? .gray : .white
+        }
+    }
+    
+    //MARK: Init Method
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         super.init(rcMessages: rcMessages, currentUserId: currentUserId)
         guard let rcMessage = rcMessages.first,
@@ -57,7 +79,8 @@ class TextBubbleModel: BubbleModel, BubbleInfoProtocol {
         }
         messageText = textContent.content
         let maxSize = CGSize(width: TextBubbleModel.textMaxWidth, height: .greatestFiniteMagnitude)
-        guard let textRect = attributedText?.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil) else {
+        
+        guard let textRect = BubbleAttributedTextUtil.boundingRect(attributedText, maxSize: maxSize) else {
             return
         }
         let width = textRect.size.width + TextBubbleModel.textEdge.left + TextBubbleModel.textEdge.right
@@ -65,7 +88,7 @@ class TextBubbleModel: BubbleModel, BubbleInfoProtocol {
         bubbleContentSize = CGSize(width: ceil(width), height: ceil(height))
     }
     
-    public required init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let container = try decoder.container(keyedBy: CodingKeys.self)
         messageText = try container.decode(String.self, forKey: .messageText)

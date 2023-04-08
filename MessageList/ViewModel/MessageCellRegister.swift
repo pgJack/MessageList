@@ -23,8 +23,8 @@ struct MessageCellRegister {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: placeholder)
         collectionView.register(MessageUnknownCell.self, forCellWithReuseIdentifier: unknown)
         collectionView.register(MessageTipCell.self, forCellWithReuseIdentifier: tip)
-        collectionView.register(MessageSenderCell.self, forCellWithReuseIdentifier: sender)
-        collectionView.register(MessageReceiverCell.self, forCellWithReuseIdentifier: receiver)
+        collectionView.register(MessageUserCell.self, forCellWithReuseIdentifier: sender)
+        collectionView.register(MessageUserCell.self, forCellWithReuseIdentifier: receiver)
     }
     
 }

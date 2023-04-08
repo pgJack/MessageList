@@ -44,17 +44,8 @@ class BubbleModel: Codable {
     
 }
 
-//MARK: Computed Properties
+//MARK: Bubble Size
 extension BubbleModel {
-    
-    /// 是否为聚合气泡
-    var isCombined: Bool { messages.count > 1 }
-    /// 是否包含某个 Message
-    func isContain(_ message: Message) -> Bool {
-        messages.contains {
-            message.messageId == $0.messageId
-        }
-    }
     
     var bubbleSize: CGSize {
         CGSize(width: bubbleContentSize.width, height: bubbleHeight)
@@ -77,6 +68,11 @@ extension BubbleModel {
         return height
     }
     
+}
+
+//MARK: ExBubble
+extension BubbleModel {
+    
     var translateViewSize: CGSize {
         .zero
     }
@@ -91,34 +87,53 @@ extension BubbleModel {
                       height: exBubbleEdge.top + contentSize.height + exBubbleEdge.bottom)
     }
     
+}
+
+//MARK: Computed Properties
+extension BubbleModel {
+    
+    /// 是否为聚合气泡
+    var isCombined: Bool { messages.count > 1 }
+    
+    /// 是否包含某个 Message
+    func isContain(_ message: Message) -> Bool {
+        messages.contains {
+            message.messageId == $0.messageId
+        }
+    }
+    
+    /// 是否显示发送人头像
     var shownSenderAvatar: Bool {
         message.conversationType == .group
         && message.messageDirection == .receive
     }
     
+    /// 是否显示发送人名称
     var shownSenderName: Bool {
         message.conversationType == .group
         && message.messageDirection == .receive
         && !message.isFromWhatsApp
     }
     
+    /// 是否显示转发标记
+    var shownForwardTip: Bool {
+        message.forwardType == .others
+    }
+    
+    /// 是否显示 WhatsApp 转发标记
+    var shownWhatsAppTip: Bool {
+        message.isFromWhatsApp
+    }
+    
+    /// 消息发送时间文本
+    var timeText: String? { nil }
+
     /// 消息点赞视图
     var shownThumbUp: Bool {
         guard let thumbUps = message.thumbUps else {
             return false
         }
         return thumbUps.count > 0
-    }
-
-    /// 气泡视图
-    var shownBubbleImage: Bool { false }
-    var bubbleImageName: String? { nil }
-    var timeText: String? { nil }
-    var shownForwardTip: Bool {
-        message.forwardType == .others
-    }
-    var shownWhatsAppTip: Bool {
-        message.isFromWhatsApp
     }
     
 }

@@ -20,6 +20,8 @@ private let kHighlightedTextColor: UIColor = .bmTheme.highlightedTextAttributes
 private let kMentionedImageEdgeLeft: CGFloat = 12
 private let kMentionedImageHight: CGFloat = 30
 
+private let kFullEmojiLimitCount = 9
+
 struct BubbleAttributedTextUtil {
     
     let currentUserId: String
@@ -27,16 +29,26 @@ struct BubbleAttributedTextUtil {
     let maxWidth: CGFloat
     let textFont: UIFont
     let emojiConverter: Emojica
-    let isBigEmoji: Bool
     let mentionedInfo: [String: String]?
+    
+    /// 是否根据表情个数
+    let isBigEmoji: Bool
+    /// 是否全部是表情
+    let isFullEmoji: Bool
+    /// 全部是表情时，表情个数
+    let fullEmojiCount: Int
     
     init(currentUserId: String, roughText: String, maxWidth: CGFloat, isBigEmoji: Bool, mentionedInfo: [String : String]?) {
         self.currentUserId = currentUserId
         self.roughText = roughText
         self.maxWidth = maxWidth
         self.isBigEmoji = isBigEmoji
-        self.mentionedInfo = mentionedInfo
-        textFont = .bubble.font(text: roughText, isBigEmoji: isBigEmoji)
+        self.mentionedInfo = mentionedInfo        
+        var realCount = 0
+        let isFullEmoji = (roughText as NSString).isOnlyContainsLimitCount(kFullEmojiLimitCount, realCount: &realCount)
+        self.fullEmojiCount = realCount
+        self.isFullEmoji = isFullEmoji
+        textFont = .bubble.font(text: roughText, isBigEmoji: isBigEmoji, isFullEmoji: isFullEmoji, realCount: realCount)
         emojiConverter = Emojica(font: textFont)
     }
     

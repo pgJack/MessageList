@@ -50,11 +50,9 @@
 		330B08C029C59A350088F9B0 /* BubbleModelCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08BF29C59A350088F9B0 /* BubbleModelCache.swift */; };
 		330B08C229C5A2680088F9B0 /* RCGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08C129C5A2680088F9B0 /* RCGenerator.swift */; };
 		330B08D729C5AAA10088F9B0 /* MessageTipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D129C5AAA10088F9B0 /* MessageTipCell.swift */; };
-		330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D229C5AAA10088F9B0 /* MessageReceiverCell.swift */; };
 		330B08D929C5AAA10088F9B0 /* MessageUnknownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D329C5AAA10088F9B0 /* MessageUnknownCell.swift */; };
 		330B08DA29C5AAA10088F9B0 /* MessageBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D429C5AAA10088F9B0 /* MessageBaseCell.swift */; };
 		330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D529C5AAA10088F9B0 /* MessageUserCell.swift */; };
-		330B08DC29C5AAA10088F9B0 /* MessageSenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08D629C5AAA10088F9B0 /* MessageSenderCell.swift */; };
 		330B08F029C5AB6D0088F9B0 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08E029C5AB6D0088F9B0 /* CheckBoxView.swift */; };
 		330B08F129C5AB6D0088F9B0 /* MessageBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08E129C5AB6D0088F9B0 /* MessageBaseView.swift */; };
 		330B08F229C5AB6D0088F9B0 /* MessageDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B08E229C5AB6D0088F9B0 /* MessageDateView.swift */; };
@@ -74,6 +72,7 @@
 		330B090D29C6229B0088F9B0 /* MessageCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */; };
 		3320930329DACB9600354488 /* MessageListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3320930229DACB9600354488 /* MessageListCollectionView.swift */; };
 		3324FE5F29DEC33F004D9C6D /* BubbleInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */; };
+		3324FE6129E005BD004D9C6D /* BubbleImageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324FE6029E005BD004D9C6D /* BubbleImageProtocol.swift */; };
 		33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */; };
 		33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */; };
 		33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */; };
@@ -157,11 +156,9 @@
 		330B08BF29C59A350088F9B0 /* BubbleModelCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleModelCache.swift; sourceTree = "<group>"; };
 		330B08C129C5A2680088F9B0 /* RCGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCGenerator.swift; sourceTree = "<group>"; };
 		330B08D129C5AAA10088F9B0 /* MessageTipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTipCell.swift; sourceTree = "<group>"; };
-		330B08D229C5AAA10088F9B0 /* MessageReceiverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageReceiverCell.swift; sourceTree = "<group>"; };
 		330B08D329C5AAA10088F9B0 /* MessageUnknownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUnknownCell.swift; sourceTree = "<group>"; };
 		330B08D429C5AAA10088F9B0 /* MessageBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBaseCell.swift; sourceTree = "<group>"; };
 		330B08D529C5AAA10088F9B0 /* MessageUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageUserCell.swift; sourceTree = "<group>"; };
-		330B08D629C5AAA10088F9B0 /* MessageSenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSenderCell.swift; sourceTree = "<group>"; };
 		330B08E029C5AB6D0088F9B0 /* CheckBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		330B08E129C5AB6D0088F9B0 /* MessageBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBaseView.swift; sourceTree = "<group>"; };
 		330B08E229C5AB6D0088F9B0 /* MessageDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDateView.swift; sourceTree = "<group>"; };
@@ -181,6 +178,7 @@
 		330B090C29C6229B0088F9B0 /* MessageCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellRegister.swift; sourceTree = "<group>"; };
 		3320930229DACB9600354488 /* MessageListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCollectionView.swift; sourceTree = "<group>"; };
 		3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleInfoProtocol.swift; sourceTree = "<group>"; };
+		3324FE6029E005BD004D9C6D /* BubbleImageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleImageProtocol.swift; sourceTree = "<group>"; };
 		33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBubbleModel.swift; sourceTree = "<group>"; };
 		33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBubbleModel.swift; sourceTree = "<group>"; };
 		33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifBubbleModel.swift; sourceTree = "<group>"; };
@@ -377,8 +375,6 @@
 				330B08D329C5AAA10088F9B0 /* MessageUnknownCell.swift */,
 				330B08D129C5AAA10088F9B0 /* MessageTipCell.swift */,
 				330B08D529C5AAA10088F9B0 /* MessageUserCell.swift */,
-				330B08D629C5AAA10088F9B0 /* MessageSenderCell.swift */,
-				330B08D229C5AAA10088F9B0 /* MessageReceiverCell.swift */,
 			);
 			path = MessageCell;
 			sourceTree = "<group>";
@@ -432,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */,
+				3324FE6029E005BD004D9C6D /* BubbleImageProtocol.swift */,
 				330B08BD29C4BBA80088F9B0 /* BubbleModel.swift */,
 				330B08E429C5AB6D0088F9B0 /* BubbleTimeView.swift */,
 				330B08E529C5AB6D0088F9B0 /* BubbleView.swift */,
@@ -830,7 +827,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				330B08DC29C5AAA10088F9B0 /* MessageSenderCell.swift in Sources */,
 				03786F0829DC0A3900128CDC /* HQVoiceBubbleModel.swift in Sources */,
 				330B090929C60CB10088F9B0 /* MessageUnreadLineView.swift in Sources */,
 				330B08F329C5AB6D0088F9B0 /* BubbleTimeView.swift in Sources */,
@@ -877,7 +873,6 @@
 				03786F3E29DC37D900128CDC /* PinBubbleModel.swift in Sources */,
 				33E6F80329C2F155009013D2 /* MessageListController.swift in Sources */,
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
-				330B08D829C5AAA10088F9B0 /* MessageReceiverCell.swift in Sources */,
 				33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */,
 				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
 				33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */,
@@ -908,6 +903,7 @@
 				03786F2C29DC36DD00128CDC /* GroupNotificationBubbleModel.swift in Sources */,
 				03786F2729DC369600128CDC /* ReferenceBubbleModel.swift in Sources */,
 				03786F0E29DC0B8C00128CDC /* ContactCardBubbleModel.swift in Sources */,
+				3324FE6129E005BD004D9C6D /* BubbleImageProtocol.swift in Sources */,
 				03786F4329DC383800128CDC /* SecretChatDescriptionBubbleModel.swift in Sources */,
 				330B08F829C5AB6D0088F9B0 /* MessageDetailView.swift in Sources */,
 			);
