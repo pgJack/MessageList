@@ -46,8 +46,7 @@ class RecallNotificationBubbleModel: TipBubbleModel, BubbleInfoProtocol {
             canReedit = true
         }
         
-        // TODO: - 拼接富文本
-        let attributedText = NSAttributedString(string: "")
+        let attributedText = splicingAttributedText()
         
         let maxSize = CGSize(width: CGFloat.bubble.maxWidth, height: .greatestFiniteMagnitude)
         if let rect = BubbleAttributedTextUtil.boundingRect(attributedText, maxSize: maxSize) {
@@ -58,5 +57,11 @@ class RecallNotificationBubbleModel: TipBubbleModel, BubbleInfoProtocol {
     
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
+    }
+    
+    private func splicingAttributedText() -> NSAttributedString {
+        // TODO: - 拼接富文本
+        let attributedText = NSAttributedString(string: recallContent ?? "")
+        return attributedText
     }
 }

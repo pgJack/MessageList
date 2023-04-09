@@ -28,6 +28,8 @@ class FileBubbleModel: MediaBubbleModel, BubbleInfoProtocol {
     
     var fileType: String?
     var fileSize: Int64 = 0
+    var thumbnailImageUrl: String?
+    var placeholderImage: UIImage?
     
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         super.init(rcMessages: rcMessages, currentUserId: currentUserId)

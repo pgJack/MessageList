@@ -41,6 +41,17 @@ public struct MessageContentExtraInfo: MessageExtraDecodeProtocol {
     
     // 发送名片消息时，名片消息的oid
     let profileOid: String?
+    
+    // Call 相关
+    // mediaType:0是音频，1是视频
+    let mediaType: Int?
+    let sessionStatus: Int?
+    let syncTime: Int?
+    let crtTime: Int?
+
+    // 密聊相关
+    let secretChat: Int? // 是否密聊 1是密聊， 0不是
+    let secretChatKey: String? //  密聊的密钥
 }
 
 let kEndMeetingKey = "meetingEnd"
