@@ -26,7 +26,6 @@ class WhatsAppImageBubbleModel: MediaBubbleModel, BubbleInfoProtocol, BubbleImag
     
     
     //MARK: Bubble Background Image
-    var isHighlighted: Bool = false
     var bubbleForegroundImageType: BubbleImageType {
         return .none
     }

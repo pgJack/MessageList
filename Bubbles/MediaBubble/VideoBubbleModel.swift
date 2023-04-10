@@ -25,7 +25,6 @@ class VideoBubbleModel: MediaBubbleModel, BubbleInfoProtocol, BubbleImageProtoco
     
     
     //MARK: Bubble Background Image
-    var isHighlighted: Bool = false
     var bubbleForegroundImageType: BubbleImageType {
         return .none
     }

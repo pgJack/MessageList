@@ -26,7 +26,6 @@ class StickerBubbleModel: MediaBubbleModel, BubbleInfoProtocol, BubbleImageProto
     
     
     //MARK: Bubble Background Image
-    var isHighlighted: Bool = false
     var bubbleForegroundImageType: BubbleImageType {
         return .none
     }

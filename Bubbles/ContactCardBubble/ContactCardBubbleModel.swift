@@ -26,7 +26,6 @@ class ContactCardBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtoc
     lazy var canPanReference = message.conversationType != .person_encrypted
     
     //MARK: Bubble Background Image
-    var isHighlighted: Bool = false
     var bubbleForegroundImageType: BubbleImageType {
         return .none
     }

@@ -26,7 +26,6 @@ class GifBubbleModel: MediaBubbleModel, BubbleInfoProtocol, BubbleImageProtocol 
     
     
     //MARK: Bubble Background Image
-    var isHighlighted: Bool = false
     var bubbleForegroundImageType: BubbleImageType {
         return .none
     }
