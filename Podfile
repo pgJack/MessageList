@@ -13,6 +13,8 @@ target 'String' do
   pod 'BMMagazine', :path => '../../Rong/Git/ios-beemworkspace/ios-magazine/'
   pod 'BMIMLib', :path => '../../Rong/Git/ios-beemworkspace/bmimlib/'
   pod 'BMCommonLib', :path => '../../Rong/Git/ios-beemworkspace/ios-commonlib/'
+  pod 'YYImage'
+  pod 'YYImage/WebP'
 
   target 'StringTests' do
     platform :ios, '11.0'

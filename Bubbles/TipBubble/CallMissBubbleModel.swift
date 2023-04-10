@@ -9,7 +9,7 @@ import UIKit
 import RongIMLibCore
 import BMIMLib
 
-class CallMissBubbleModel: BubbleModel, BubbleInfoProtocol {
+class CallMissBubbleModel: TipBubbleModel, BubbleInfoProtocol {
     
     var cellType: String {
         MessageCellRegister.tip

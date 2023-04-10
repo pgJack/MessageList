@@ -8,7 +8,7 @@
 import UIKit
 import RongIMLibCore
 
-class InfomationNotificationBubbleModel: BubbleModel, BubbleInfoProtocol {
+class InfomationNotificationBubbleModel: TipBubbleModel, BubbleInfoProtocol {
     
     var cellType: String {
         MessageCellRegister.tip

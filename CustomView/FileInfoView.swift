@@ -9,8 +9,9 @@ import UIKit
 
 public class FileInfoView: UIView {
 
-    static let typeIconEdges = UIEdgeInsets(top: 9, left: 8, bottom: 9, right: 0)
-    static let typeIconSize = CGSize(width: 42, height: 42)
+    static let fileInfoHeight = FileInfoView.typeIconSize.height + FileInfoView.typeIconEdges.top + FileInfoView.typeIconEdges.bottom
+    private static let typeIconEdges = UIEdgeInsets(top: 9, left: 8, bottom: 9, right: 0)
+    private static let typeIconSize = CGSize(width: 42, height: 42)
     private static let fileNameEdges = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     
     private lazy var typeIcon: UIImageView = {

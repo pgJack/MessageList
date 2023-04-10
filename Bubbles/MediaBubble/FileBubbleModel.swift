@@ -37,7 +37,7 @@ class FileBubbleModel: MediaBubbleModel, BubbleInfoProtocol, BubbleImageProtocol
     }
     
     static let fileViewEdge = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-    static let fileViewHeight = FileInfoView.typeIconSize.height + FileInfoView.typeIconEdges.top + FileInfoView.typeIconEdges.bottom
+    static let fileViewHeight = FileInfoView.fileInfoHeight
     
     var fileType: String?
     var fileSize: Int64 = 0
