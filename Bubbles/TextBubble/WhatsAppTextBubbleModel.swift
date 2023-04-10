@@ -41,4 +41,13 @@ class WhatsAppTextBubbleModel: TextBubbleModel {
     override var timeAlignment: BubbleTimeAlignment { .training }
     override var timeBackgroundStyle: BubbleTimeBackgroundStyle { .clear }
     
+    //MARK: Init Method
+    override func setupBubbleContent(rcMessages: [RCMessage], currentUserId: String) {
+        super.setupBubbleContent(rcMessages: rcMessages, currentUserId: currentUserId)
+        guard let rcMessage = rcMessages.first else { return }
+        guard let textContent = rcMessage.content as? UMBWhatsAppTextMessage else { return }
+        guard let messageText = textContent.content as? String else { return }
+        bubbleText = messageText
+    }
+    
 }

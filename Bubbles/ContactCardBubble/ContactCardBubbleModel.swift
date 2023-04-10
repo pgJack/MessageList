@@ -32,9 +32,9 @@ class ContactCardBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtoc
     var bubbleBackgroundImageType: BubbleImageType {
         switch message.messageDirection {
         case .send:
-            return isHighlighted ? .purple_v2 : .purple_v1
+            return isBubbleHighlighted ? .purple_v2 : .purple_v1
         default:
-            return isHighlighted ? .gray : .white
+            return isBubbleHighlighted ? .gray : .white
         }
     }
     

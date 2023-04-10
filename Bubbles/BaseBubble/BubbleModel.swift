@@ -61,7 +61,11 @@ class BubbleModel: Codable {
     private static let textMaxWidth = CGFloat.bubble.maxWidth - textEdge.left - textEdge.right
     
     /// 气泡底部文本，如果设置，不需要子类给 timeText 赋值，也不需要子类设置 timeView
-    var bubbleText: String?
+    var bubbleText: String? {
+        didSet {
+            bubbleText = bubbleText?.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
     var bubbleTextEdge: UIEdgeInsets {
         guard isBigEmoji else { return Self.textEdge }
         guard let textUtil = textUtil else { return .zero }

@@ -79,7 +79,7 @@
 		3324FE5F29DEC33F004D9C6D /* BubbleInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */; };
 		3324FE6129E005BD004D9C6D /* BubbleImageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324FE6029E005BD004D9C6D /* BubbleImageProtocol.swift */; };
 		33CA1B6829D5A0A000D995AA /* ImageBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */; };
-		33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */; };
+		33CA1B6A29D5A0AF00D995AA /* SightBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6929D5A0AF00D995AA /* SightBubbleModel.swift */; };
 		33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */; };
 		33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */; };
 		33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F829CD3078000C7512 /* TextBubbleModel.swift */; };
@@ -189,7 +189,7 @@
 		3324FE5E29DEC33F004D9C6D /* BubbleInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleInfoProtocol.swift; sourceTree = "<group>"; };
 		3324FE6029E005BD004D9C6D /* BubbleImageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleImageProtocol.swift; sourceTree = "<group>"; };
 		33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBubbleModel.swift; sourceTree = "<group>"; };
-		33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBubbleModel.swift; sourceTree = "<group>"; };
+		33CA1B6929D5A0AF00D995AA /* SightBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightBubbleModel.swift; sourceTree = "<group>"; };
 		33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifBubbleModel.swift; sourceTree = "<group>"; };
 		33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCExtraGenerator.swift; sourceTree = "<group>"; };
 		33E473F829CD3078000C7512 /* TextBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleModel.swift; sourceTree = "<group>"; };
@@ -416,6 +416,57 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		3341110E29E4514F00F4268E /* ImageBubble */ = {
+			isa = PBXGroup;
+			children = (
+				33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */,
+				03786F3329DC371300128CDC /* WhatsAppImageBubbleModel.swift */,
+			);
+			path = ImageBubble;
+			sourceTree = "<group>";
+		};
+		3341110F29E4515500F4268E /* SightBubble */ = {
+			isa = PBXGroup;
+			children = (
+				33CA1B6929D5A0AF00D995AA /* SightBubbleModel.swift */,
+				03786F3529DC371C00128CDC /* WhatsAppSightBubbleModel.swift */,
+			);
+			path = SightBubble;
+			sourceTree = "<group>";
+		};
+		3341111029E4516000F4268E /* GifBubble */ = {
+			isa = PBXGroup;
+			children = (
+				33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */,
+			);
+			path = GifBubble;
+			sourceTree = "<group>";
+		};
+		3341111129E4516A00F4268E /* StickerBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F2329DC1F9100128CDC /* StickerBubbleModel.swift */,
+			);
+			path = StickerBubble;
+			sourceTree = "<group>";
+		};
+		3341111229E4517600F4268E /* FileBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F0529DC0A1A00128CDC /* FileBubbleModel.swift */,
+				03786F3129DC370A00128CDC /* WhatsAppFileBubbleModel.swift */,
+			);
+			path = FileBubble;
+			sourceTree = "<group>";
+		};
+		3341111329E4518900F4268E /* VoiceBubble */ = {
+			isa = PBXGroup;
+			children = (
+				03786F0729DC0A3900128CDC /* HQVoiceBubbleModel.swift */,
+			);
+			path = VoiceBubble;
+			sourceTree = "<group>";
+		};
 		3378FB8929C83CF700B1293B /* Bubbles */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,18 +522,15 @@
 			isa = PBXGroup;
 			children = (
 				03878E1B29DFF5720064ADA2 /* MediaBubbleModel.swift */,
-				33CA1B6729D5A0A000D995AA /* ImageBubbleModel.swift */,
-				33CA1B6929D5A0AF00D995AA /* VideoBubbleModel.swift */,
-				33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */,
 				03878E2929E3DF680064ADA2 /* ImageBubbleView.swift */,
-				03786F0529DC0A1A00128CDC /* FileBubbleModel.swift */,
 				03878E1829DFC0EE0064ADA2 /* FileBubbleView.swift */,
-				03786F0729DC0A3900128CDC /* HQVoiceBubbleModel.swift */,
 				03878E1D29E004B80064ADA2 /* HQVoiceBubbleView.swift */,
-				03786F2329DC1F9100128CDC /* StickerBubbleModel.swift */,
-				03786F3129DC370A00128CDC /* WhatsAppFileBubbleModel.swift */,
-				03786F3329DC371300128CDC /* WhatsAppImageBubbleModel.swift */,
-				03786F3529DC371C00128CDC /* WhatsAppSightBubbleModel.swift */,
+				3341111329E4518900F4268E /* VoiceBubble */,
+				3341111229E4517600F4268E /* FileBubble */,
+				3341111129E4516A00F4268E /* StickerBubble */,
+				3341111029E4516000F4268E /* GifBubble */,
+				3341110F29E4515500F4268E /* SightBubble */,
+				3341110E29E4514F00F4268E /* ImageBubble */,
 			);
 			path = MediaBubble;
 			sourceTree = "<group>";
@@ -888,7 +936,7 @@
 				33E6F80329C2F155009013D2 /* MessageListController.swift in Sources */,
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
 				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
-				33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */,
+				33CA1B6A29D5A0AF00D995AA /* SightBubbleModel.swift in Sources */,
 				3324FE5F29DEC33F004D9C6D /* BubbleInfoProtocol.swift in Sources */,
 				330B090029C5E8170088F9B0 /* UIColor+Bubble.swift in Sources */,
 				03786F2429DC1F9100128CDC /* StickerBubbleModel.swift in Sources */,

@@ -66,8 +66,9 @@ class TextBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
     override func setupBubbleContent(rcMessages: [RCMessage], currentUserId: String) {
         super.setupBubbleContent(rcMessages: rcMessages, currentUserId: currentUserId)
         guard let rcMessage = rcMessages.first else { return }
-        guard let messageText = rcMessage.content?.value(forKey: "content") as? String else { return }
-        bubbleText = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let textContent = rcMessage.content as? RCTextMessage else { return }
+        guard let messageText = textContent.content as? String else { return }
+        bubbleText = messageText
     }
 
 }

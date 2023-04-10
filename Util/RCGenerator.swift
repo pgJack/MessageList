@@ -7,6 +7,7 @@
 
 import Foundation
 import RongIMLib
+import BMIMLib
 
 private let kEncryptIdSeparator = ";;;"
 
@@ -43,10 +44,20 @@ extension Message {
         senderPlaceholderAvatar = nil
         
         isFromWhatsApp = objectName.hasPrefix(kWhatsAppMessageObjectNamePrefix)
-        if isFromWhatsApp {
-            whatsAppSentTime = rcMessage.content?.value(forKey: "originalTime") as? String
-            whatsAppSender = rcMessage.content?.value(forKey: "originalSender") as? String
-        } else {
+        switch rcMessage.content {
+        case let whatsAppContent as UMBWhatsAppTextMessage:
+            whatsAppSentTime = whatsAppContent.originalTime
+            whatsAppSender = whatsAppContent.originalSender
+        case let whatsAppContent as UMBWhatsAppFileMessage:
+            whatsAppSentTime = whatsAppContent.originalTime
+            whatsAppSender = whatsAppContent.originalSender
+        case let whatsAppContent as UMBWhatsAppSightMessage:
+            whatsAppSentTime = whatsAppContent.originalTime
+            whatsAppSender = whatsAppContent.originalSender
+        case let whatsAppContent as UMBWhatsAppImageMessage:
+            whatsAppSentTime = whatsAppContent.originalTime
+            whatsAppSender = whatsAppContent.originalSender
+        default:
             whatsAppSentTime = nil
             whatsAppSender = nil
         }

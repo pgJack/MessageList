@@ -18,7 +18,7 @@ private let kBubbleModelClassTable: [String: BubbleModel.Type] = [
     RCReferenceMessage.getObjectName(): ReferenceBubbleModel.self,
     RCGIFMessage.getObjectName(): GifBubbleModel.self,
     RCImageMessage.getObjectName(): ImageBubbleModel.self,
-    RCSightMessage.getObjectName(): VideoBubbleModel.self,
+    RCSightMessage.getObjectName(): SightBubbleModel.self,
     RCFileMessage.getObjectName(): FileBubbleModel.self,
     RCHQVoiceMessage.getObjectName(): HQVoiceBubbleModel.self,
     RCLocationMessage.getObjectName(): LocationBubbleModel.self,

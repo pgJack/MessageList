@@ -32,9 +32,9 @@ class PollBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
     var bubbleBackgroundImageType: BubbleImageType {
         switch message.messageDirection {
         case .send:
-            return isHighlighted ? .purple_v2 : .purple_v3
+            return isBubbleHighlighted ? .purple_v2 : .purple_v3
         default:
-            return isHighlighted ? .gray : .white
+            return isBubbleHighlighted ? .gray : .white
         }
     }
     
