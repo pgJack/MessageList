@@ -8,9 +8,5 @@
 import UIKit
 
 class TipBubbleModel: BubbleModel {
-
-    var attributedText: NSAttributedString?
-    
-    
     
 }

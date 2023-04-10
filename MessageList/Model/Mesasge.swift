@@ -26,7 +26,6 @@ struct Message: MessageProtocol, Codable {
     let senderPlaceholderAvatar: String?
     
     let forwardType: MessageForwardType
-    let isFromWhatsApp: Bool
     var originalTime: String? = nil
     var originalSender: String? = nil
 
@@ -51,5 +50,10 @@ struct Message: MessageProtocol, Codable {
     
     /// @ 信息
     var isMentionedAll: Bool
+    
+    /// WhatsApp 信息
+    let isFromWhatsApp: Bool
+    let whatsAppSender: String?
+    let whatsAppSentTime: String?
     
 }

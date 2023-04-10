@@ -32,6 +32,7 @@ public class MessageAttributedTextView: UITextView {
     }
     
     open func configTextView() {
+        textAlignment = .natural
         textContainerInset = .zero
         textContainer.lineFragmentPadding = 0
         /// 链接颜色需要单独设置

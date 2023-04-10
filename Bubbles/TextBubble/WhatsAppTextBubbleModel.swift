@@ -9,23 +9,36 @@ import UIKit
 import BMIMLib
 
 class WhatsAppTextBubbleModel: TextBubbleModel {
-    required init?(rcMessages: [RCMessage], currentUserId: String) {
-        super.init(rcMessages: rcMessages, currentUserId: currentUserId)
-        guard let rcMessage = rcMessages.first,
-              let textContent = rcMessage.content as? UMBWhatsAppTextMessage else {
-            return
-        }
-        messageText = textContent.content
-        let maxSize = CGSize(width: TextBubbleModel.textMaxWidth, height: .greatestFiniteMagnitude)
-        guard let textRect = attributedText?.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil) else {
-            return
-        }
-        let width = bubbleContentSize.width + textRect.size.width + TextBubbleModel.textEdge.left + TextBubbleModel.textEdge.right
-        let height = bubbleContentSize.height + textRect.size.height + TextBubbleModel.textEdge.top + TextBubbleModel.textEdge.bottom
-        bubbleContentSize = CGSize(width: ceil(width), height: ceil(height))
+    
+    //MARK: Action Control
+    /// 是否允许响应点击头像
+    override var canTapAvatar: Bool {
+        get { return false }
+        set { }
+    }
+     
+    /// 是否允许长摁头像 @ 用户
+    override var canLongPressAvatarMention: Bool {
+        get { return false }
+        set { }
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
+    //MARK: Bubble Background Image
+    override var bubbleForegroundImageType: BubbleImageType { .none }
+    override var bubbleBackgroundImageType: BubbleImageType {
+        switch message.messageDirection {
+        case .send:
+            return isBubbleHighlighted ? .purple_v2 : .purple_v1
+        default:
+            return isBubbleHighlighted ? .gray : .white
+        }
     }
+    
+    //MARK: Text View
+    override var isBigEmoji: Bool { false }
+    
+    //MARK: Time View
+    override var timeAlignment: BubbleTimeAlignment { .training }
+    override var timeBackgroundStyle: BubbleTimeBackgroundStyle { .clear }
+    
 }

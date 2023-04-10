@@ -48,10 +48,7 @@ public protocol MessageProtocol: ConversationProtocol {
         
     /// 转发类型
     var forwardType: MessageForwardType { get }
-    
-    /// 是否为 WhatsApp 导入消息
-    var isFromWhatsApp: Bool { get }
-    
+
     // 对应本地数据库中附加信息，不会多端同步
     var messageExtra: MessageExtraInfo? { get }
     // 对应消息流转中附加信息，发送时多端同步
@@ -61,4 +58,12 @@ public protocol MessageProtocol: ConversationProtocol {
     
     // 点赞信息
     var thumbUps: [MessageExpansionThumbUpAction]? { get }
+    
+    /// @ 信息
+    var isMentionedAll: Bool { get }
+    
+    /// WhatsApp 信息
+    var isFromWhatsApp: Bool { get }
+    var whatsAppSender: String? { get }
+    var whatsAppSentTime: String? { get }
 }

@@ -20,12 +20,15 @@ class BubbleTimeView: UIView {
     
     private var backgroundStyle = BubbleTimeBackgroundStyle.clear
     private var timeAlignment = BubbleTimeAlignment.none
+    static func stackViewEdge(style: BubbleTimeBackgroundStyle) -> UIEdgeInsets {
+        style == .opacity ? .bubble.opacityTimeEdge : .bubble.timeEdge
+    }
     
     private(set) lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.spacing = .bubble.bubbleTimeSpacing
+        stackView.spacing = .bubble.bubbleTimeSpacingIcon
         stackView.alignment = .center
         addSubview(stackView)
         stackView.addArrangedSubview(timeLabel)
@@ -33,7 +36,7 @@ class BubbleTimeView: UIView {
     }()
     lazy var iconViews = [UIImageView]()
     lazy var timeLabel: UILabel = {
-        let label = UILabel(font: BMFont(10))
+        let label = UILabel(font: .bubble.time)
         addSubview(label)
         label.snp.makeConstraints { make in
             make.height.equalTo(CGFloat.bubble.bubbleTimeTextHeight)
@@ -47,7 +50,7 @@ class BubbleTimeView: UIView {
         view.layer.cornerRadius = .bubble.bubbleTimeBackgroundRadius
         addSubview(view)
         sendSubviewToBack(view)
-        let timeViewEdge = UIEdgeInsets.bubble.bubbleTimeBackgroundEdge
+        let timeViewEdge = UIEdgeInsets.bubble.opacityTimeEdge
         view.snp.makeConstraints { make in
             make.leading.equalTo(stackView).offset(-timeViewEdge.left)
             make.trailing.equalTo(stackView).offset(timeViewEdge.right)
@@ -67,7 +70,7 @@ class BubbleTimeView: UIView {
         __updateShadowPath()
     }
     
-    func update(icons:[UIImage], timeText: String, textColor: UIColor, alignment: BubbleTimeAlignment, backgroundStyle: BubbleTimeBackgroundStyle) {
+    func update(icons:[UIImage], timeText: String?, textColor: UIColor, alignment: BubbleTimeAlignment, backgroundStyle: BubbleTimeBackgroundStyle) {
                 
         iconViews.forEach(__remove(iconView:))
         icons.enumerated().forEach { (index, image) in
@@ -84,31 +87,35 @@ class BubbleTimeView: UIView {
         
         self.backgroundStyle = backgroundStyle
         self.timeAlignment = alignment
+        let stackViewEdge = Self.stackViewEdge(style: backgroundStyle)
         
         opacityView.isHidden = backgroundStyle != .opacity
         
-        var bottomEdgeBottom = CGFloat.bubble.bubbleTimeEdgeBottom
-        var bottomEdgeLeading = CGFloat.bubble.bubbleTimeEdgeLeading
-        var bottomEdgeTrailing = CGFloat.bubble.bubbleTimeEdgeTrailing
-                
-        switch backgroundStyle {
-        case .opacity:
-            bottomEdgeBottom = 0
-            bottomEdgeLeading = UIEdgeInsets.bubble.bubbleTimeBackgroundEdge.left
-            bottomEdgeTrailing = UIEdgeInsets.bubble.bubbleTimeBackgroundEdge.right
-        default:
-            break
-        }
-        
         stackView.snp.remakeConstraints { make in
-            make.bottom.equalToSuperview().offset(-bottomEdgeBottom)
+            make.bottom.equalToSuperview().offset(-stackViewEdge.bottom)
             switch alignment {
             case .leading:
-                make.leading.equalToSuperview().offset(bottomEdgeLeading)
+                make.leading.equalToSuperview().offset(stackViewEdge.left)
             default:
-                make.trailing.equalToSuperview().offset(-bottomEdgeTrailing)
+                make.trailing.equalToSuperview().offset(-stackViewEdge.right)
             }
         }
+    }
+    
+    static func sizeFor(iconCount: CGFloat, timeText: String?, backgroundStyle: BubbleTimeBackgroundStyle) -> CGSize {
+        let maxTextSize = CGSize(width: .greatestFiniteMagnitude, height: .bubble.bubbleTimeTextHeight)
+        let timeText = timeText ?? ""
+        let timeSize = BubbleAttributedTextUtil.boundingRect(NSAttributedString(string: timeText, attributes: [.font: UIFont.bubble.time]), maxSize: maxTextSize) ?? .zero
+        let stackViewEdge = stackViewEdge(style: backgroundStyle)
+        let iconSize = CGSize.bubble.bubbleTimeIconSize
+        var iconWidth: CGFloat = 0
+        if iconCount > 0 {
+            iconWidth = iconSize.width * iconCount + CGFloat.bubble.bubbleTimeSpacingIcon * (iconCount - 1)
+            iconWidth += CGFloat.bubble.bubbleTimeSpacingTime
+        }
+        let width = stackViewEdge.left + stackViewEdge.right + timeSize.width + iconWidth
+        let height = stackViewEdge.top + stackViewEdge.bottom + .bubble.bubbleTimeTextHeight
+        return CGSize(width: width, height: height)
     }
     
 }

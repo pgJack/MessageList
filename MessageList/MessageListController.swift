@@ -98,6 +98,10 @@ class MessageListController: BMBaseViewController, MessageListControllerProtocol
         _viewModel.onReceiveMemoryWarning()
     }
     
+    deinit {
+        print("---> Message List Deinit")
+    }
+    
 }
 
 //MARK: Initial

@@ -9,27 +9,7 @@ import UIKit
 import RongIMLib
 
 class TextBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
-        
-    private enum CodingKeys: CodingKey {
-        case messageText
-        case isLimited
-    }
-        
-    static let limitCount = 1000
-
-    static let textEdge = UIEdgeInsets(top: 7, left: 14, bottom: 7, right: 14)
-    static let textMaxWidth = CGFloat.bubble.maxWidth - textEdge.left - textEdge.right
-        
-    var isLimited = false
-    var messageText: String?
-    lazy var attributedText = textUtil?.attributedString(limitCount: TextBubbleModel.limitCount, isLimited: &isLimited)
-    
-    lazy var textUtil: BubbleAttributedTextUtil? = {
-        guard let messageText = messageText else { return nil }
-        let mentionInfo = message.contentExtra?.mentionInfo
-        return BubbleAttributedTextUtil(currentUserId: currentUserId, roughText: messageText, maxWidth: TextBubbleModel.textMaxWidth, isBigEmoji: true, mentionedInfo: mentionInfo)
-    }()
-    
+             
     //MARK: Bind View
     /// 对应 Cell 类型
     var cellType: String {
@@ -38,7 +18,7 @@ class TextBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
         : MessageCellRegister.receiver
     }
     var bubbleViewType: BubbleView.Type {
-        TextBubbleView.self
+        BubbleView.self
     }
     
     //MARK: Action Control
@@ -54,51 +34,40 @@ class TextBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
         guard let textUtil = textUtil, textUtil.isFullEmoji else { return .none }
         switch message.messageDirection {
         case .send:
-            return isHighlighted ? .square_opaque : .none
+            return isBubbleHighlighted ? .square_opaque : .none
         default:
-            return isHighlighted ? .square_opaque : .none
+            return isBubbleHighlighted ? .square_opaque : .none
         }
     }
     var bubbleBackgroundImageType: BubbleImageType {
         guard let textUtil = textUtil, !textUtil.isFullEmoji else { return .none }
         switch message.messageDirection {
         case .send:
-            return isHighlighted ? .purple_v2 : .purple_v1
+            return isBubbleHighlighted ? .purple_v2 : .purple_v1
         default:
-            return isHighlighted ? .gray : .white
+            return isBubbleHighlighted ? .gray : .white
         }
+    }
+    
+    //MARK: Text View
+    override var isBigEmoji: Bool { true }
+    
+    //MARK: Time View
+    override var timeAlignment: BubbleTimeAlignment {
+        guard let textUtil = textUtil, textUtil.isFullEmoji, message.messageDirection == .receive else { return .training }
+        return .leading
+    }
+    override var timeBackgroundStyle: BubbleTimeBackgroundStyle {
+        guard let textUtil = textUtil, textUtil.isFullEmoji else { return .clear }
+        return .opacity
     }
     
     //MARK: Init Method
-    required init?(rcMessages: [RCMessage], currentUserId: String) {
-        super.init(rcMessages: rcMessages, currentUserId: currentUserId)
-        guard let rcMessage = rcMessages.first,
-              let textContent = rcMessage.content as? RCTextMessage else {
-            return
-        }
-        messageText = textContent.content
-        let maxSize = CGSize(width: TextBubbleModel.textMaxWidth, height: .greatestFiniteMagnitude)
-        
-        guard let textRect = BubbleAttributedTextUtil.boundingRect(attributedText, maxSize: maxSize) else {
-            return
-        }
-        let width = textRect.size.width + TextBubbleModel.textEdge.left + TextBubbleModel.textEdge.right
-        let height = textRect.size.height + TextBubbleModel.textEdge.top + TextBubbleModel.textEdge.bottom
-        bubbleContentSize = CGSize(width: ceil(width), height: ceil(height))
+    override func setupBubbleContent(rcMessages: [RCMessage], currentUserId: String) {
+        super.setupBubbleContent(rcMessages: rcMessages, currentUserId: currentUserId)
+        guard let rcMessage = rcMessages.first else { return }
+        guard let messageText = rcMessage.content?.value(forKey: "content") as? String else { return }
+        bubbleText = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        messageText = try container.decode(String.self, forKey: .messageText)
-        isLimited = try container.decode(Bool.self, forKey: .isLimited)
-    }
-    
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(messageText, forKey: .messageText)
-        try container.encode(isLimited, forKey: .isLimited)
-    }
-    
+
 }

@@ -100,14 +100,17 @@ extension BubbleAttributedTextUtil {
     }
     
     private func _convertEmojiAndLimit(attributedText: NSAttributedString, limitCount: Int, isLimited: UnsafeMutablePointer<Bool>?) -> NSAttributedString? {
-        let finalAttributedText = emojiConverter.convert(attributedString: attributedText)
-        if finalAttributedText.length > limitCount {
+        var finalText = emojiConverter.convert(attributedString: attributedText)
+        if finalText.length > limitCount {
             isLimited?.pointee = true
-            return finalAttributedText.attributedSubstring(from: NSRange(location: 0, length: limitCount))
+            let subText = finalText.attributedSubstring(from: NSRange(location: 0, length: limitCount))
+            let subMutableText = NSMutableAttributedString(attributedString: subText)
+            subMutableText.append(NSAttributedString(string: "..."))
+            finalText = subMutableText
         } else {
             isLimited?.pointee = false
-            return finalAttributedText
         }
+        return finalText
     }
     
     static func linkAndPhoneNumberAttributedString(_ attributedText: NSAttributedString?, isExcludeMail: Bool) -> NSAttributedString? {

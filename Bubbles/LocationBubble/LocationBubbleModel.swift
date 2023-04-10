@@ -41,7 +41,7 @@ class LocationBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol 
     static let addressEdge = UIEdgeInsets(top: 4, left: 12, bottom: 21, right: 12)
     static let bubbleWidth: CGFloat = .bubble.maxWidth
     static let thumbnailHeight: CGFloat = bubbleWidth / 2
-    static let textMaxWidth = bubbleWidth - addressEdge.left - addressEdge.right
+    static let addressTextMaxWidth = bubbleWidth - addressEdge.left - addressEdge.right
     
     var locationName: String?
     var addressName: String?
@@ -64,7 +64,7 @@ class LocationBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol 
         thumbnailImage = locationContent.thumbnailImage
         addressName = message.contentExtra?.locationName
         
-        let maxSize = CGSize(width: LocationBubbleModel.textMaxWidth, height: .greatestFiniteMagnitude)
+        let maxSize = CGSize(width: LocationBubbleModel.addressTextMaxWidth, height: .greatestFiniteMagnitude)
         guard let nameRect = locationName?.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil),
         let addressRect = addressName?.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, context: nil) else {
             return

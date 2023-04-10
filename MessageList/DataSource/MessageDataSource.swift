@@ -26,14 +26,10 @@ private let kBubbleModelClassTable: [String: BubbleModel.Type] = [
     RCRecallNotificationMessage.getObjectName(): RecallNotificationBubbleModel.self,
     RCGroupNotificationMessage.getObjectName(): GroupNotificationBubbleModel.self,
     RCInformationNotificationMessage.getObjectName(): InfomationNotificationBubbleModel.self,
-    // App Messages
+
     BMIMCallMissMessage.getObjectName(): CallMissBubbleModel.self,
     UMBLMeetingRobotMessage.getObjectName(): MeetingBubbleModel.self,
     UMBStickerMessage.getObjectName(): StickerBubbleModel.self,
-    UMBWhatsAppFileMessage.getObjectName(): WhatsAppFileBubbleModel.self,
-    UMBWhatsAppImageMessage.getObjectName(): WhatsAppImageBubbleModel.self,
-    UMBWhatsAppSightMessage.getObjectName(): WhatsAppSightBubbleModel.self,
-    UMBWhatsAppTextMessage.getObjectName(): WhatsAppTextBubbleModel.self,
     UMBGroupAnnouncementNotificationMessage.getObjectName(): GroupAnnouncementBubbleModel.self,
     BMOnlineDocumentMessage.getObjectName(): OnlineDocumentBubbleModel.self,
     UMBPollMessage.getObjectName(): PollBubbleModel.self,
@@ -42,7 +38,13 @@ private let kBubbleModelClassTable: [String: BubbleModel.Type] = [
     BMIMSSecretChatScreenShotMessage.getObjectName(): SecretChatScreenShotBubbleModel.self,
     UMBGroupNotificationMessage.getObjectName(): GroupNotificationBubbleModel.self,
     BMIMPInnedNotificationMessage.getObjectName(): PinBubbleModel.self,
-    BMIMSSecretChatDescriptionMessage.getObjectName(): SecretChatDescriptionBubbleModel.self
+    BMIMSSecretChatDescriptionMessage.getObjectName(): SecretChatDescriptionBubbleModel.self,
+    
+    // WhatsApp Messages
+    UMBWhatsAppFileMessage.getObjectName(): WhatsAppFileBubbleModel.self,
+    UMBWhatsAppImageMessage.getObjectName(): WhatsAppImageBubbleModel.self,
+    UMBWhatsAppSightMessage.getObjectName(): WhatsAppSightBubbleModel.self,
+    UMBWhatsAppTextMessage.getObjectName(): WhatsAppTextBubbleModel.self
 ]
 
 class MessageDataSource {
@@ -249,6 +251,8 @@ private extension MessageDataSource {
             guard let bubble = bubbleClass.init(rcMessages:[message], currentUserId: _currentUserId) else {
                 return nil
             }
+            bubble.setupBubbleContent(rcMessages:[message], currentUserId: _currentUserId)
+            bubble.setupBubbleSize(rcMessages:[message], currentUserId: _currentUserId)
             if let firstUnreadMessageId = firstUnreadMessageId,
                bubble.message.messageId == firstUnreadMessageId {
                 bubble.shownUnreadLine = true

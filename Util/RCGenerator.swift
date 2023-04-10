@@ -43,6 +43,13 @@ extension Message {
         senderPlaceholderAvatar = nil
         
         isFromWhatsApp = objectName.hasPrefix(kWhatsAppMessageObjectNamePrefix)
+        if isFromWhatsApp {
+            whatsAppSentTime = rcMessage.content?.value(forKey: "originalTime") as? String
+            whatsAppSender = rcMessage.content?.value(forKey: "originalSender") as? String
+        } else {
+            whatsAppSentTime = nil
+            whatsAppSender = nil
+        }
         
         contentExtra = MessageContentExtraInfo.info(rcMessage.content?.extra)
         if contentExtra?.action == kExtraActionForward {

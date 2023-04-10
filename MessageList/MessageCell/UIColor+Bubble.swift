@@ -37,5 +37,9 @@ struct BubbleColor {
     var opacityTimeBackground: UIColor {
         UIColor(light: UIColor(0xFFFFFF), dark: UIColor(0xFFFFFF,alpha: 0.1))
     }
+    // 消息气泡，默认时间背景色
+    var timeText: UIColor {
+        UIColor(light: UIColor(0x8C959E), dark: UIColor(0xFFFFFF,alpha: 0.4))
+    }
     
 }

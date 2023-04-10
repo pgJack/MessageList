@@ -12,7 +12,7 @@ import UIKit
 protocol BubbleImageProtocol {
     
     /// 是否为高亮状态
-    var isHighlighted: Bool { set get }
+    var isBubbleHighlighted: Bool { set get }
     
     /// 消息气泡背景图类型
     var bubbleForegroundImageType: BubbleImageType { get }

@@ -74,7 +74,7 @@ class MessageUserCell: MessageBaseCell {
             foregroundImageType = bubbleImageInfo.bubbleForegroundImageType
             backgroundImageType = bubbleImageInfo.bubbleBackgroundImageType
         }
-        detailView.update(bubbleView: bubbleView, size: bubbleModel.bubbleContentSize, foregroundImageType: foregroundImageType, backgroundImageType: backgroundImageType)
+        detailView.update(bubbleView: bubbleView, size: bubbleModel.bubbleDisplaySize, foregroundImageType: foregroundImageType, backgroundImageType: backgroundImageType)
     }
 
     func updateCheckBox(isHidden: Bool, status: CheckBoxStatus, animated: Bool) {

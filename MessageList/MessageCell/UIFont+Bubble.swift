@@ -13,16 +13,22 @@ extension UIFont {
 }
 
 struct BubbleFont {
+    
     // 消息日期字体
     var date: UIFont { BMFont(11) }
+    
     // 发送人名称字体
     var senderName: UIFont { BMFont(12) }
     
-    var normal: UIFont { .systemFont(ofSize: 16) }
-    var fullEmoji: UIFont { .systemFont(ofSize: 20) }
-    var nineEmoji: UIFont { .systemFont(ofSize: 30) }
-    var sixEmoji: UIFont { .systemFont(ofSize: 42) }
-    var threeEmoji: UIFont { .systemFont(ofSize: 48) }
+    // 气泡文本字体
+    var normal: UIFont { BMFont(16) }
+    var fullEmoji: UIFont { BMFont(20) }
+    var nineEmoji: UIFont { BMFont(30) }
+    var sixEmoji: UIFont { BMFont(42) }
+    var threeEmoji: UIFont { BMFont(48) }
+    
+    // 气泡发送时间字体
+    var time: UIFont { BMFont(10) }
     
     func font(text: String, isBigEmoji: Bool, isFullEmoji: Bool, realCount: Int) -> UIFont {
         guard isBigEmoji else {

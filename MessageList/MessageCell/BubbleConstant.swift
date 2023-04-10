@@ -63,17 +63,14 @@ struct BubbleFloatConstant {
     static let exBubbleOffset: CGFloat = 5
     
     static let bubbleTimeTextHeight: CGFloat = 14
-    static let bubbleTimeSpacing: CGFloat = 4
+    static let bubbleTimeSpacingIcon: CGFloat = 4
     static let bubbleTimeSpacingTime: CGFloat = 2
-    static let bubbleTimeEdgeLeading: CGFloat = 10
-    static let bubbleTimeEdgeTrailing: CGFloat = 10
-    static let bubbleTimeEdgeBottom: CGFloat = 6
-    static let bubbleTimeBackgroundHeight: CGFloat = 16
     static let bubbleTimeBackgroundRadius: CGFloat = 4
     
     static let referenceTipLeading: CGFloat = -40
     
-    static let bubbleImageHornWidth = 5
+    static let bubbleImageHornWidth: CGFloat = 5
+    
 }
 
 struct BubbleSizeConstant {
@@ -106,8 +103,12 @@ struct BubbleEdgeInsetsConstant {
     
     static let dateBackgroundEdge = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
     
-    static let bubbleTimeBackgroundEdge = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
+    static let timeEdge = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
+    static let opacityTimeEdge = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
     
     static let exBubbleEdge = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    
+    static let forwardEdge = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
+    
 
 }

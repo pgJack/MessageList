@@ -83,7 +83,6 @@
 		33CA1B6C29D5A0C600D995AA /* GifBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */; };
 		33E473F529CAAF91000C7512 /* RCExtraGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */; };
 		33E473F929CD3078000C7512 /* TextBubbleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473F829CD3078000C7512 /* TextBubbleModel.swift */; };
-		33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FA29CD308A000C7512 /* TextBubbleView.swift */; };
 		33E473FD29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */; };
 		33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E473FF29CEFC07000C7512 /* MessageAttributedTextView.swift */; };
 		33E6F7CF29C2EC27009013D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E6F7CE29C2EC27009013D2 /* AppDelegate.swift */; };
@@ -194,7 +193,6 @@
 		33CA1B6B29D5A0C600D995AA /* GifBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifBubbleModel.swift; sourceTree = "<group>"; };
 		33E473F429CAAF91000C7512 /* RCExtraGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCExtraGenerator.swift; sourceTree = "<group>"; };
 		33E473F829CD3078000C7512 /* TextBubbleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleModel.swift; sourceTree = "<group>"; };
-		33E473FA29CD308A000C7512 /* TextBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBubbleView.swift; sourceTree = "<group>"; };
 		33E473FC29CE9FDF000C7512 /* BubbleAttributedTextUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleAttributedTextUtil.swift; sourceTree = "<group>"; };
 		33E473FF29CEFC07000C7512 /* MessageAttributedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAttributedTextView.swift; sourceTree = "<group>"; };
 		33E6F7CB29C2EC27009013D2 /* String.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = String.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -454,7 +452,6 @@
 			children = (
 				03786F3729DC372500128CDC /* WhatsAppTextBubbleModel.swift */,
 				33E473F829CD3078000C7512 /* TextBubbleModel.swift */,
-				33E473FA29CD308A000C7512 /* TextBubbleView.swift */,
 			);
 			path = TextBubble;
 			sourceTree = "<group>";
@@ -890,7 +887,6 @@
 				03786F3E29DC37D900128CDC /* PinBubbleModel.swift in Sources */,
 				33E6F80329C2F155009013D2 /* MessageListController.swift in Sources */,
 				330B08DB29C5AAA10088F9B0 /* MessageUserCell.swift in Sources */,
-				33E473FB29CD308A000C7512 /* TextBubbleView.swift in Sources */,
 				33E4740029CEFC07000C7512 /* MessageAttributedTextView.swift in Sources */,
 				33CA1B6A29D5A0AF00D995AA /* VideoBubbleModel.swift in Sources */,
 				3324FE5F29DEC33F004D9C6D /* BubbleInfoProtocol.swift in Sources */,
