@@ -82,4 +82,26 @@ struct BubbleImage {
         UIImage(named: "fileTypeIcon")
     }
     
+    /// Meeting
+    var meetingTitleImage: UIImage? {
+        UIImage(named: "meeting_invite_msg_titile_bg")
+    }
+    var topicIcon: UIImage? {
+        UIImage(named: "calendar_subject_icon")
+    }
+    var timeIcon: UIImage? {
+        UIImage(named: "meeting_clock_icon")
+    }
+    var idIcon: UIImage? {
+        UIImage(named: "meeting_Id_icon")
+    }
+    var pwdIcon: UIImage? {
+        UIImage(named: "meeting_password_icon")
+    }
+    
+    /// Gif
+    var gifDefaultImage: UIImage? {
+        return UIImage(named: "gif_default")
+    }
+    
 }

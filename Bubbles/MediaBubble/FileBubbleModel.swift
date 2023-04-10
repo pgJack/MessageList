@@ -8,7 +8,7 @@
 import UIKit
 import RongIMLibCore
 
-class FileBubbleModel: MediaBubbleModel, BubbleInfoProtocol {
+class FileBubbleModel: MediaBubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
     var cellType: String {
         message.messageDirection == .send
         ? MessageCellRegister.sender
@@ -22,6 +22,20 @@ class FileBubbleModel: MediaBubbleModel, BubbleInfoProtocol {
     var canTapAvatar: Bool = true
     lazy var canLongPressAvatarMention = message.conversationType == .group
     lazy var canPanReference = message.conversationType != .person_encrypted
+    
+    //MARK: Bubble Background Image
+    var isHighlighted: Bool = false
+    var bubbleForegroundImageType: BubbleImageType {
+        return .none
+    }
+    var bubbleBackgroundImageType: BubbleImageType {
+        switch message.messageDirection {
+        case .send:
+            return isHighlighted ? .purple_v2 : .purple_v1
+        default:
+            return isHighlighted ? .gray : .white
+        }
+    }
     
     static let fileViewEdge = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     static let fileViewHeight = FileInfoView.typeIconSize.height + FileInfoView.typeIconEdges.top + FileInfoView.typeIconEdges.bottom

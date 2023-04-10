@@ -8,7 +8,7 @@
 import UIKit
 import RongIMLibCore
 
-class HQVoiceBubbleModel: MediaBubbleModel, BubbleInfoProtocol {
+class HQVoiceBubbleModel: MediaBubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
     var cellType: String {
         message.messageDirection == .send
         ? MessageCellRegister.sender
@@ -22,6 +22,20 @@ class HQVoiceBubbleModel: MediaBubbleModel, BubbleInfoProtocol {
     var canTapAvatar: Bool = true
     lazy var canLongPressAvatarMention = message.conversationType == .group
     lazy var canPanReference = message.conversationType != .person_encrypted
+    
+    //MARK: Bubble Background Image
+    var isHighlighted: Bool = false
+    var bubbleForegroundImageType: BubbleImageType {
+        return .none
+    }
+    var bubbleBackgroundImageType: BubbleImageType {
+        switch message.messageDirection {
+        case .send:
+            return isHighlighted ? .purple_v2 : .purple_v1
+        default:
+            return isHighlighted ? .gray : .white
+        }
+    }
     
     static let voiceHeight = 66
     static let avatarSendEdge = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)

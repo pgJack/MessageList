@@ -75,7 +75,9 @@ class ViewController: UITableViewController {
         // missed call
         BMIMCallMissMessage.self,
         
-        BMSaveToDriveMessage.self
+        BMSaveToDriveMessage.self,
+        
+        RCSightMessage.self
     ]
     
     // iPhone 12

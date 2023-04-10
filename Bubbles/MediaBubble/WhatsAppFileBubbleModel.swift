@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RongIMLibCore
+import BMIMLib
 
 class WhatsAppFileBubbleModel: BubbleModel {
 

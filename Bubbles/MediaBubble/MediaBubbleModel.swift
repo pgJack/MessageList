@@ -13,6 +13,7 @@ class MediaBubbleModel: BubbleModel {
     var fileName: String?
     var fileUrl: String?
     var localPath: String?
+    var thumbImage: UIImage?
     
     
     required init?(rcMessages: [RCMessage], currentUserId: String) {

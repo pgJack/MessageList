@@ -9,7 +9,7 @@ import UIKit
 import RongIMLib
 import BMIMLib
 
-class ContactCardBubbleModel: BubbleModel, BubbleInfoProtocol {
+class ContactCardBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
     
     var cellType: String {
         message.messageDirection == .send
@@ -24,6 +24,20 @@ class ContactCardBubbleModel: BubbleModel, BubbleInfoProtocol {
     var canTapAvatar = true
     lazy var canLongPressAvatarMention = message.conversationType == .group
     lazy var canPanReference = message.conversationType != .person_encrypted
+    
+    //MARK: Bubble Background Image
+    var isHighlighted: Bool = false
+    var bubbleForegroundImageType: BubbleImageType {
+        return .none
+    }
+    var bubbleBackgroundImageType: BubbleImageType {
+        switch message.messageDirection {
+        case .send:
+            return isHighlighted ? .purple_v2 : .purple_v1
+        default:
+            return isHighlighted ? .gray : .white
+        }
+    }
     
     
     static let cellHeight: CGFloat = 110

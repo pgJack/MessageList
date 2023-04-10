@@ -25,8 +25,24 @@ private let kBubbleModelClassTable: [String: BubbleModel.Type] = [
     RCContactCardMessage.getObjectName(): ContactCardBubbleModel.self,
     RCRecallNotificationMessage.getObjectName(): RecallNotificationBubbleModel.self,
     RCGroupNotificationMessage.getObjectName(): GroupNotificationBubbleModel.self,
-    RCInformationNotificationMessage.getObjectName(): InfomationNotificationBubbleModel.self
+    RCInformationNotificationMessage.getObjectName(): InfomationNotificationBubbleModel.self,
     // App Messages
+    BMIMCallMissMessage.getObjectName(): CallMissBubbleModel.self,
+    UMBLMeetingRobotMessage.getObjectName(): MeetingBubbleModel.self,
+    UMBStickerMessage.getObjectName(): StickerBubbleModel.self,
+    UMBWhatsAppFileMessage.getObjectName(): WhatsAppFileBubbleModel.self,
+    UMBWhatsAppImageMessage.getObjectName(): WhatsAppImageBubbleModel.self,
+    UMBWhatsAppSightMessage.getObjectName(): WhatsAppSightBubbleModel.self,
+    UMBWhatsAppTextMessage.getObjectName(): WhatsAppTextBubbleModel.self,
+    UMBGroupAnnouncementNotificationMessage.getObjectName(): GroupAnnouncementBubbleModel.self,
+    BMOnlineDocumentMessage.getObjectName(): OnlineDocumentBubbleModel.self,
+    UMBPollMessage.getObjectName(): PollBubbleModel.self,
+    BMIMCommonRobotMessage.getObjectName(): RobotBubbleModel.self,
+    BMIMCommonRobotMessageV2.getObjectName(): RobotBubbleModel.self,
+    BMIMSSecretChatScreenShotMessage.getObjectName(): SecretChatScreenShotBubbleModel.self,
+    UMBGroupNotificationMessage.getObjectName(): GroupNotificationBubbleModel.self,
+    BMIMPInnedNotificationMessage.getObjectName(): PinBubbleModel.self,
+    BMIMSSecretChatDescriptionMessage.getObjectName(): SecretChatDescriptionBubbleModel.self
 ]
 
 class MessageDataSource {

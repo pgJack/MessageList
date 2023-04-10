@@ -9,7 +9,7 @@ import UIKit
 import RongIMLib
 import RongLocation
 
-class LocationBubbleModel: BubbleModel, BubbleInfoProtocol {
+class LocationBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
     var cellType: String {
         message.messageDirection == .send
         ? MessageCellRegister.sender
@@ -23,6 +23,20 @@ class LocationBubbleModel: BubbleModel, BubbleInfoProtocol {
     var canTapAvatar = true
     lazy var canLongPressAvatarMention = message.conversationType == .group
     lazy var canPanReference = message.conversationType != .person_encrypted
+    
+    //MARK: Bubble Background Image
+    var isHighlighted: Bool = false
+    var bubbleForegroundImageType: BubbleImageType {
+        return .none
+    }
+    var bubbleBackgroundImageType: BubbleImageType {
+        switch message.messageDirection {
+        case .send:
+            return isHighlighted ? .purple_v2 : .purple_v1
+        default:
+            return isHighlighted ? .gray : .white
+        }
+    }
 
     static let nameEdge = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
     static let addressEdge = UIEdgeInsets(top: 4, left: 12, bottom: 21, right: 12)

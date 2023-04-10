@@ -52,6 +52,13 @@ public struct MessageContentExtraInfo: MessageExtraDecodeProtocol {
     // 密聊相关
     let secretChat: Int? // 是否密聊 1是密聊， 0不是
     let secretChatKey: String? //  密聊的密钥
+    
+    // Gif
+    let gifFirstFrame: String? // GIF 首帧
+    
+    // 图片相关
+    let imageOriginalWidth: CGFloat? // 原图宽度
+    let imageOriginalHeight: CGFloat? // 原图高度
 }
 
 let kEndMeetingKey = "meetingEnd"
