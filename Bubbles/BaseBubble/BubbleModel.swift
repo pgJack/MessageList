@@ -35,6 +35,9 @@ class BubbleModel: Codable {
     /// 扩展气泡视图
     var shownExBubble = false
     
+    /// 气泡是否高亮
+    var isHighlighted: Bool = false
+
     //MARK: Override Method
     required init?(rcMessages: [RCMessage], currentUserId: String) {
         guard rcMessages.count > 0 else { return nil }

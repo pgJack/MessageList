@@ -50,7 +50,6 @@ class TextBubbleModel: BubbleModel, BubbleInfoProtocol, BubbleImageProtocol {
     lazy var canPanReference = message.conversationType != .person_encrypted
     
     //MARK: Bubble Background Image
-    var isHighlighted: Bool = false
     var bubbleForegroundImageType: BubbleImageType {
         guard let textUtil = textUtil, textUtil.isFullEmoji else { return .none }
         switch message.messageDirection {
